@@ -11,7 +11,7 @@ Use-Case Diagram
 Members:  
 heARTie123 - Raymundo Alcontin  
 Dogface0518 - John Thomas Boltron  
-??? - Edd Vergil Banzon  
+eddvergil - Edd Vergil Banzon  
 Chardy2610 - Chardy Crayo  
 StrayBullet57 - Manuel Raphael De Guzman  
 
