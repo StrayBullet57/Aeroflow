@@ -1,7 +1,7 @@
 # Aeroflow
 CSIT2278 - Flight booking system.
 
-[Insert picture of Class diagram here]
+<img width="1144" height="781" alt="ClassDiagram" src="https://github.com/user-attachments/assets/49928ed9-85be-4652-9837-c9bbfac8dac3" />
 
 [Insert picture of division of responsibilities here]
 
