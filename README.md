@@ -12,7 +12,7 @@ Members:
 heARTie123 - Raymundo Alcontin  
 Dogface0518 - John Thomas Boltron  
 eddvergil - Edd Vergil Banzon  
-Chardy2610 - Chardy Crayo  
+Chardy2610 - John Chardy Crayo  / LAB23_USER ON WS12
 StrayBullet57 - Manuel Raphael De Guzman  
 
 https://www.conventionalcommits.org/en/v1.0.0/#summary 
