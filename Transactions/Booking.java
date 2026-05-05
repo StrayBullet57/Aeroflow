@@ -10,6 +10,5 @@ public class Booking{
     }
     
     public void confirm(){
-
     }
 }
