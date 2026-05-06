@@ -1,4 +1,4 @@
-package Transactions;
+package transactions;
 public class Booking{
     private String bookingID;
     private String bookingDate;
