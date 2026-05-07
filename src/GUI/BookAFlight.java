@@ -1,30 +1,37 @@
 package GUI;
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
 
 import GUI.Homepage.BackgroundPanel;
 import GUI.Builders.NavBar;
 
 public class BookAFlight {
+    //remove this soon
 
-    public void createUI() {
-        JFrame frame = new JFrame("AeroFlow");
-
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public static JPanel getPanel() {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
 
-        JPanel navBar = NavBar.createNavBar();
-
         JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new OverlayLayout(contentPanel)); // to make it overlay
+        JPanel bookingPanel = new JPanel();
 
-        mainPanel.add(navBar, BorderLayout.NORTH);
+
         mainPanel.add(contentPanel, BorderLayout.CENTER);
+        
+        contentPanel.add(bookingPanel);
 
-        frame.setContentPane(mainPanel);
-        frame.setVisible(true);
+        bookingPanel.setMaximumSize(new Dimension(1700, 800));
+        bookingPanel.setPreferredSize(new Dimension(1700, 800));
+        bookingPanel.setBackground(Color.white);
+
+
+        contentPanel.setBackground(Color.decode("#c6cdcf"));
+
+        return mainPanel;
     }
 
 }
