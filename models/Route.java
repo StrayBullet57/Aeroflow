@@ -6,7 +6,7 @@ public class Route{
     private String destination;
     private int duration;
 
-    public route(String routeID, String origin, String destination, int duration){
+    public Route(String routeID, String origin, String destination, int duration){
         this.routeID = routeID;
         this.origin = origin;
         this.destination = destination;
