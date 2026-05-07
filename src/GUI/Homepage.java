@@ -11,13 +11,40 @@ public class Homepage {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
-        ImageIcon icon = new ImageIcon("src/images/homepagebg2.jpeg");
+        ImageIcon icon = new ImageIcon("src/images/homepagebg2.png");
         Image img = icon.getImage();
+        ImageIcon logoIcon = new ImageIcon("src/images/AEROFLOWBNW.png");
+        Image scaledLogo = logoIcon.getImage().getScaledInstance(1000, 500, Image.SCALE_SMOOTH); // change size sa image
 
         JPanel contentPanel = new BackgroundPanel(img);
-        contentPanel.setLayout(new BorderLayout());
+        contentPanel.setLayout(null);
 
-        mainPanel.add(contentPanel, BorderLayout.CENTER);
+        JLabel logoLabel = new JLabel(new ImageIcon(scaledLogo));
+        logoLabel.setBounds(5, -300, 1000, 1000);
+        contentPanel.add(logoLabel);
+
+        //for slider
+        JPanel sliderContainer = new JPanel();
+        sliderContainer.setLayout(new OverlayLayout(sliderContainer));
+        JPanel slider = new JPanel(new GridLayout(1,3,40,0));
+        JPanel item1 = new JPanel();
+        slider.setPreferredSize(new Dimension(1850, 450));
+        slider.setMaximumSize(new Dimension(1850, 450));
+        slider.setAlignmentX(0.5f);
+        slider.setAlignmentY(0.9f); 
+        slider.setBackground(new Color(0,0,0,0));
+        item1.setBackground(Color.decode("#d8e6eb"));
+        JPanel item2 = new JPanel();
+        item2.setBackground(Color.decode("#d8e6eb"));
+        JPanel item3 = new JPanel();
+        item3.setBackground(Color.decode("#d8e6eb"));
+
+        slider.add(item1);
+        slider.add(item2);
+        slider.add(item3);
+        sliderContainer.add(slider);
+        sliderContainer.add(contentPanel);
+        mainPanel.add(sliderContainer);
 
         return mainPanel;
     }

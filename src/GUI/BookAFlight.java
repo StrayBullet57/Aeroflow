@@ -26,10 +26,10 @@ public class BookAFlight {
 
         bookingPanel.setMaximumSize(new Dimension(1700, 800));
         bookingPanel.setPreferredSize(new Dimension(1700, 800));
-        bookingPanel.setBackground(Color.white);
+        bookingPanel.setBackground(Color.decode("#d8e6eb"));
 
 
-        contentPanel.setBackground(Color.decode("#c6cdcf"));
+        contentPanel.setBackground(Color.decode("#1477b2"));
 
         return mainPanel;
     }
