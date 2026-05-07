@@ -27,21 +27,16 @@ public class Homepage {
         JPanel sliderContainer = new JPanel();
         sliderContainer.setLayout(new OverlayLayout(sliderContainer));
         JPanel slider = new JPanel(new GridLayout(1,3,40,0));
-        JPanel item1 = new JPanel();
+        
         slider.setPreferredSize(new Dimension(1850, 450));
         slider.setMaximumSize(new Dimension(1850, 450));
         slider.setAlignmentX(0.5f);
         slider.setAlignmentY(0.9f); 
         slider.setBackground(new Color(0,0,0,0));
-        item1.setBackground(Color.decode("#d8e6eb"));
-        JPanel item2 = new JPanel();
-        item2.setBackground(Color.decode("#d8e6eb"));
-        JPanel item3 = new JPanel();
-        item3.setBackground(Color.decode("#d8e6eb"));
 
-        slider.add(item1);
-        slider.add(item2);
-        slider.add(item3);
+        
+        //items
+
         sliderContainer.add(slider);
         sliderContainer.add(contentPanel);
         mainPanel.add(sliderContainer);
