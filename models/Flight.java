@@ -20,6 +20,17 @@ public class Flight{
         this.price = price;
         this.status = status;
     }
+    
+    public String getFlightID(){
+        return flightID;
+    }
 
+    public Double getPrice(){
+        return price;
+    }
+
+    public String getStatus(){
+        return status;
+    }
 
 }
