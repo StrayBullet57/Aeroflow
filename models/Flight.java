@@ -7,7 +7,7 @@
 package models;
 
 public class Flight{
-    private String flightID;
+    private String flightID = "123abc";
     private Airline airline;
     private Route route;
     private Double price;
