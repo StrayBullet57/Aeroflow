@@ -27,7 +27,7 @@ public class Homepage {
 
         JPanel showcase = new JPanel();
 showcase.setLayout(new BoxLayout(showcase, BoxLayout.X_AXIS));
-        showcase.setBackground(Color.GRAY);
+        showcase.setBackground(Color.decode("#dfeaeb"));
         showcase.setMaximumSize(new Dimension(Integer.MAX_VALUE, 450));
         showcase.setAlignmentX(Component.CENTER_ALIGNMENT);
 
