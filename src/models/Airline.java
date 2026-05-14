@@ -23,9 +23,12 @@ public class Airline{
         return country;
     }
 
+<<<<<<< HEAD
     @Override
     public String toString(){
         return name + " (" + country + ")";
     }
 
+=======
+>>>>>>> 540294a1a4c1be6e868896e36bb9198ac6ef2bd2
 }

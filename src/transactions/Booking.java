@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package transactions;
 
 import java.util.ArrayList;
@@ -45,5 +46,19 @@ public class Booking{
     @Override
     public String toString(){
         return "Booking ID: " + bookingID + "\nFlight: " + flight.getFlightID() + "\nSeat: " + seat.getSeatNumber() + "\nStatus: " + status;
+=======
+package Transactions;
+public class Booking{
+    private String bookingID;
+    private String bookingDate;
+    private String status;
+    private Boolean totalPrice;
+
+    public void cancel(){
+
+    }
+    
+    public void confirm(){
+>>>>>>> 540294a1a4c1be6e868896e36bb9198ac6ef2bd2
     }
 }
