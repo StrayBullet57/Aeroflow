@@ -1,7 +1,6 @@
 package users;
 
 public class User {
-<<<<<<< HEAD
     private String userID;
     private String name;
     private String email;
@@ -19,9 +18,4 @@ public class User {
     public void register(){
         System.out.println("User registered successfully.");
     }
-
-
-=======
-    
->>>>>>> 540294a1a4c1be6e868896e36bb9198ac6ef2bd2
 }
