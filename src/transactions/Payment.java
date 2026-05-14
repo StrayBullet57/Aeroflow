@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package transactions;
 public class Payment {
    
@@ -24,18 +23,4 @@ public class Payment {
     public String toString(){
         return "Payment ID: " + paymentID + " Amount: " + amount;
     }
-=======
-package Transactions;
-
-import java.time.LocalDateTime;
-public class Payment {
-   
-    private String paymentId;
-    private String bookingId;
-    private double amount;
-    //private PaymentMethod method;
-    //private PaymentStatus status;
-    private LocalDateTime timestamp;
->>>>>>> 540294a1a4c1be6e868896e36bb9198ac6ef2bd2
-   
 }
