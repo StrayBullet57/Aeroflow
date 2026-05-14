@@ -2,8 +2,6 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import GUI.Builders.NavBar;
-
 
 public class Homepage {
 
@@ -11,41 +9,61 @@ public class Homepage {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
+
         ImageIcon icon = new ImageIcon("src/images/homepagebg2.png");
         Image img = icon.getImage();
-        ImageIcon logoIcon = new ImageIcon("src/images/AEROFLOWBNW.png");
-        Image scaledLogo = logoIcon.getImage().getScaledInstance(1000, 500, Image.SCALE_SMOOTH); // change size sa image
 
-        JPanel contentPanel = new BackgroundPanel(img);
-        contentPanel.setLayout(null);
+        BackgroundPanel homepage_background = new BackgroundPanel(img);
+        homepage_background.setLayout(new BoxLayout(homepage_background, BoxLayout.Y_AXIS));
+        homepage_background.setOpaque(false);
+
+        ImageIcon logoIcon = new ImageIcon("src/images/AEROFLOWBNW.png");
+        Image scaledLogo = logoIcon.getImage()
+                .getScaledInstance(800, 350, Image.SCALE_SMOOTH);
 
         JLabel logoLabel = new JLabel(new ImageIcon(scaledLogo));
-        logoLabel.setBounds(5, -300, 1000, 1000);
-        contentPanel.add(logoLabel);
+        logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        logoLabel.setOpaque(false);
 
-        //for slider
-        JPanel sliderContainer = new JPanel();
-        sliderContainer.setLayout(new OverlayLayout(sliderContainer));
-        JPanel slider = new JPanel(new GridLayout(1,3,40,0));
+        JPanel showcase = new JPanel();
+showcase.setLayout(new BoxLayout(showcase, BoxLayout.X_AXIS));
+        showcase.setBackground(Color.GRAY);
+        showcase.setMaximumSize(new Dimension(Integer.MAX_VALUE, 450));
+        showcase.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        homepage_background.add(logoLabel);
+        homepage_background.add(showcase);
+
+        ImageIcon boracay = new ImageIcon("src/images/boracay.jpg");
+
+
+        JPanel showcaseItem1 = createShowcaseItem("Destination_Name", "description", boracay);
+        JPanel showcaseItem2 = createShowcaseItem("Destination_Name", "description", boracay);
+        JPanel showcaseItem3 = createShowcaseItem("Destination_Name", "description", boracay);
+        JPanel showcaseItem4 = createShowcaseItem("Destination_Name", "description", boracay);
         
-        slider.setPreferredSize(new Dimension(1850, 450));
-        slider.setMaximumSize(new Dimension(1850, 450));
-        slider.setAlignmentX(0.5f);
-        slider.setAlignmentY(0.9f); 
-        slider.setBackground(new Color(0,0,0,0));
-
         
-        //items
+        showcase.add(Box.createHorizontalGlue());
+        showcase.add(showcaseItem1);
+        showcase.add(Box.createHorizontalStrut(150));
+        showcase.add(showcaseItem2);
+        showcase.add(Box.createHorizontalStrut(150));
+        showcase.add(showcaseItem3);
+        showcase.add(Box.createHorizontalStrut(150));
+        showcase.add(showcaseItem4);
 
-        sliderContainer.add(slider);
-        sliderContainer.add(contentPanel);
-        mainPanel.add(sliderContainer);
+        showcase.add(Box.createHorizontalGlue());
+
+
+
+        mainPanel.add(homepage_background, BorderLayout.CENTER);
 
         return mainPanel;
     }
 
     static class BackgroundPanel extends JPanel {
-        private Image image;
+
+        private final Image image;
 
         public BackgroundPanel(Image image) {
             this.image = image;
@@ -57,4 +75,48 @@ public class Homepage {
             g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
         }
     }
+
+    private static JPanel createShowcaseItem(String name, String details, ImageIcon image) {
+
+    JPanel card = new JPanel(new GridBagLayout());
+    card.setBackground(Color.WHITE);
+    card.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    card.setPreferredSize(new Dimension(300, 400));
+    card.setMinimumSize(new Dimension(300, 400));
+    card.setMaximumSize(new Dimension(300, 400));
+
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.gridx = 0;
+    gbc.weightx = 1;
+
+    // IMAGE (top)
+    JLabel imageLabel = new JLabel(image);
+    gbc.gridy = 0;
+    gbc.weighty = 0.1;
+    card.add(imageLabel, gbc);
+    imageLabel.setMaximumSize(new Dimension(50, 50));
+
+    // NAME
+    JLabel nameLabel = new JLabel(name);
+    nameLabel.setFont(new Font("Arial", Font.BOLD, 16));
+    gbc.gridy = 1;
+    gbc.weighty = 0;
+    card.add(nameLabel, gbc);
+
+    // DETAILS
+    JLabel detailsLabel = new JLabel("<html><body style='width:150px'>" + details + "</body></html>");
+    gbc.gridy = 2;
+    card.add(detailsLabel, gbc);
+
+    // BUTTON
+    JButton button = new JButton("View");
+    gbc.gridy = 3;
+    gbc.fill = GridBagConstraints.NONE;
+    gbc.anchor = GridBagConstraints.CENTER;
+    card.add(button, gbc);
+
+    return card;
 }
+
+}
+
