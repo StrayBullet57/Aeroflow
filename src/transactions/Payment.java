@@ -1,6 +1,7 @@
 package transactions;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Payment {
    
@@ -45,6 +46,22 @@ public class Payment {
         System.out.println("Processing " + method + " payment of $" + amount + " for Booking " + bookingID + "...");
         System.out.println("Payment Successful! Transaction ID: " + paymentID);
         return true;
+    }
+
+    public String getPaymentID() { return paymentID; }
+    public String getBookingID() { return bookingID; }
+    
+    public double getAmount() { return amount; }
+    public void setAmount(double amount) { this.amount = amount; }
+
+    public PaymentMethod getMethod() { return method; }
+    public void setMethod(PaymentMethod method) { this.method = method; }
+
+    public PaymentStatus getStatus() { return status; }
+    
+    public String getFormattedDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return paymentDate.format(formatter);
     }
 
     @Override
