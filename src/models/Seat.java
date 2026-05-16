@@ -9,16 +9,14 @@ public class Seat {
             FIRST_CLASS
         }
     
-    private String seatID;
     private String seatNumber;
-    private String seatClass;
+    private SeatClass seatClass;
     private boolean isAvailable;
 
-    public Seat(String seatID, String seatNumber, String seatClass) {
-        this.seatID = seatID;
+    public Seat(String seatNumber, SeatClass seatClass) {
         this.seatNumber = seatNumber;
         this.seatClass = seatClass;
-        this.isAvailable = true;
+        this.isAvailable = false; // Default to taken, can be set to true when creating seats for a flight
     }
 
     public boolean isAvailable(){
