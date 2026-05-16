@@ -5,7 +5,7 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String profile;
+    private Profile profile;
 
     public User(String userID, String name, String email, String password, Profile profile){
         this.userID = userID;

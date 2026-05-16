@@ -28,7 +28,6 @@ public class Flight{
         seats.add(seat);
     }
 
-    }
     
     public String getFlightID(){
         return flightID;
@@ -45,4 +44,5 @@ public class Flight{
     @Override
     public String toString(){
         return "Flight: " + flightID + "\nAirline: " + airline + "\nRoute: " + route + "\nPrice: " + price + "\nStatus: " + status;
+}
 }
