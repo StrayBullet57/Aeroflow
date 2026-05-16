@@ -8,15 +8,16 @@ public class Flight{
     private double price;
     private String status;
     private ArrayList<Seat> seats;
+    private FlightSchedule schedule;
 
-    public Flight(String flightID, Airline airline, Route route, Double price, String status){
+    public Flight(String flightID, Airline airline, Route route, Double price, String status, FlightSchedule schedule){
         
         this.flightID = flightID;
         this.airline = airline;
         this.route = route;
         this.price = price;
         this.status = status;
-
+        this.schedule = schedule;
         this.seats = new ArrayList<>();
     }
     
