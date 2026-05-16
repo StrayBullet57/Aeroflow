@@ -38,16 +38,20 @@ public boolean reserveSeat() {
         System.out.println("Reservation for seat " + seatNumber + " has been cancelled.");
     }
 
-    public boolean isAvailable(){
-        return isAvailable;
-    }
-
-    public void bookSeat(){
-        isAvailable = false;
-    }
 
     public String getSeatNumber(){
         return seatNumber;
+    }
+
+    public SeatClass getSeatClass(){
+        return seatClass;
+    }
+    public void setSeatClass(SeatClass seatClass){
+        this.seatClass = seatClass;
+    }
+
+    public boolean isAvailable(){
+        return isAvailable; 
     }
 
     @Override
