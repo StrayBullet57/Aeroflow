@@ -19,9 +19,22 @@ public class TrackAFlight {
 
         BackgroundPanel map_image = new BackgroundPanel(img);
 
+
+        // map panel
+
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(new Dimension(600, 720));
+
+        Image plane_img = new ImageIcon("src/images/plane_silhouette.png").getImage();
+        Image scaled = plane_img.getScaledInstance(40,40,Image.SCALE_SMOOTH);
+        JLabel plane = new JLabel(new ImageIcon(scaled));
+        plane.setSize(40, 40);
+        plane.setLocation(100, 100); // starting position
+    
         map_image.setPreferredSize(new Dimension(600, 720));
         map_image.setMaximumSize(new Dimension(600, 720));
         map_image.setMinimumSize(new Dimension(600, 720));
+        map_image.setBounds(0, 0, 600, 720);
         JPanel leftWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
         leftWrapper.setBackground(Color.white);
         
@@ -74,11 +87,17 @@ public class TrackAFlight {
         flight_details.add(arrivalTime);
         flight_details.add(status);
         
-        leftWrapper.add(map_image);
+        layeredPane.add(map_image,Integer.valueOf(0));
+        layeredPane.add(plane,Integer.valueOf(1));
+
+
+        leftWrapper.add(layeredPane);
         leftWrapper.add(whiteSpace);
         leftWrapper.add(flight_details);
         leftWrapper.add(details_value);
 
+
+        
         trackPanel.add(Box.createVerticalStrut(30), BorderLayout.NORTH);
         trackPanel.add(Box.createVerticalStrut(30), BorderLayout.SOUTH);
         trackPanel.add(leftWrapper, BorderLayout.CENTER);
