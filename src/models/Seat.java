@@ -19,6 +19,25 @@ public class Seat {
         this.isAvailable = false; // Default to taken, can be set to true when creating seats for a flight
     }
 
+public boolean reserveSeat() {
+        if (isAvailable) {
+            System.out.println("Seat " + seatNumber + " is already occupied.");
+            return false;
+        }
+        this.isAvailable = true;
+        System.out.println("Seat " + seatNumber + " has been successfully reserved.");
+        return true;
+    }
+
+    public void cancelReservation() {
+        if (!isAvailable) {
+            System.out.println("Seat " + seatNumber + " is already empty.");
+            return;
+        }
+        this.isAvailable = false;
+        System.out.println("Reservation for seat " + seatNumber + " has been cancelled.");
+    }
+
     public boolean isAvailable(){
         return isAvailable;
     }
