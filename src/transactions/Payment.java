@@ -34,11 +34,14 @@ public class Payment {
         this.status = PaymentStatus.PENDING;
         this.paymentDate = LocalDateTime.now();
     }
-
-    public boolean processPayment(){
-        System.out.println("Payment Successful.");
-        return true;
-    }
+ 
+    public boolean processPayment() {
+        if (amount <= 0) {
+            this.status = PaymentStatus.FAILED;
+            System.out.println("Payment Failed: Invalid amount ($" + amount + ").");
+            return false;
+        }
+        
     @Override
     public String toString(){
         return "Payment ID: " + paymentID + " Amount: " + amount;
