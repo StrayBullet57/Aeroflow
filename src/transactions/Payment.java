@@ -4,8 +4,8 @@ public class Payment {
     private String paymentID;
     private String bookingID;
     private double amount;
-    //private PaymentMethod method;
-    //private PaymentStatus status;
+    private PaymentMethod method;
+    private PaymentStatus status;
     private String paymentDate;
 
     public Payment(String paymentID, String bookingID, double amount, String paymentDate){
