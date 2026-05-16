@@ -1,6 +1,21 @@
 package transactions;
 public class Payment {
    
+    public enum PaymentMethod {
+        CREDIT_CARD, 
+        DEBIT_CARD, 
+        PAYPAL, 
+        GCASH, 
+        MAYA
+    }
+
+    public enum PaymentStatus {
+        PENDING, 
+        SUCCESSFUL, 
+        FAILED, 
+        REFUNDED
+    }
+    
     private String paymentID;
     private String bookingID;
     private double amount;
