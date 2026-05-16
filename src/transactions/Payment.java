@@ -64,8 +64,17 @@ public class Payment {
         return paymentDate.format(formatter);
     }
 
-    @Override
-    public String toString(){
-        return "Payment ID: " + paymentID + " Amount: " + amount;
+     @Override
+    public String toString() {
+        return "===================================\n" +
+               "         AEROFLOW RECEIPT          \n" +
+               "===================================\n" +
+               "Payment ID:     " + paymentID + "\n" +
+               "Booking ID:     " + bookingID + "\n" +
+               "Amount Paid:    $" + amount + "\n" +
+               "Method:         " + method + "\n" +
+               "Status:         " + status + "\n" +
+               "Date/Time:      " + getFormattedDate() + "\n" +
+               "===================================";
     }
 }
