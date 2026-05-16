@@ -1,6 +1,14 @@
 package models;
 
 public class Seat {
+
+     public enum SeatClass {
+            ECONOMY,
+            PREMIUM_ECONOMY,
+            BUSINESS,
+            FIRST_CLASS
+        }
+    
     private String seatID;
     private String seatNumber;
     private String seatClass;
