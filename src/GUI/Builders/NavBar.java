@@ -5,6 +5,7 @@ import javax.swing.*;
 import GUI.BookAFlight;
 import GUI.Homepage;
 import GUI.MainContent;
+import GUI.TrackAFlight;
 
 import java.awt.*;
 
@@ -16,14 +17,14 @@ public class NavBar{
         navBar.setBackground(new Color(30, 30, 30));
         navBar.setPreferredSize(new Dimension(0, 80));
         JButton home = createNavButton("Home");
-        JButton flights = createNavButton("Flights");
-        JButton booking = createNavButton("Booking");
+        JButton book_a_flight = createNavButton("Book");
+        JButton track_a_flight = createNavButton("Flights");
         JButton profile = createNavButton("Profile");
         JButton logout = createNavButton("Logout");
 
         navBar.add(home);
-        navBar.add(flights);
-        navBar.add(booking);
+        navBar.add(book_a_flight);
+        navBar.add(track_a_flight);
         navBar.add(profile);
         navBar.add(logout);
         
@@ -33,16 +34,15 @@ public class NavBar{
             main.showPage(Homepage.getPanel());
         });
 
-        flights.addActionListener(e -> {
+        book_a_flight.addActionListener(e -> {
             main.showPage(BookAFlight.getPanel());
         });
 
-        /*booking.addActionListener(e -> {
-            frame.dispose();
-            new BookingPage().createUI();
+        track_a_flight.addActionListener(e -> {
+            main.showPage(TrackAFlight.getPanel());
         });
 
-        profile.addActionListener(e -> {
+       /* profile.addActionListener(e -> {
             frame.dispose();
             new ProfilePage().createUI();
         });*/
