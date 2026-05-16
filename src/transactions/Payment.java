@@ -1,4 +1,7 @@
 package transactions;
+
+import java.time.LocalDateTime;
+
 public class Payment {
    
     public enum PaymentMethod {
@@ -15,19 +18,19 @@ public class Payment {
         FAILED, 
         REFUNDED
     }
-    
+
     private String paymentID;
     private String bookingID;
     private double amount;
     private PaymentMethod method;
     private PaymentStatus status;
-    private String paymentDate;
+    private LocalDateTime paymentDate;
 
     public Payment(String paymentID, String bookingID, double amount, String paymentDate){
         this.paymentID = paymentID;
         this.bookingID = bookingID;
         this.amount = amount;
-        this.paymentDate = paymentDate;
+        this.paymentDate = LocalDateTime.now();
     }
 
     public boolean processPayment(){
