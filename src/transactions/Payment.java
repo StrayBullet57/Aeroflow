@@ -26,10 +26,12 @@ public class Payment {
     private PaymentStatus status;
     private LocalDateTime paymentDate;
 
-    public Payment(String paymentID, String bookingID, double amount, String paymentDate){
+    public Payment(String paymentID, String bookingID, double amount, PaymentMethod method){
         this.paymentID = paymentID;
         this.bookingID = bookingID;
         this.amount = amount;
+        this.method = method;
+        this.status = PaymentStatus.PENDING;
         this.paymentDate = LocalDateTime.now();
     }
 
