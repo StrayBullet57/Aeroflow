@@ -41,7 +41,12 @@ public class Payment {
             System.out.println("Payment Failed: Invalid amount ($" + amount + ").");
             return false;
         }
-        
+         this.status = PaymentStatus.SUCCESSFUL;
+        System.out.println("Processing " + method + " payment of $" + amount + " for Booking " + bookingID + "...");
+        System.out.println("Payment Successful! Transaction ID: " + paymentID);
+        return true;
+    }
+
     @Override
     public String toString(){
         return "Payment ID: " + paymentID + " Amount: " + amount;
