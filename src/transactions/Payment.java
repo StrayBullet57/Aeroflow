@@ -49,7 +49,7 @@ public class Payment {
 
         System.out.print("Enter Amount to Pay: ");
         double amt = scanner.nextDouble();
-        scanner.nextLine(); // Consume remaining newline
+        scanner.nextLine();
 
         System.out.println("\nSelect Payment Method:");
         System.out.println("[1] CREDIT_CARD\n[2] DEBIT_CARD\n[3] PAYPAL\n[4] GCASH\n[5] MAYA");
