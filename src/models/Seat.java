@@ -9,14 +9,19 @@ public class Seat {
             FIRST_CLASS
         }
     
-    private String seatNumber;
+    private int rowNumber;
+    private char seatCategory; // A, B, C, H, J, K
+    private String seatNumber; // e.g., "12A"
     private SeatClass seatClass;
     private boolean isAvailable;
 
-    public Seat(String seatNumber, SeatClass seatClass) {
-        this.seatNumber = seatNumber;
+    // Constructor matching the exact architecture needed for automatic tracking
+    public Seat(int rowNumber, char seatCategory, SeatClass seatClass) {
+        this.rowNumber = rowNumber;
+        this.seatCategory = Character.toUpperCase(seatCategory);
+        this.seatNumber = rowNumber + String.valueOf(this.seatCategory);
         this.seatClass = seatClass;
-        this.isAvailable = false; // Default to taken, can be set to true when creating seats for a flight
+        this.isAvailable = true; // Default to true so passengers can choose it!
     }
 
 public boolean reserveSeat() {
