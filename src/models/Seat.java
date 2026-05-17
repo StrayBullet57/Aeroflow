@@ -10,18 +10,18 @@ public class Seat {
         }
     
     private int rowNumber;
-    private char seatCategory; // A, B, C, H, J, K
-    private String seatNumber; // e.g., "12A"
+    private char seatCategory; 
+    private String seatNumber; 
     private SeatClass seatClass;
     private boolean isAvailable;
 
-    // Constructor matching the exact architecture needed for automatic tracking
+   
     public Seat(int rowNumber, char seatCategory, SeatClass seatClass) {
         this.rowNumber = rowNumber;
         this.seatCategory = Character.toUpperCase(seatCategory);
         this.seatNumber = rowNumber + String.valueOf(this.seatCategory);
         this.seatClass = seatClass;
-        this.isAvailable = true; // Default to true so passengers can choose it!
+        this.isAvailable = true; 
     }
 
 public boolean reserveSeat() {

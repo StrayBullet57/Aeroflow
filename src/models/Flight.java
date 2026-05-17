@@ -19,6 +19,30 @@ public class Flight{
         this.status = status;
         this.schedule = schedule;
         this.seats = new ArrayList<>();
+
+        initializeAircraftSeats();
+    }
+
+    private void initializeAircraftSeats() {
+        char[] columns = {'A', 'B', 'C', 'H', 'J', 'K'};
+
+        for (int row = 1; row <= 4; row++) {
+            for (char col : columns) {
+                seats.add(new Seat(row, col, Seat.SeatClass.FIRST_CLASS));
+            }
+        }
+
+        for (int row = 2; row <= 5; row++) {
+            for (char col : columns) {
+                seats.add(new Seat(row, col, Seat.SeatClass.BUSINESS));
+            }
+        }
+
+        for (int row = 10; row <= 21; row++) {
+            for (char col : columns) {
+                seats.add(new Seat(row, col, Seat.SeatClass.ECONOMY));
+            }
+        }
     }
     
     public ArrayList<Seat> getSeats(){
