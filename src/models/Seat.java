@@ -43,21 +43,26 @@ public boolean reserveSeat() {
         System.out.println("Reservation for seat " + seatNumber + " has been cancelled.");
     }
 
-
-    public String getSeatNumber(){
-        return seatNumber;
+public int getRowNumber() { return rowNumber; }
+    public void setRowNumber(int rowNumber) { 
+        this.rowNumber = rowNumber; 
+        this.seatNumber = this.rowNumber + String.valueOf(this.seatCategory);
     }
 
-    public SeatClass getSeatClass(){
-        return seatClass;
-    }
-    public void setSeatClass(SeatClass seatClass){
-        this.seatClass = seatClass;
+    public char getSeatCategory() { return seatCategory; }
+    public void setSeatCategory(char seatCategory) { 
+        this.seatCategory = Character.toUpperCase(seatCategory);
+        this.seatNumber = this.rowNumber + String.valueOf(this.seatCategory);
     }
 
-    public boolean isAvailable(){
-        return isAvailable; 
-    }
+    public String getSeatNumber() { return seatNumber; }
+    public void setSeatNumber(String seatNumber) { this.seatNumber = seatNumber; }
+
+    public SeatClass getSeatClass() { return seatClass; }
+    public void setSeatClass(SeatClass seatClass) { this.seatClass = seatClass; }
+
+    public boolean isAvailable() { return isAvailable; }
+    public void setAvailable(boolean isAvailable) { this.isAvailable = isAvailable; }
 
     @Override
     public String toString(){
