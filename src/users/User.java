@@ -41,4 +41,14 @@ public class User {
 
     public Profile getProfile() { return profile; }
     public void setProfile(Profile profile) { this.profile = profile; }
+
+    @Override
+    public String toString() {
+        return "User Profile Details:\n" +
+               "----------------------\n" +
+               "User ID:  " + userID + "\n" +
+               "Name:     " + name + "\n" +
+               "Email:    " + email + "\n" +
+               "Profile:  " + (profile != null ? "Assigned" : "None");
+    }
 }
