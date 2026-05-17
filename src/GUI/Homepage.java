@@ -39,10 +39,10 @@ public class Homepage {
         ImageIcon samal = new ImageIcon("src/images/samal.png");
         ImageIcon taal = new ImageIcon("src/images/taal.jpg");
 
-        JPanel showcaseItem1 = createShowcaseItem(main, "Destination_Name", "description", boracay);
-        JPanel showcaseItem2 = createShowcaseItem(main, "Destination_Name", "description", baguio);
-        JPanel showcaseItem3 = createShowcaseItem(main, "Destination_Name", "description", samal);
-        JPanel showcaseItem4 = createShowcaseItem(main, "Destination_Name", "description", taal);
+        JPanel showcaseItem1 = createShowcaseItem(main, "Boracay",  boracay);
+        JPanel showcaseItem2 = createShowcaseItem(main, "Baguio",  baguio);
+        JPanel showcaseItem3 = createShowcaseItem(main, "Samal", samal);
+        JPanel showcaseItem4 = createShowcaseItem(main, "Taal",  taal);
         
         showcase.add(Box.createHorizontalGlue());
         showcase.add(showcaseItem1);
@@ -74,7 +74,7 @@ public class Homepage {
         }
     }
 
-    private static JPanel createShowcaseItem(MainContent main, String name, String details, ImageIcon image) {
+    private static JPanel createShowcaseItem(MainContent main, String name, ImageIcon image) {
 
         JPanel card = new JPanel(new GridBagLayout());
         card.setBackground(Color.WHITE);
@@ -98,10 +98,6 @@ public class Homepage {
         gbc.gridy = 1;
         gbc.weighty = 0;
         card.add(nameLabel, gbc);
-
-        JLabel detailsLabel = new JLabel("<html><body style='width:150px'>" + details + "</body></html>");
-        gbc.gridy = 2;
-        card.add(detailsLabel, gbc);
 
         JButton button = new JButton("View");
         gbc.gridy = 3;
