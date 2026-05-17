@@ -1,12 +1,16 @@
-package GUI;
+package GUI.BookAFlight;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+
+import GUI.MainContent;
+import GUI.TrackAFlight;
+
 import java.awt.*;
 
-public class BookAFlight {
+public class BookAFlightStep1 {
 
-    public static JPanel getPanel() {
+    public static JPanel getPanel(MainContent main) {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -35,7 +39,7 @@ public class BookAFlight {
         topPanel.add(step1);
 
 
-        JPanel centerWrapper = new JPanel(new GridBagLayout());
+       JPanel centerWrapper = new JPanel(new GridBagLayout());
         centerWrapper.setOpaque(false);
 
         JPanel card = new JPanel();
@@ -76,7 +80,12 @@ public class BookAFlight {
         buttonPanel.setOpaque(false);
 
         JButton nextButton = new JButton("Next");
+        nextButton.addActionListener(e -> {
 
+                    
+                main.showPage(BookAFlightStep2.getPanel(main));
+
+                });
         buttonPanel.add(nextButton);
 
 
