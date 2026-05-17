@@ -27,4 +27,18 @@ public class User {
         System.out.println("Login Failed: Invalid email or password.");
         return false;
     }
+
+    public String getUserID() { return userID; }
+    
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    // No setter for password to keep it secure; change password should be a separate specific method
+    public String getPassword() { return password; } 
+
+    public Profile getProfile() { return profile; }
+    public void setProfile(Profile profile) { this.profile = profile; }
 }
