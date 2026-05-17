@@ -18,4 +18,13 @@ public class User {
     public void register(){
         System.out.println("User registered successfully.");
     }
+
+    public boolean login(String inputEmail, String inputPassword) {
+        if (this.email.equalsIgnoreCase(inputEmail) && this.password.equals(inputPassword)) {
+            System.out.println("Welcome back, " + this.name + "! Login successful.");
+            return true;
+        }
+        System.out.println("Login Failed: Invalid email or password.");
+        return false;
+    }
 }
