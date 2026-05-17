@@ -25,21 +25,21 @@ public class Seat {
     }
 
 public boolean reserveSeat() {
-        if (isAvailable) {
+        if (!isAvailable) {
             System.out.println("Seat " + seatNumber + " is already occupied.");
             return false;
         }
-        this.isAvailable = true;
+        this.isAvailable = false;
         System.out.println("Seat " + seatNumber + " has been successfully reserved.");
         return true;
     }
 
     public void cancelReservation() {
-        if (!isAvailable) {
+        if (isAvailable) {
             System.out.println("Seat " + seatNumber + " is already empty.");
             return;
         }
-        this.isAvailable = false;
+        this.isAvailable = true;
         System.out.println("Reservation for seat " + seatNumber + " has been cancelled.");
     }
 
