@@ -2,7 +2,6 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
-
 import GUI.Builders.NavBar;
 
 public class MainContent {
@@ -28,8 +27,7 @@ public class MainContent {
 
         frame.setContentPane(mainPanel);
 
-        // load first page
-        showPage(Homepage.getPanel());
+        showPage(Homepage.getPanel(this));
 
         frame.setVisible(true);
     }
