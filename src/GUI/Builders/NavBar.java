@@ -32,7 +32,7 @@ public class NavBar{
 
         //life ni 
         home.addActionListener(e -> {
-            main.showPage(Homepage.getPanel());
+            main.showPage(Homepage.getPanel(main));
         });
 
         book_a_flight.addActionListener(e -> {

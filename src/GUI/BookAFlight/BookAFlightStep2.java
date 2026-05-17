@@ -82,6 +82,9 @@ public class BookAFlightStep2 {
         });
 
         JButton nextButton = new JButton("Next");
+        nextButton.addActionListener(e -> {
+            main.showPage(BookAFlightStep3.getPanel(main)); 
+        });
 
         buttonPanel.add(backButton, BorderLayout.WEST);
         buttonPanel.add(nextButton, BorderLayout.EAST);
