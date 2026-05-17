@@ -86,6 +86,92 @@ public class Flight{
         return status;
     }
 
+public void startInteractiveSeatSelection() {
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        boolean running = true;
+        
+        while (running) {
+            System.out.println("\n=============================================");
+            System.out.println("          AEROFLOW LIVE SEAT MAP             ");
+            System.out.println("        [ ] = Available   [X] = Occupied     ");
+            System.out.println("=============================================");
+            
+            // Print First Class Section
+            System.out.println("\n--- FIRST CLASS ---");
+            System.out.println("    A   B   C       H   J   K");
+            for (int r = 1; r <= 4; r++) {
+                System.out.print(r + "  ");
+                int colCount = 0;
+                for (Seat s : this.seats) {
+                    if (s.getRowNumber() == r && s.getSeatClass() == Seat.SeatClass.FIRST_CLASS) {
+                        System.out.print(s.isAvailable() ? "[ ] " : "[X] ");
+                        colCount++;
+                        if (colCount == 3) System.out.print("    ");
+                    }
+                }
+                System.out.println();
+            }
+
+            // Print Business Class Section
+            System.out.println("\n--- BUSINESS CLASS ---");
+            System.out.println("    A   B   C       H   J   K");
+            for (int r = 2; r <= 5; r++) {
+                System.out.print(r + "  ");
+                int colCount = 0;
+                for (Seat s : this.seats) {
+                    if (s.getRowNumber() == r && s.getSeatClass() == Seat.SeatClass.BUSINESS) {
+                        System.out.print(s.isAvailable() ? "[ ] " : "[X] ");
+                        colCount++;
+                        if (colCount == 3) System.out.print("    ");
+                    }
+                }
+                System.out.println();
+            }
+
+            // Print Economy Class Section
+            System.out.println("\n--- ECONOMY CLASS ---");
+            System.out.println("    A   B   C       H   J   K");
+            for (int r = 10; r <= 21; r++) {
+                System.out.print(r + (r < 10 ? "  " : " "));
+                int colCount = 0;
+                for (Seat s : this.seats) {
+                    if (s.getRowNumber() == r && s.getSeatClass() == Seat.SeatClass.ECONOMY) {
+                        System.out.print(s.isAvailable() ? "[ ] " : "[X] ");
+                        colCount++;
+                        if (colCount == 3) System.out.print("    ");
+                    }
+                }
+                System.out.println();
+            }
+
+            System.out.println("\n---------------------------------------------");
+            System.out.println("Flight Metrics: " + getFreeSeatsCount() + " Seats Free | " + getOccupiedSeatsCount() + " Seats Occupied");
+            System.out.print("\nEnter seat number to book (e.g., 1A, 12H) or 'exit' to launch GUI: ");
+            String inputSeat = scanner.nextLine().trim().toUpperCase();
+
+            if (inputSeat.equalsIgnoreCase("EXIT")) {
+                running = false;
+                break;
+            }
+
+            Seat targetSeat = null;
+            for (Seat s : this.seats) {
+                if (s.getSeatNumber().equalsIgnoreCase(inputSeat)) {
+                    targetSeat = s;
+                    break;
+                }
+            }
+
+            System.out.println("\n[SYSTEM NOTICE]:");
+            if (targetSeat != null) {
+                targetSeat.reserveSeat(); 
+            } else {
+                System.out.println("Invalid seat location layout coordinates entered! Please check the chart options.");
+            }
+        }
+    }
+
+
     @Override
     public String toString(){
         return "Flight: " + flightID + "\nAirline: " + airline + "\nRoute: " + route + "\nPrice: " + price + "\nStatus: " + status;
