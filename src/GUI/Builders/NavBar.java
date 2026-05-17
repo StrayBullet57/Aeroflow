@@ -6,6 +6,7 @@ import GUI.BookAFlight;
 import GUI.Homepage;
 import GUI.MainContent;
 import GUI.TrackAFlight;
+import GUI.TrackAFlight_InputFlightID;
 
 import java.awt.*;
 
@@ -39,7 +40,7 @@ public class NavBar{
         });
 
         track_a_flight.addActionListener(e -> {
-            main.showPage(TrackAFlight.getPanel());
+            main.showPage(TrackAFlight_InputFlightID.getPanel(main));
         });
 
        /* profile.addActionListener(e -> {
