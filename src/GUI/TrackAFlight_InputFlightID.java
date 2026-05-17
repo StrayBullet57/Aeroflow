@@ -11,11 +11,16 @@ public class TrackAFlight_InputFlightID {
 
         JPanel trackPanel = new JPanel(new BorderLayout());
         trackPanel.setBackground(Color.decode("#1477b2"));
-        trackPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        trackPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
 
         JPanel centerPanel = new JPanel();
         centerPanel.setOpaque(false);
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+
+        ImageIcon logoIcon = new ImageIcon("src/images/AEROFLOWBNW.png");
+        Image scaledLogo = logoIcon.getImage().getScaledInstance(400, 175, Image.SCALE_SMOOTH);
+        JLabel logoLabel = new JLabel(new ImageIcon(scaledLogo));
+        logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel title = new JLabel("Track A Flight");
         title.setFont(new Font("SansSerif", Font.BOLD, 32));
@@ -31,13 +36,12 @@ public class TrackAFlight_InputFlightID {
         trackButton.setPreferredSize(new Dimension(200, 40));
 
         trackButton.addActionListener(e -> {
-
-            
-        main.showPage(TrackAFlight.getPanel());
-
+            main.showPage(TrackAFlight.getPanel());
         });
 
         centerPanel.add(Box.createVerticalGlue());
+        centerPanel.add(logoLabel);
+        centerPanel.add(Box.createVerticalStrut(20));
         centerPanel.add(title);
         centerPanel.add(Box.createVerticalStrut(30));
         centerPanel.add(trackField);
@@ -52,8 +56,6 @@ public class TrackAFlight_InputFlightID {
         trackPanel.add(wrapper, BorderLayout.CENTER);
 
         mainPanel.add(trackPanel, BorderLayout.CENTER);
-
-
 
         return mainPanel;
     }
