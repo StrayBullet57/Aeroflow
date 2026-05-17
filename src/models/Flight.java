@@ -44,6 +44,26 @@ public class Flight{
             }
         }
     }
+
+    public int getFreeSeatsCount() {
+        int count = 0;
+        for (Seat s : seats) {
+            if (s.isAvailable()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getOccupiedSeatsCount() {
+        int count = 0;
+        for (Seat s : seats) {
+            if (!s.isAvailable()) {
+                count++;
+            }
+        }
+        return count;
+    }
     
     public ArrayList<Seat> getSeats(){
         return seats;
