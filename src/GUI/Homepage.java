@@ -35,11 +35,14 @@ public class Homepage {
         homepage_background.add(showcase);
 
         ImageIcon boracay = new ImageIcon("src/images/boracay.jpg");
+        ImageIcon baguio = new ImageIcon("src/images/baguio.jpg");
+        ImageIcon samal = new ImageIcon("src/images/samal.png");
+        ImageIcon taal = new ImageIcon("src/images/taal.jpg");
 
         JPanel showcaseItem1 = createShowcaseItem(main, "Destination_Name", "description", boracay);
-        JPanel showcaseItem2 = createShowcaseItem(main, "Destination_Name", "description", boracay);
-        JPanel showcaseItem3 = createShowcaseItem(main, "Destination_Name", "description", boracay);
-        JPanel showcaseItem4 = createShowcaseItem(main, "Destination_Name", "description", boracay);
+        JPanel showcaseItem2 = createShowcaseItem(main, "Destination_Name", "description", baguio);
+        JPanel showcaseItem3 = createShowcaseItem(main, "Destination_Name", "description", samal);
+        JPanel showcaseItem4 = createShowcaseItem(main, "Destination_Name", "description", taal);
         
         showcase.add(Box.createHorizontalGlue());
         showcase.add(showcaseItem1);
