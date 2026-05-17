@@ -3,7 +3,7 @@ package transactions;
 import java.util.ArrayList;
 import models.Flight;
 import models.Seat;
-// not mandy
+
 public class Booking{
     private String bookingID;
     private Flight flight;
@@ -23,7 +23,7 @@ public class Booking{
 
     public void confirmBooking(){
         if(seat.isAvailable() && payment.processPayment()){
-            seat.bookSeat();
+            seat.reserveSeat();
             status = "Confirmed";
             bookingHistory.add(this);
             System.out.println("Booking Confirmed.");
