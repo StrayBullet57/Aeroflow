@@ -2,11 +2,11 @@ package models;
 
 public class Route{
     private String routeID;
-    private String origin;
-    private String destination;
+    private Location origin;
+    private Location destination;
     private int duration;
 
-    public Route(String routeID, String origin, String destination, int duration){
+    public Route(String routeID, Location origin, Location destination, int duration){
         this.routeID = routeID;
         this.origin = origin;
         this.destination = destination;
@@ -17,11 +17,11 @@ public class Route{
         return routeID;
     }
 
-    public String getOrigin(){
+    public Location getOrigin(){
         return origin;
     }
 
-    public String getDestination(){
+    public Location getDestination(){
         return destination;
     }
 
