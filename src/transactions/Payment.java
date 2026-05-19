@@ -18,7 +18,6 @@ public class Payment {
     private String paymentID;
     private String bookingID;
     private double amount;
-    private PaymentMethod method;
     private PaymentStatus status;
     private LocalDateTime paymentDate;
 
@@ -26,7 +25,6 @@ public class Payment {
         this.paymentID = paymentID;
         this.bookingID = bookingID;
         this.amount = amount;
-        this.method = method;
         this.status = PaymentStatus.PENDING;
         this.paymentDate = LocalDateTime.now();
     }
