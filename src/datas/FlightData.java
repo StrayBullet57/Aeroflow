@@ -15,7 +15,7 @@ public class FlightData {
         Airline CP00 = airlineList.get(0);  // CP00
 
         // 2. Create your supporting objects
-        Route route1 = routeList.get(0);
+        Route SX0 = routeList.get(0);
         FlightSchedule schedule1 = new FlightSchedule("08:00 AM");
 
         // 3. Create the flight object using the airline you grabbed

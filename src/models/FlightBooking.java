@@ -33,7 +33,7 @@ public class FlightBooking{
 
     public Booking createBooking(String bookingID, Flight flight, Seat seat, double amount){
 
-        Payment payment = new Payment("PMNT-" + bookingID, bookingID, amount, "2026-05");// create payment
+        Payment payment = new Payment("PMNT-" + bookingID, bookingID, amount);// create payment
         Booking booking = new Booking(bookingID, flight, seat, payment);// create booking
         bookings.add(booking);// store booking
         return booking;
