@@ -16,10 +16,10 @@ public class RouteData {
 
         Location cebu = findLocationByName(locations, "Cebu");
         Location manila = findLocationByName(locations, "Manila");
-
-            routes.add(new Route("SX1", cebu, manila,3));
-            
-            routes.add(new Route("SX2", manila, cebu,8)); 
+        Route SX0 = new Route("SX0", cebu, manila, 3);
+        Route SX1 = new Route("SX1", manila, cebu, 8);
+            routes.add(SX0);
+            routes.add(SX1); 
 
         return routes;
     }
