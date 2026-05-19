@@ -6,13 +6,7 @@ import java.util.Scanner;
 
 public class Payment {
    
-    public enum PaymentMethod {
-        CREDIT_CARD, 
-        DEBIT_CARD, 
-        PAYPAL, 
-        GCASH, 
-        MAYA
-    }
+    private String PaymentMethod;
 
     public enum PaymentStatus {
         PENDING, 
@@ -28,7 +22,7 @@ public class Payment {
     private PaymentStatus status;
     private LocalDateTime paymentDate;
 
-    public Payment(String paymentID, String bookingID, double amount, PaymentMethod method){
+    public Payment(String paymentID, String bookingID, double amount, String method){
         this.paymentID = paymentID;
         this.bookingID = bookingID;
         this.amount = amount;
