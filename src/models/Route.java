@@ -1,10 +1,10 @@
 package models;
 
 public class Route{
-    private String routeID;
-    private Location origin;
-    private Location destination;
-    private int duration;
+    private String routeID; // make ups / to implement
+    private Location origin; // done
+    private Location destination; // done
+    private int duration; // make up // should be per hour!!!
 
     public Route(String routeID, Location origin, Location destination, int duration){
         this.routeID = routeID;

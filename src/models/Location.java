@@ -2,34 +2,40 @@ package models;
 
 public class Location {
     
-    private String xCoordinate;
-    private String yCoordinate;
+    private String locationName;
+    private int xCoordinate;
+    private int yCoordinate;
 
-    // Default Constructor
     public Location() {
     }
 
-    // Parameterized Constructor
-    public Location(String xCoordinate, String yCoordinate) {
+    public Location(String locationName, int xCoordinate, int yCoordinate) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+        this.locationName = locationName;
     }
 
-    // Getter and Setter for xCoordinate
-    public String getXCoordinate() {
+    public String getLocationName(){
+        return locationName;
+    }
+    public void setLocationName(String locationName){
+        this.locationName = locationName;
+    }
+    public int getXCoordinate() {
         return xCoordinate;
     }
 
-    public void setXCoordinate(String xCoordinate) {
+    public void setXCoordinate(int xCoordinate) {
         this.xCoordinate = xCoordinate;
     }
 
-    // Getter and Setter for yCoordinate
-    public String getYCoordinate() {
+    public int getYCoordinate() {
         return yCoordinate;
     }
 
-    public void setYCoordinate(String yCoordinate) {
+    public void setYCoordinate(int yCoordinate) {
         this.yCoordinate = yCoordinate;
     }
 }
+
+

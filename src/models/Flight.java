@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Flight{
     private String flightID;
     private Airline airline;
-    private Route route;
+    private Route route; 
     private double price;
     private String status;
     private ArrayList<Seat> seats;
