@@ -1,7 +1,9 @@
-package models;
+package datas;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import models.Location;
 
 public class LocationData {
 

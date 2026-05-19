@@ -8,10 +8,10 @@ public class AirlineData {
 
     public static List<Airline> getLocations() {
         List<Airline> airlines = new ArrayList<>();
+        Airline CP00 = new Airline("CP00", "Cebu Pacific");
         Airline CP01 = new Airline("CP01", "Cebu Pacific");
-        Airline CP02 = new Airline("CP02", "Cebu Pacific");
+        airlines.add(CP00);
         airlines.add(CP01);
-        airlines.add(CP02);
 
         return airlines;
     }

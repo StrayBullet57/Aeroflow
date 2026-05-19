@@ -89,13 +89,13 @@ public class BookAFlightStep3 {
 
         rightPanel.add(sectionTitle);
         rightPanel.add(Box.createVerticalStrut(20));
-        rightPanel.add(seatNumLabel);
-        rightPanel.add(Box.createVerticalStrut(5));
-        rightPanel.add(seatNumBox);
-        rightPanel.add(Box.createVerticalStrut(15));
         rightPanel.add(categoryLabel);
         rightPanel.add(Box.createVerticalStrut(5));
         rightPanel.add(categoryBox);
+        rightPanel.add(Box.createVerticalStrut(15));
+        rightPanel.add(seatNumLabel);
+        rightPanel.add(Box.createVerticalStrut(5));
+        rightPanel.add(seatNumBox);
         rightPanel.add(Box.createVerticalStrut(15));
         rightPanel.add(typeLabel);
         rightPanel.add(Box.createVerticalStrut(5));
