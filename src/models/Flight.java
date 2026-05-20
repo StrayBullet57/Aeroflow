@@ -50,7 +50,6 @@ public class Flight{
         }
         return count;
     }
-
     public int getOccupiedSeatsCount() {
         int count = 0;
         for (Seat s : seats) {
@@ -60,18 +59,26 @@ public class Flight{
         }
         return count;
     }
-    
     public ArrayList<Seat> getSeats(){
         return seats;
-    }
-    public void addSeat(Seat seat){
-        seats.add(seat);
     }
     public String getFlightID(){
         return flightID;
     }
     public String getStatus(){
         return status;
+    }
+    public Route getRoute(){
+        return route;
+    }
+    public Airline getAirline(){
+        return airline;
+    }
+    public FlightSchedule getSchedule(){
+        return schedule;
+    }
+    public void addSeat(Seat seat){
+        seats.add(seat);
     }
     public void setStatus(String status){
         this.status = status;;
