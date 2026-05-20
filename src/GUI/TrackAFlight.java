@@ -42,6 +42,9 @@ public class TrackAFlight {
          // kani kay sa destination
         int targetX = passedFlight.getRoute().getDestination().getXCoordinate();
         int targetY = passedFlight.getRoute().getDestination().getYCoordinate();
+        
+        plane.setLocation(startX, startY);
+        plane.setBounds(startX, startY, 30, 30);
 
        // to study
         final double duration = 1000.0; 
