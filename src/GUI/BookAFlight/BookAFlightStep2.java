@@ -1,8 +1,10 @@
 package GUI.BookAFlight;
 
-import javax.swing.*;
 import GUI.MainContent;
 import java.awt.*;
+import java.util.List;
+import javax.swing.*;
+import models.Flight;
 
 public class BookAFlightStep2 {
 
@@ -51,13 +53,12 @@ public class BookAFlightStep2 {
         listPanel.setOpaque(false);
         listPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JPanel flightCard1 = createFlightCard("PR 123 • Cebu → Manila", "Departure: 5:00 PM • Arrival: 6:15 PM", "Philippine Airlines");
-        JPanel flightCard2 = createFlightCard("PR 123 • Cebu → Manila", "Departure: 5:00 PM • Arrival: 6:15 PM", "Philippine Airlines");
-         JPanel flightCard3 = createFlightCard("PR 123 • Cebu → Manila", "Departure: 5:00 PM • Arrival: 6:15 PM", "Philippine Airlines");
-        
-        listPanel.add(flightCard1);
-        listPanel.add(flightCard2);
-        listPanel.add(flightCard3);
+        List<Flight> flights = main.getBookingSystem().getFlights();
+
+        for (Flight f : flights){
+            listPanel.add(createFlightCard(f, main));
+        }
+
         listPanel.add(Box.createVerticalStrut(15)); 
 
         JScrollPane scrollPane = new JScrollPane(listPanel);
@@ -103,31 +104,37 @@ public class BookAFlightStep2 {
         return mainPanel;
     }
 
-    private static JPanel createFlightCard(String flightDetails, String timeDetails, String airlineName) {
+    private static JPanel createFlightCard(Flight flight, MainContent main){
         JPanel flightCard = new JPanel(new BorderLayout());
         flightCard.setMaximumSize(new Dimension(600, 120)); 
         flightCard.setBackground(new Color(235, 245, 255));
         flightCard.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
         flightCard.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel flightName = new JLabel(flightDetails);
+        JLabel flightName = new JLabel(
+            flight.getFlightID() + " • " +
+            flight.getRoute().getOrigin().getLocationName() + " → " +
+            flight.getRoute().getDestination().getLocationName()
+        );
+
         flightName.setFont(new Font("SansSerif", Font.BOLD, 20));
 
-        JLabel flightTime = new JLabel(timeDetails);
-        flightTime.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        JLabel airline = new JLabel(flight.getStatus());
 
-        JLabel airline = new JLabel(airlineName);
         airline.setFont(new Font("SansSerif", Font.PLAIN, 16));
 
         JButton selectButton = new JButton("Select");
+
+        selectButton.addActionListener(e -> {
+            main.getBookingSession().setSelectedFlight(flight);
+            System.out.println("Selected flight: " + flight.getFlightID());
+        });
 
         JPanel left = new JPanel();
         left.setOpaque(false);
         left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
 
         left.add(flightName);
-        left.add(Box.createVerticalStrut(5));
-        left.add(flightTime);
         left.add(Box.createVerticalStrut(5));
         left.add(airline);
 
