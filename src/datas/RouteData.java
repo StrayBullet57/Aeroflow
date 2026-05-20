@@ -17,7 +17,7 @@ public class RouteData {
         Location cebu = findLocationByName(locations, "Cebu");
         Location manila = findLocationByName(locations, "Manila");
         Route SX0 = new Route("SX0", cebu, manila, 0.005);
-        Route SX1 = new Route("SX1", manila, cebu, 8);
+        Route SX1 = new Route("SX1", manila, cebu, 0.005);
             routes.add(SX0);
             routes.add(SX1); 
 
