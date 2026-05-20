@@ -16,10 +16,10 @@ public class FlightData {
 
         // 2. Create your supporting objects
         Route SX0 = routeList.get(0);
-        FlightSchedule schedule1 = new FlightSchedule("08:00 AM");
+        FlightSchedule schedule1 = new FlightSchedule("07/05/2026","08:00 AM","07/05/2026","10:30");
 
         // 3. Create the flight object using the airline you grabbed
-        Flight cp01 = new Flight("CP00", CP00, route1, "Onboarding", schedule1);
+        Flight cp01 = new Flight("CP00", CP00, SX0, "Onboarding", schedule1);
         
         flights.add(cp01);
         return flights;
