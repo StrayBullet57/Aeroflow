@@ -47,17 +47,15 @@ public class TrackAFlight {
         final double duration = 1000.0; 
         final int frameDelayMs = 15;
         final long startTime = System.currentTimeMillis();
-
+        final double routeDuration = passedFlight.getRoute().getDuration();
         // 4. Create and start the animation loop
+
+        
         Timer flightTimer = new Timer(frameDelayMs, null);
         flightTimer.addActionListener(e -> {
             long elapsed = System.currentTimeMillis() - startTime;
-            double start = Math.pow((double)startY-startX, (double)2);
-            double target = Math.pow((double)targetY-targetX, (double)2);
-            double distance = Math.sqrt(start+target); // pixels
-            double speed = (20.11 / 60); //per minute
-            double time = distance/speed;
-            double newDuration = duration*time;
+            double newDuration = duration*(routeDuration*60*60);
+
                 // set speed = 20.11 km/h
             double progress = elapsed / newDuration;
 
@@ -105,18 +103,23 @@ public class TrackAFlight {
         details_value.setLayout(new BoxLayout(details_value, BoxLayout.Y_AXIS));
         details_value.setPreferredSize(new Dimension(400,720));
 
+        JPanel durationHours_value = new JPanel();
+        details_value.setLayout(new BoxLayout(details_value, BoxLayout.Y_AXIS));
+        details_value.setPreferredSize(new Dimension(400,720));
+
         //to change values
         JLabel flightIDValue = createLabels(passedFlight.getFlightID());
         JLabel originValue = createLabels(passedFlight.getRoute().getOrigin().getLocationName());
         JLabel destinationValue = createLabels(passedFlight.getRoute().getDestination().getLocationName());
         JLabel departureTimeValue = createLabels(passedFlight.getSchedule().getDepartureTime());
         JLabel arrivalTimeValue = createLabels(passedFlight.getSchedule().getArrivalTime());
-        JLabel statusValue = createLabels("BOARDING");
+        JLabel statusValue = createLabels("BOARDING"+ " (Duration: " + routeDuration + " Hours)");
         details_value.add(flightIDValue);
         details_value.add(destinationValue);
         details_value.add(originValue);
         details_value.add(departureTimeValue);
         details_value.add(arrivalTimeValue);
+        details_value.add(statusValue);
         details_value.add(statusValue);
         flightIDValue.setAlignmentX(Component.RIGHT_ALIGNMENT);
         destinationValue.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -132,12 +135,14 @@ public class TrackAFlight {
         JLabel departureTime = createLabels("Departure Time: ");
         JLabel arrivalTime = createLabels("Arrival Time: ");
         JLabel status = createLabels("Status: ");
+        JLabel durationHours = createLabels("Duration: ");
         flight_details.add(flightID);
         flight_details.add(origin);
         flight_details.add(destination);
         flight_details.add(departureTime);
         flight_details.add(arrivalTime);
         flight_details.add(status);
+        flight_details.add(durationHours);
         
         layeredPane.add(map_image,Integer.valueOf(0));
         layeredPane.add(plane,Integer.valueOf(1));

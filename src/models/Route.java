@@ -4,9 +4,9 @@ public class Route{
     private String routeID; // make ups / to implement
     private Location origin; // done
     private Location destination; // done
-    private int duration; // make up // should be per hour!!!
+    private double duration; // make up // should be per hour!!!
 
-    public Route(String routeID, Location origin, Location destination, int duration){
+    public Route(String routeID, Location origin, Location destination, double duration){
         this.routeID = routeID;
         this.origin = origin;
         this.destination = destination;
@@ -25,7 +25,7 @@ public class Route{
         return destination;
     }
 
-    public int getDuration(){
+    public double getDuration(){
         return duration;
     }
 
