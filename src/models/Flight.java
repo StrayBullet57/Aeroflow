@@ -29,13 +29,11 @@ public class Flight{
                 seats.add(new Seat(row, col, Seat.SeatClass.FIRST_CLASS));
             }
         }
-
         for (int row = 2; row <= 5; row++) {
             for (char col : columns) {
                 seats.add(new Seat(row, col, Seat.SeatClass.BUSINESS));
             }
         }
-
         for (int row = 10; row <= 21; row++) {
             for (char col : columns) {
                 seats.add(new Seat(row, col, Seat.SeatClass.ECONOMY));
@@ -66,21 +64,15 @@ public class Flight{
     public ArrayList<Seat> getSeats(){
         return seats;
     }
-
     public void addSeat(Seat seat){
         seats.add(seat);
     }
-
-    
     public String getFlightID(){
         return flightID;
     }
-
-
     public String getStatus(){
         return status;
     }
-    
     public void setStatus(String status){
         this.status = status;;
     }
