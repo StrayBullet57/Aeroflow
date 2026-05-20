@@ -6,7 +6,7 @@ import models.*;
 
 public class AirlineData {
 
-    public static List<Airline> getLocations() {
+    public static List<Airline> getAirlines() {
         List<Airline> airlines = new ArrayList<>();
         Airline CP00 = new Airline("CP00", "Cebu Pacific");
         Airline CP01 = new Airline("CP01", "Cebu Pacific");
