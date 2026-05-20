@@ -48,7 +48,7 @@ public class TrackAFlight {
         final int frameDelayMs = 15;
         final long startTime = System.currentTimeMillis();
         final double routeDuration = passedFlight.getRoute().getDuration();
-        // 4. Create and start the animation loop
+        JLabel statusValue = createLabels("ON THE GROUND");
 
         
         Timer flightTimer = new Timer(frameDelayMs, null);
@@ -64,19 +64,25 @@ public class TrackAFlight {
                 flightTimer.stop(); 
             }
 
-            // Linear interpolation formula: start + (target - start) * progress
             int currentX = (int) (startX + (targetX - startX) * progress);
             int currentY = (int) (startY + (targetY - startY) * progress);
 
+                if (currentX == targetX && currentY == targetY) {
+                statusValue.setText("ON THE GROUND");
+            } else {
+                statusValue.setText("IN THE AIR");
+            }
+
             plane.setLocation(currentX, currentY);
             
-            // Forces the panel containing the plane to visually refresh its layout
             plane.getParent().repaint(); 
         });
 
         flightTimer.start();
         
 
+
+        
 
         //END OF ANIMATIONS
 
@@ -103,9 +109,6 @@ public class TrackAFlight {
         details_value.setLayout(new BoxLayout(details_value, BoxLayout.Y_AXIS));
         details_value.setPreferredSize(new Dimension(400,720));
 
-        JPanel durationHours_value = new JPanel();
-        details_value.setLayout(new BoxLayout(details_value, BoxLayout.Y_AXIS));
-        details_value.setPreferredSize(new Dimension(400,720));
 
         //to change values
         JLabel flightIDValue = createLabels(passedFlight.getFlightID());
@@ -113,13 +116,11 @@ public class TrackAFlight {
         JLabel destinationValue = createLabels(passedFlight.getRoute().getDestination().getLocationName());
         JLabel departureTimeValue = createLabels(passedFlight.getSchedule().getDepartureTime());
         JLabel arrivalTimeValue = createLabels(passedFlight.getSchedule().getArrivalTime());
-        JLabel statusValue = createLabels("BOARDING"+ " (Duration: " + routeDuration + " Hours)");
         details_value.add(flightIDValue);
         details_value.add(destinationValue);
         details_value.add(originValue);
         details_value.add(departureTimeValue);
         details_value.add(arrivalTimeValue);
-        details_value.add(statusValue);
         details_value.add(statusValue);
         flightIDValue.setAlignmentX(Component.RIGHT_ALIGNMENT);
         destinationValue.setAlignmentX(Component.RIGHT_ALIGNMENT);
