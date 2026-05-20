@@ -7,7 +7,7 @@ import models.*;
 public class FlightData {
 
     // Pass the existing airline list into this method
-    public static List<Flight> getLocations(List<Airline> airlineList, List<Route> routeList) {
+    public static List<Flight> getFlights(List<Airline> airlineList, List<Route> routeList) {
         List<Flight> flights = new ArrayList<>();
 
         // 1. Grab the specific airline you need from the list using its index
