@@ -6,22 +6,26 @@ import models.*;
 
 public class FlightData {
 
-    // Pass the existing airline list into this method
-    public static List<Flight> getLocations(List<Airline> airlineList, List<Route> routeList) {
+    // 1. Rename to getFlights and remove the parameter restrictions
+    public static List<Flight> getFlights() {
         List<Flight> flights = new ArrayList<>();
-
-        // 1. Grab the specific airline you need from the list using its index
-        // (e.g., index 0 if Cebu Pacific is the first item in that list)
-        Airline CP00 = airlineList.get(0);  // CP00
-
-        // 2. Create your supporting objects
-        Route SX0 = routeList.get(0);
-        FlightSchedule schedule1 = new FlightSchedule("08:00 AM");
-
-        // 3. Create the flight object using the airline you grabbed
-        Flight cp01 = new Flight("CP00", CP00, route1, "Onboarding", schedule1);
         
-        flights.add(cp01);
+        // 2. Fetch the required data directly from your other data files
+        List<Airline> airlineList = AirlineData.getAirlines(); // Make sure this matches your Airline data class name!
+        List<Route> routeList = RouteData.getRoutes();
+
+        // AIRLINE
+        Airline CP0 = airlineList.get(0);  
+
+        // ROUTE
+        Route SX0 = routeList.get(0);
+        FlightSchedule schedule1 = new FlightSchedule("2026-05-20", "08:00 AM", "2026-05-20", "10:00 AM");
+       
+        //datas
+       
+        Flight cp0 = new Flight("CP0", CP0, SX0, "Onboarding", schedule1);
+        
+        flights.add(cp0);
         return flights;
     }
 }
