@@ -4,10 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 
 import GUI.Homepage.BackgroundPanel;
+import models.Flight;
 
 public class TrackAFlight {
 
-    public static JPanel getPanel() {
+    public static JPanel getPanel(Flight passedFlight) {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -28,9 +29,60 @@ public class TrackAFlight {
         Image plane_img = new ImageIcon("src/images/plane_silhouette.png").getImage();
         Image scaled = plane_img.getScaledInstance(40,40,Image.SCALE_SMOOTH);
         JLabel plane = new JLabel(new ImageIcon(scaled));
-        plane.setSize(40, 40);
-        plane.setLocation(100, 100); // starting position
-    
+        plane.setSize(30, 30);
+
+
+        // PLACEMENT OF AIRPLANE AND FOR ANIMATIONS
+
+
+        // set ni sya sa x coordinate sa origin location
+        int startX = passedFlight.getRoute().getOrigin().getXCoordinate();
+        int startY = passedFlight.getRoute().getOrigin().getYCoordinate();
+
+         // kani kay sa destination
+        int targetX = passedFlight.getRoute().getDestination().getXCoordinate();
+        int targetY = passedFlight.getRoute().getDestination().getYCoordinate();
+
+       // to study
+        final double duration = 1000.0; 
+        final int frameDelayMs = 15;
+        final long startTime = System.currentTimeMillis();
+
+        // 4. Create and start the animation loop
+        Timer flightTimer = new Timer(frameDelayMs, null);
+        flightTimer.addActionListener(e -> {
+            long elapsed = System.currentTimeMillis() - startTime;
+            double start = Math.pow((double)startY-startX, (double)2);
+            double target = Math.pow((double)targetY-targetX, (double)2);
+            double distance = Math.sqrt(start+target); // pixels
+            double speed = (20.11 / 60); //per minute
+            double time = distance/speed;
+            double newDuration = duration*time;
+                // set speed = 20.11 km/h
+            double progress = elapsed / newDuration;
+
+            if (progress >= 1.0) {
+                progress = 1.0;
+                flightTimer.stop(); 
+            }
+
+            // Linear interpolation formula: start + (target - start) * progress
+            int currentX = (int) (startX + (targetX - startX) * progress);
+            int currentY = (int) (startY + (targetY - startY) * progress);
+
+            plane.setLocation(currentX, currentY);
+            
+            // Forces the panel containing the plane to visually refresh its layout
+            plane.getParent().repaint(); 
+        });
+
+        flightTimer.start();
+        
+
+
+        //END OF ANIMATIONS
+
+
         map_image.setPreferredSize(new Dimension(600, 720));
         map_image.setMaximumSize(new Dimension(600, 720));
         map_image.setMinimumSize(new Dimension(600, 720));
@@ -54,11 +106,11 @@ public class TrackAFlight {
         details_value.setPreferredSize(new Dimension(400,720));
 
         //to change values
-        JLabel flightIDValue = createLabels("SLX091");
-        JLabel destinationValue = createLabels("Manila");
-        JLabel originValue = createLabels("Cebu");
-        JLabel departureTimeValue = createLabels("5:00 PM");
-        JLabel arrivalTimeValue = createLabels("10:00 PM");
+        JLabel flightIDValue = createLabels(passedFlight.getFlightID());
+        JLabel originValue = createLabels(passedFlight.getRoute().getOrigin().getLocationName());
+        JLabel destinationValue = createLabels(passedFlight.getRoute().getDestination().getLocationName());
+        JLabel departureTimeValue = createLabels(passedFlight.getSchedule().getDepartureTime());
+        JLabel arrivalTimeValue = createLabels(passedFlight.getSchedule().getArrivalTime());
         JLabel statusValue = createLabels("BOARDING");
         details_value.add(flightIDValue);
         details_value.add(destinationValue);
@@ -89,6 +141,9 @@ public class TrackAFlight {
         
         layeredPane.add(map_image,Integer.valueOf(0));
         layeredPane.add(plane,Integer.valueOf(1));
+
+        // animation
+
 
 
         leftWrapper.add(layeredPane);

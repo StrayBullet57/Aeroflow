@@ -8,9 +8,9 @@ import models.Location;
 public class LocationData {
 
     public static List<Location> getLocations() {
-        List<Location> locations = new ArrayList<>();
-        Location Cebu = new Location("Cebu", 5,10);
-        Location Manila = new Location("Cebu", 5,10);
+        List<Location> locations = new ArrayList<>(); // names serves as ID
+        Location Cebu = new Location("Cebu", 395,420);
+        Location Manila = new Location("Manila", 245,230);
         locations.add(Cebu);
         locations.add(Manila);
 

@@ -1,7 +1,7 @@
 package models;
 import java.util.ArrayList;
 
-public class Flight{
+public class Flight {
     private String flightID;
     private Airline airline;
     private Route route; 
@@ -9,15 +9,13 @@ public class Flight{
     private ArrayList<Seat> seats;
     private FlightSchedule schedule;
 
-    public Flight(String flightID, Airline airline, Route route, String status, FlightSchedule schedule){
-        
+    public Flight(String flightID, Airline airline, Route route, String status, FlightSchedule schedule) {
         this.flightID = flightID;
         this.airline = airline;
         this.route = route;
         this.status = status;
         this.schedule = schedule;
         this.seats = new ArrayList<>();
-
         initializeAircraftSeats();
     }
 
@@ -63,25 +61,47 @@ public class Flight{
         return count;
     }
     
-    public ArrayList<Seat> getSeats(){
+    public ArrayList<Seat> getSeats() {
         return seats;
     }
 
-    public void addSeat(Seat seat){
+    public void addSeat(Seat seat) {
         seats.add(seat);
     }
 
-    
-    public String getFlightID(){
+    public String getFlightID() {
         return flightID;
     }
 
-
-    public String getStatus(){
+    public String getStatus() {
         return status;
     }
     
-    public void setStatus(String status){
-        this.status = status;;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Airline getAirline() {
+        return airline;
+    }
+
+    public void setAirline(Airline airline) {
+        this.airline = airline;
+    }
+
+    public Route getRoute() {
+        return route;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
+    }
+
+    public FlightSchedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(FlightSchedule schedule) {
+        this.schedule = schedule;
     }
 }
