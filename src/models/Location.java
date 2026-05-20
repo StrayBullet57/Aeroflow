@@ -32,5 +32,3 @@ public class Location {
         this.yCoordinate = yCoordinate;
     }
 }
-
-
