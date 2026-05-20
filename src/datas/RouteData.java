@@ -2,8 +2,6 @@ package datas;
 
 import java.util.ArrayList;
 import java.util.List;
-import datas.LocationData;
-import models.*;
 import models.Location;
 import models.Route; 
 
