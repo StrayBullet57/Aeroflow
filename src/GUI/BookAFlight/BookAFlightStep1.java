@@ -1,12 +1,8 @@
 package GUI.BookAFlight;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-
 import GUI.MainContent;
-import GUI.TrackAFlight;
-
 import java.awt.*;
+import javax.swing.*;
 
 public class BookAFlightStep1 {
 
@@ -81,11 +77,17 @@ public class BookAFlightStep1 {
 
         JButton nextButton = new JButton("Next");
         nextButton.addActionListener(e -> {
-
-                    
-                main.showPage(BookAFlightStep2.getPanel(main));
-
-                });
+            main.getBookingSession().setFrom(
+                (String) fromBox.getSelectedItem()
+            );
+            main.getBookingSession().setTo(
+                (String) toBox.getSelectedItem()
+            );
+            main.getBookingSession().setAirline(
+                (String) airlineBox.getSelectedItem()
+            );
+            main.showPage(BookAFlightStep2.getPanel(main));
+        });
         buttonPanel.add(nextButton);
 
 
