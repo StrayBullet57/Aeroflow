@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.*;
 
 public class LoginPage {
 
@@ -20,7 +19,7 @@ public class LoginPage {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLayout(new BorderLayout());
 
-        // ── NAVBAR ──
+        // NAVBAR
         JPanel navBar = new JPanel(new GridLayout(1, 4));
         navBar.setBackground(new Color(17, 24, 39));
         navBar.setPreferredSize(new Dimension(0, 60));
@@ -38,83 +37,107 @@ public class LoginPage {
         }
         frame.add(navBar, BorderLayout.NORTH);
 
-        // ── HERO BACKGROUND ──
+        // HERO
         GradientPanel hero = new GradientPanel();
         hero.setLayout(new GridBagLayout());
 
-        // ── CARD ──
-        JPanel card = new JPanel();
-        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        // CARD — use GridBagLayout so every row stretches full width naturally
+        JPanel card = new JPanel(new GridBagLayout());
         card.setBackground(Color.WHITE);
         card.setBorder(new CompoundBorder(
             new LineBorder(new Color(220, 220, 220), 1, true),
             new EmptyBorder(36, 40, 32, 40)
         ));
-        card.setMaximumSize(new Dimension(420, 600));
-        card.setPreferredSize(new Dimension(420, 520));
+        card.setPreferredSize(new Dimension(420, 490));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        gbc.insets = new Insets(0, 0, 0, 0);
 
         // Logo
         JLabel logoIcon = new JLabel("✈", SwingConstants.CENTER);
         logoIcon.setFont(new Font("SansSerif", Font.PLAIN, 36));
         logoIcon.setForeground(new Color(21, 101, 192));
-        logoIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
+        card.add(logoIcon, gbc); gbc.gridy++;
 
+        gbc.insets = new Insets(4, 0, 0, 0);
         JLabel logoText = new JLabel("AEROFLOW", SwingConstants.CENTER);
         logoText.setFont(new Font("SansSerif", Font.BOLD, 26));
         logoText.setForeground(new Color(21, 101, 192));
-        logoText.setAlignmentX(Component.CENTER_ALIGNMENT);
+        card.add(logoText, gbc); gbc.gridy++;
 
+        gbc.insets = new Insets(14, 0, 0, 0);
         JLabel heading = new JLabel("Welcome back", SwingConstants.CENTER);
         heading.setFont(new Font("SansSerif", Font.BOLD, 20));
         heading.setForeground(new Color(17, 24, 39));
-        heading.setAlignmentX(Component.CENTER_ALIGNMENT);
+        card.add(heading, gbc); gbc.gridy++;
+
+        // Email label
+        gbc.insets = new Insets(20, 0, 4, 0);
+        JLabel emailLabel = makeLabel("Email address");
+        card.add(emailLabel, gbc); gbc.gridy++;
 
         // Email field
-        JLabel emailLabel = makeLabel("Email address");
+        gbc.insets = new Insets(0, 0, 0, 0);
         JTextField emailField = makeTextField("you@example.com");
+        card.add(emailField, gbc); gbc.gridy++;
+
+        // Password label
+        gbc.insets = new Insets(12, 0, 4, 0);
+        JLabel passLabel = makeLabel("Password");
+        card.add(passLabel, gbc); gbc.gridy++;
 
         // Password field
-        JLabel passLabel = makeLabel("Password");
-        JPasswordField passField = new JPasswordField();
-        passField.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        passField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-        passField.setBorder(new CompoundBorder(
-            new LineBorder(new Color(209, 213, 219), 1, true),
-            new EmptyBorder(4, 10, 4, 10)
-        ));
-        passField.setBackground(new Color(249, 250, 251));
+        gbc.insets = new Insets(0, 0, 0, 0);
+        JPasswordField passField = makePasswordField();
+        card.add(passField, gbc); gbc.gridy++;
 
-        // Forgot password
+        // Forgot — right-aligned
+        gbc.insets = new Insets(6, 0, 0, 0);
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.EAST;
         JLabel forgot = new JLabel("Forgot password?");
         forgot.setFont(new Font("SansSerif", Font.PLAIN, 12));
         forgot.setForeground(new Color(30, 136, 229));
         forgot.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        forgot.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        card.add(forgot, gbc); gbc.gridy++;
 
         // Login button
+        gbc.insets = new Insets(14, 0, 0, 0);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
         JButton loginBtn = makeButton("Log In", new Color(21, 101, 192), Color.WHITE);
         loginBtn.addActionListener(e -> {
             String email = emailField.getText().trim();
             String pass  = new String(passField.getPassword()).trim();
-            if (email.isEmpty() || pass.isEmpty()) {
+            if (email.isEmpty() || email.equals("you@example.com") || pass.isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                // TODO: replace with real auth — opens MainContent for now
                 frame.dispose();
                 new GUI.MainContent().start();
             }
         });
+        card.add(loginBtn, gbc); gbc.gridy++;
 
         // Divider
-        JPanel divider = makeDivider("or continue with");
+        gbc.insets = new Insets(14, 0, 14, 0);
+        card.add(makeDivider("or"), gbc); gbc.gridy++;
 
-        // Google button
-        JButton googleBtn = makeOutlineButton("Continue with Google");
+        // Guest button
+        gbc.insets = new Insets(0, 0, 0, 0);
+        JButton guestBtn = makeOutlineButton("Continue as Guest");
+        guestBtn.addActionListener(e -> { frame.dispose(); new GUI.MainContent().start(); });
+        card.add(guestBtn, gbc); gbc.gridy++;
 
-        // Register link
+        // Sign up row
+        gbc.insets = new Insets(14, 0, 0, 0);
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
         JPanel regRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 0));
         regRow.setBackground(Color.WHITE);
-        regRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         JLabel regText = new JLabel("Don't have an account?");
         regText.setFont(new Font("SansSerif", Font.PLAIN, 13));
         regText.setForeground(new Color(107, 114, 128));
@@ -123,60 +146,40 @@ public class LoginPage {
         regLink.setForeground(new Color(30, 136, 229));
         regLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         regLink.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                frame.dispose();
-                new RegisterPage().start();
-            }
+            public void mouseClicked(MouseEvent e) { frame.dispose(); new RegisterPage().start(); }
             public void mouseEntered(MouseEvent e) { regLink.setText("<html><u>Sign up</u></html>"); }
             public void mouseExited(MouseEvent e)  { regLink.setText("Sign up"); }
         });
         regRow.add(regText);
         regRow.add(regLink);
+        card.add(regRow, gbc);
 
-        // Assemble card
-        card.add(logoIcon);
-        card.add(Box.createVerticalStrut(4));
-        card.add(logoText);
-        card.add(Box.createVerticalStrut(16));
-        card.add(heading);
-        card.add(Box.createVerticalStrut(20));
-        card.add(emailLabel);
-        card.add(Box.createVerticalStrut(4));
-        card.add(emailField);
-        card.add(Box.createVerticalStrut(12));
-        card.add(passLabel);
-        card.add(Box.createVerticalStrut(4));
-        card.add(passField);
-        card.add(Box.createVerticalStrut(6));
-        card.add(forgot);
-        card.add(Box.createVerticalStrut(16));
-        card.add(loginBtn);
-        card.add(Box.createVerticalStrut(14));
-        card.add(divider);
-        card.add(Box.createVerticalStrut(14));
-        card.add(googleBtn);
-        card.add(Box.createVerticalStrut(14));
-        card.add(regRow);
+        // Scroll wrapper
+        JScrollPane scroll = new JScrollPane(card);
+        scroll.setBorder(null);
+        scroll.setOpaque(false);
+        scroll.getViewport().setOpaque(false);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scroll.getVerticalScrollBar().setUnitIncrement(12);
+        scroll.setPreferredSize(new Dimension(440, 520));
 
-        hero.add(card);
+        hero.add(scroll);
         frame.add(hero, BorderLayout.CENTER);
         frame.setVisible(true);
     }
-
-    // ── HELPERS ──
 
     private JLabel makeLabel(String text) {
         JLabel lbl = new JLabel(text);
         lbl.setFont(new Font("SansSerif", Font.BOLD, 13));
         lbl.setForeground(new Color(55, 65, 81));
-        lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         return lbl;
     }
 
     private JTextField makeTextField(String placeholder) {
         JTextField tf = new JTextField();
         tf.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        tf.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        tf.setPreferredSize(new Dimension(0, 40));
         tf.setBorder(new CompoundBorder(
             new LineBorder(new Color(209, 213, 219), 1, true),
             new EmptyBorder(4, 10, 4, 10)
@@ -186,19 +189,25 @@ public class LoginPage {
         tf.setText(placeholder);
         tf.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent e) {
-                if (tf.getText().equals(placeholder)) {
-                    tf.setText("");
-                    tf.setForeground(new Color(17, 24, 39));
-                }
+                if (tf.getText().equals(placeholder)) { tf.setText(""); tf.setForeground(new Color(17, 24, 39)); }
             }
             public void focusLost(FocusEvent e) {
-                if (tf.getText().isEmpty()) {
-                    tf.setText(placeholder);
-                    tf.setForeground(new Color(156, 163, 175));
-                }
+                if (tf.getText().isEmpty()) { tf.setText(placeholder); tf.setForeground(new Color(156, 163, 175)); }
             }
         });
         return tf;
+    }
+
+    private JPasswordField makePasswordField() {
+        JPasswordField pf = new JPasswordField();
+        pf.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        pf.setPreferredSize(new Dimension(0, 40));
+        pf.setBorder(new CompoundBorder(
+            new LineBorder(new Color(209, 213, 219), 1, true),
+            new EmptyBorder(4, 10, 4, 10)
+        ));
+        pf.setBackground(new Color(249, 250, 251));
+        return pf;
     }
 
     private JButton makeButton(String text, Color bg, Color fg) {
@@ -218,9 +227,7 @@ public class LoginPage {
         btn.setBorderPainted(false);
         btn.setFocusPainted(false);
         btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
-        btn.setPreferredSize(new Dimension(340, 44));
+        btn.setPreferredSize(new Dimension(0, 44));
         return btn;
     }
 
@@ -244,16 +251,13 @@ public class LoginPage {
         btn.setBorderPainted(false);
         btn.setFocusPainted(false);
         btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 42));
-        btn.setPreferredSize(new Dimension(340, 42));
+        btn.setPreferredSize(new Dimension(0, 42));
         return btn;
     }
 
     private JPanel makeDivider(String text) {
         JPanel p = new JPanel(new BorderLayout(8, 0));
         p.setBackground(Color.WHITE);
-        p.setMaximumSize(new Dimension(Integer.MAX_VALUE, 24));
         JSeparator left  = new JSeparator(); left.setForeground(new Color(229, 231, 235));
         JSeparator right = new JSeparator(); right.setForeground(new Color(229, 231, 235));
         JLabel lbl = new JLabel(text, SwingConstants.CENTER);
@@ -265,15 +269,11 @@ public class LoginPage {
         return p;
     }
 
-    // Blue gradient background panel
     static class GradientPanel extends JPanel {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
-            GradientPaint gp = new GradientPaint(
-                0, 0, new Color(21, 101, 192),
-                getWidth(), getHeight(), new Color(13, 71, 161)
-            );
+            GradientPaint gp = new GradientPaint(0, 0, new Color(21, 101, 192), getWidth(), getHeight(), new Color(13, 71, 161));
             g2.setPaint(gp);
             g2.fillRect(0, 0, getWidth(), getHeight());
         }

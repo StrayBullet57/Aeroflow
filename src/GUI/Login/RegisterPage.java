@@ -15,7 +15,7 @@ public class RegisterPage {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLayout(new BorderLayout());
 
-        // ── NAVBAR ──
+        // NAVBAR
         JPanel navBar = new JPanel(new GridLayout(1, 4));
         navBar.setBackground(new Color(17, 24, 39));
         navBar.setPreferredSize(new Dimension(0, 60));
@@ -33,87 +33,112 @@ public class RegisterPage {
         }
         frame.add(navBar, BorderLayout.NORTH);
 
-        // ── HERO BACKGROUND ──
+        // HERO
         LoginPage.GradientPanel hero = new LoginPage.GradientPanel();
         hero.setLayout(new GridBagLayout());
 
-        // ── CARD ──
-        JPanel card = new JPanel();
-        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        // CARD
+        JPanel card = new JPanel(new GridBagLayout());
         card.setBackground(Color.WHITE);
         card.setBorder(new CompoundBorder(
             new LineBorder(new Color(220, 220, 220), 1, true),
             new EmptyBorder(32, 40, 28, 40)
         ));
-        card.setPreferredSize(new Dimension(460, 640));
-        card.setMaximumSize(new Dimension(460, 700));
+        card.setPreferredSize(new Dimension(460, 660));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        gbc.insets = new Insets(0, 0, 0, 0);
 
         // Logo
         JLabel logoIcon = new JLabel("✈", SwingConstants.CENTER);
         logoIcon.setFont(new Font("SansSerif", Font.PLAIN, 30));
         logoIcon.setForeground(new Color(21, 101, 192));
-        logoIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
+        card.add(logoIcon, gbc); gbc.gridy++;
 
+        gbc.insets = new Insets(4, 0, 0, 0);
         JLabel logoText = new JLabel("AEROFLOW", SwingConstants.CENTER);
         logoText.setFont(new Font("SansSerif", Font.BOLD, 24));
         logoText.setForeground(new Color(21, 101, 192));
-        logoText.setAlignmentX(Component.CENTER_ALIGNMENT);
+        card.add(logoText, gbc); gbc.gridy++;
 
+        gbc.insets = new Insets(10, 0, 0, 0);
         JLabel heading = new JLabel("Create your account", SwingConstants.CENTER);
         heading.setFont(new Font("SansSerif", Font.BOLD, 20));
         heading.setForeground(new Color(17, 24, 39));
-        heading.setAlignmentX(Component.CENTER_ALIGNMENT);
+        card.add(heading, gbc); gbc.gridy++;
 
-        // First + Last name row
-        JPanel nameRow = new JPanel(new GridLayout(1, 2, 12, 0));
-        nameRow.setBackground(Color.WHITE);
-        nameRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 70));
-        nameRow.setAlignmentX(Component.LEFT_ALIGNMENT);
+        // First name + Last name side by side
+        gbc.insets = new Insets(16, 0, 0, 0);
+        gbc.gridwidth = 1;
+        gbc.weightx = 0.5;
 
-        JPanel fnameCol = new JPanel();
-        fnameCol.setLayout(new BoxLayout(fnameCol, BoxLayout.Y_AXIS));
-        fnameCol.setBackground(Color.WHITE);
-        fnameCol.add(makeLabel("First name"));
-        fnameCol.add(Box.createVerticalStrut(4));
-        JTextField fnameField = makePlainTextField("Juan");
-        fnameCol.add(fnameField);
+        gbc.gridx = 0;
+        JLabel fnLbl = makeLabel("First name");
+        card.add(fnLbl, gbc);
 
-        JPanel lnameCol = new JPanel();
-        lnameCol.setLayout(new BoxLayout(lnameCol, BoxLayout.Y_AXIS));
-        lnameCol.setBackground(Color.WHITE);
-        lnameCol.add(makeLabel("Last name"));
-        lnameCol.add(Box.createVerticalStrut(4));
-        JTextField lnameField = makePlainTextField("Dela Cruz");
-        lnameCol.add(lnameField);
+        gbc.gridx = 1;
+        gbc.insets = new Insets(16, 8, 0, 0);
+        JLabel lnLbl = makeLabel("Last name");
+        card.add(lnLbl, gbc);
+        gbc.gridy++;
 
-        nameRow.add(fnameCol);
-        nameRow.add(lnameCol);
+        gbc.insets = new Insets(4, 0, 0, 0);
+        gbc.gridx = 0;
+        JTextField fnameField = makeTextField("Juan");
+        card.add(fnameField, gbc);
 
-        // Email
-        JLabel emailLabel = makeLabel("Email address");
-        JTextField emailField = makePlainTextField("you@example.com");
+        gbc.gridx = 1;
+        gbc.insets = new Insets(4, 8, 0, 0);
+        JTextField lnameField = makeTextField("Dela Cruz");
+        card.add(lnameField, gbc);
+        gbc.gridy++;
 
-        // Phone
-        JLabel phoneLabel = makeLabel("Phone number");
-        JTextField phoneField = makePlainTextField("+63 912 345 6789");
+        // Back to full width
+        gbc.gridx = 0;
+        gbc.gridwidth = 2;
+        gbc.weightx = 1.0;
 
-        // Password
-        JLabel passLabel = makeLabel("Password");
+        gbc.insets = new Insets(12, 0, 4, 0);
+        card.add(makeLabel("Email address"), gbc); gbc.gridy++;
+
+        gbc.insets = new Insets(0, 0, 0, 0);
+        JTextField emailField = makeTextField("you@example.com");
+        card.add(emailField, gbc); gbc.gridy++;
+
+        gbc.insets = new Insets(10, 0, 4, 0);
+        card.add(makeLabel("Phone number"), gbc); gbc.gridy++;
+
+        gbc.insets = new Insets(0, 0, 0, 0);
+        JTextField phoneField = makeTextField("+63 912 345 6789");
+        card.add(phoneField, gbc); gbc.gridy++;
+
+        gbc.insets = new Insets(10, 0, 4, 0);
+        card.add(makeLabel("Password"), gbc); gbc.gridy++;
+
+        gbc.insets = new Insets(0, 0, 0, 0);
         JPasswordField passField = makePasswordField();
+        card.add(passField, gbc); gbc.gridy++;
 
         // Strength bar
+        gbc.insets = new Insets(6, 0, 0, 0);
         JProgressBar strengthBar = new JProgressBar(0, 4);
-        strengthBar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 5));
         strengthBar.setPreferredSize(new Dimension(0, 5));
         strengthBar.setBorderPainted(false);
         strengthBar.setBackground(new Color(229, 231, 235));
         strengthBar.setForeground(new Color(239, 68, 68));
         strengthBar.setValue(0);
+        card.add(strengthBar, gbc); gbc.gridy++;
 
+        gbc.insets = new Insets(4, 0, 0, 0);
         JLabel strengthHint = new JLabel("Use letters, numbers, and symbols.");
         strengthHint.setFont(new Font("SansSerif", Font.PLAIN, 11));
         strengthHint.setForeground(new Color(156, 163, 175));
-        strengthHint.setAlignmentX(Component.LEFT_ALIGNMENT);
+        card.add(strengthHint, gbc); gbc.gridy++;
 
         passField.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
@@ -124,51 +149,31 @@ public class RegisterPage {
                 if (p.matches(".*[0-9].*")) score++;
                 if (p.matches(".*[^A-Za-z0-9].*")) score++;
                 strengthBar.setValue(score);
-                Color[] colors = {
-                    new Color(229, 231, 235),
-                    new Color(239, 68, 68),
-                    new Color(245, 158, 11),
-                    new Color(59, 130, 246),
-                    new Color(34, 197, 94)
-                };
-                String[] hints = {
-                    "Use letters, numbers, and symbols.",
-                    "Weak – try adding numbers or symbols.",
-                    "Fair – add uppercase letters.",
-                    "Good – almost there!",
-                    "Strong password ✓"
-                };
+                Color[] colors = { new Color(229,231,235), new Color(239,68,68), new Color(245,158,11), new Color(59,130,246), new Color(34,197,94) };
+                String[] hints = { "Use letters, numbers, and symbols.", "Weak – try adding numbers or symbols.", "Fair – add uppercase letters.", "Good – almost there!", "Strong password ✓" };
                 strengthBar.setForeground(colors[score]);
                 strengthHint.setText(hints[score]);
             }
         });
 
-        // Confirm password
-        JLabel confirmLabel = makeLabel("Confirm password");
+        gbc.insets = new Insets(10, 0, 4, 0);
+        card.add(makeLabel("Confirm password"), gbc); gbc.gridy++;
+
+        gbc.insets = new Insets(0, 0, 0, 0);
         JPasswordField confirmField = makePasswordField();
+        card.add(confirmField, gbc); gbc.gridy++;
 
-        // Terms checkbox
-        JPanel termsRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 4, 0));
-        termsRow.setBackground(Color.WHITE);
-        termsRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
-        JCheckBox termsBox = new JCheckBox();
-        termsBox.setBackground(Color.WHITE);
-        JLabel termsText = new JLabel("<html>I agree to the <font color='#1e88e5'>Terms of Service</font> and <font color='#1e88e5'>Privacy Policy</font></html>");
-        termsText.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        termsRow.add(termsBox);
-        termsRow.add(termsText);
-
-        // Register button
+        // Create Account button
+        gbc.insets = new Insets(16, 0, 0, 0);
         JButton registerBtn = makeButton("Create Account", new Color(21, 101, 192), Color.WHITE);
         registerBtn.addActionListener(e -> {
             String fname   = fnameField.getText().trim();
             String lname   = lnameField.getText().trim();
             String email   = emailField.getText().trim();
-            String phone   = phoneField.getText().trim();
             String pass    = new String(passField.getPassword()).trim();
             String confirm = new String(confirmField.getPassword()).trim();
-
-            if (fname.isEmpty() || lname.isEmpty() || email.isEmpty() || pass.isEmpty()) {
+            if (fname.isEmpty() || fname.equals("Juan") || lname.isEmpty() || lname.equals("Dela Cruz")
+                    || email.isEmpty() || email.equals("you@example.com") || pass.isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -176,25 +181,28 @@ public class RegisterPage {
                 JOptionPane.showMessageDialog(frame, "Passwords do not match.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if (!termsBox.isSelected()) {
-                JOptionPane.showMessageDialog(frame, "Please agree to the Terms of Service.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            JOptionPane.showMessageDialog(frame, "Account created successfully! Please log in.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "Account created! Please log in.", "Success", JOptionPane.INFORMATION_MESSAGE);
             frame.dispose();
             new LoginPage().start();
         });
+        card.add(registerBtn, gbc); gbc.gridy++;
 
         // Divider
-        JPanel divider = makeDivider("or sign up with");
+        gbc.insets = new Insets(14, 0, 14, 0);
+        card.add(makeDivider("or"), gbc); gbc.gridy++;
 
-        // Google button
-        JButton googleBtn = makeOutlineButton("Continue with Google");
+        // Guest button
+        gbc.insets = new Insets(0, 0, 0, 0);
+        JButton guestBtn = makeOutlineButton("Continue as Guest");
+        guestBtn.addActionListener(e -> { frame.dispose(); new GUI.MainContent().start(); });
+        card.add(guestBtn, gbc); gbc.gridy++;
 
-        // Login link
+        // Already have an account
+        gbc.insets = new Insets(12, 0, 0, 0);
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
         JPanel loginRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 0));
         loginRow.setBackground(Color.WHITE);
-        loginRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         JLabel loginText = new JLabel("Already have an account?");
         loginText.setFont(new Font("SansSerif", Font.PLAIN, 13));
         loginText.setForeground(new Color(107, 114, 128));
@@ -203,74 +211,40 @@ public class RegisterPage {
         loginLink.setForeground(new Color(30, 136, 229));
         loginLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         loginLink.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                frame.dispose();
-                new LoginPage().start();
-            }
+            public void mouseClicked(MouseEvent e) { frame.dispose(); new LoginPage().start(); }
             public void mouseEntered(MouseEvent e) { loginLink.setText("<html><u>Log in</u></html>"); }
             public void mouseExited(MouseEvent e)  { loginLink.setText("Log in"); }
         });
         loginRow.add(loginText);
         loginRow.add(loginLink);
+        card.add(loginRow, gbc);
 
-        // Assemble card
-        card.add(logoIcon);
-        card.add(Box.createVerticalStrut(4));
-        card.add(logoText);
-        card.add(Box.createVerticalStrut(12));
-        card.add(heading);
-        card.add(Box.createVerticalStrut(18));
-        card.add(nameRow);
-        card.add(Box.createVerticalStrut(12));
-        card.add(emailLabel);
-        card.add(Box.createVerticalStrut(4));
-        card.add(emailField);
-        card.add(Box.createVerticalStrut(10));
-        card.add(phoneLabel);
-        card.add(Box.createVerticalStrut(4));
-        card.add(phoneField);
-        card.add(Box.createVerticalStrut(10));
-        card.add(passLabel);
-        card.add(Box.createVerticalStrut(4));
-        card.add(passField);
-        card.add(Box.createVerticalStrut(6));
-        card.add(strengthBar);
-        card.add(Box.createVerticalStrut(4));
-        card.add(strengthHint);
-        card.add(Box.createVerticalStrut(10));
-        card.add(confirmLabel);
-        card.add(Box.createVerticalStrut(4));
-        card.add(confirmField);
-        card.add(Box.createVerticalStrut(10));
-        card.add(termsRow);
-        card.add(Box.createVerticalStrut(14));
-        card.add(registerBtn);
-        card.add(Box.createVerticalStrut(12));
-        card.add(divider);
-        card.add(Box.createVerticalStrut(12));
-        card.add(googleBtn);
-        card.add(Box.createVerticalStrut(12));
-        card.add(loginRow);
+        // Scroll wrapper
+        JScrollPane scroll = new JScrollPane(card);
+        scroll.setBorder(null);
+        scroll.setOpaque(false);
+        scroll.getViewport().setOpaque(false);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scroll.getVerticalScrollBar().setUnitIncrement(12);
+        scroll.setPreferredSize(new Dimension(480, 700));
 
-        hero.add(card);
+        hero.add(scroll);
         frame.add(hero, BorderLayout.CENTER);
         frame.setVisible(true);
     }
-
-    // ── HELPERS ──
 
     private JLabel makeLabel(String text) {
         JLabel lbl = new JLabel(text);
         lbl.setFont(new Font("SansSerif", Font.BOLD, 13));
         lbl.setForeground(new Color(55, 65, 81));
-        lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         return lbl;
     }
 
-    private JTextField makePlainTextField(String placeholder) {
+    private JTextField makeTextField(String placeholder) {
         JTextField tf = new JTextField();
         tf.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        tf.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        tf.setPreferredSize(new Dimension(0, 40));
         tf.setBorder(new CompoundBorder(
             new LineBorder(new Color(209, 213, 219), 1, true),
             new EmptyBorder(4, 10, 4, 10)
@@ -280,16 +254,10 @@ public class RegisterPage {
         tf.setText(placeholder);
         tf.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent e) {
-                if (tf.getText().equals(placeholder)) {
-                    tf.setText("");
-                    tf.setForeground(new Color(17, 24, 39));
-                }
+                if (tf.getText().equals(placeholder)) { tf.setText(""); tf.setForeground(new Color(17, 24, 39)); }
             }
             public void focusLost(FocusEvent e) {
-                if (tf.getText().isEmpty()) {
-                    tf.setText(placeholder);
-                    tf.setForeground(new Color(156, 163, 175));
-                }
+                if (tf.getText().isEmpty()) { tf.setText(placeholder); tf.setForeground(new Color(156, 163, 175)); }
             }
         });
         return tf;
@@ -298,13 +266,12 @@ public class RegisterPage {
     private JPasswordField makePasswordField() {
         JPasswordField pf = new JPasswordField();
         pf.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        pf.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        pf.setPreferredSize(new Dimension(0, 40));
         pf.setBorder(new CompoundBorder(
             new LineBorder(new Color(209, 213, 219), 1, true),
             new EmptyBorder(4, 10, 4, 10)
         ));
         pf.setBackground(new Color(249, 250, 251));
-        pf.setAlignmentX(Component.LEFT_ALIGNMENT);
         return pf;
     }
 
@@ -325,8 +292,7 @@ public class RegisterPage {
         btn.setBorderPainted(false);
         btn.setFocusPainted(false);
         btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
+        btn.setPreferredSize(new Dimension(0, 44));
         return btn;
     }
 
@@ -350,15 +316,13 @@ public class RegisterPage {
         btn.setBorderPainted(false);
         btn.setFocusPainted(false);
         btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 42));
+        btn.setPreferredSize(new Dimension(0, 42));
         return btn;
     }
 
     private JPanel makeDivider(String text) {
         JPanel p = new JPanel(new BorderLayout(8, 0));
         p.setBackground(Color.WHITE);
-        p.setMaximumSize(new Dimension(Integer.MAX_VALUE, 24));
         JSeparator left  = new JSeparator(); left.setForeground(new Color(229, 231, 235));
         JSeparator right = new JSeparator(); right.setForeground(new Color(229, 231, 235));
         JLabel lbl = new JLabel(text, SwingConstants.CENTER);
