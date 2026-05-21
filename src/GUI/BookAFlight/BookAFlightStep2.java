@@ -5,7 +5,6 @@ import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import models.Flight;
-import datas.FlightData;
 
 public class BookAFlightStep2 {
 
@@ -54,11 +53,7 @@ public class BookAFlightStep2 {
         listPanel.setOpaque(false);
         listPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        List<Flight> flights = main.getBookingSystem().getFlights();
-
-        for (Flight f : flights){
-            listPanel.add(createFlightCard(f, main));
-        }
+        listPanel = displayFlightList(main, destination);
 
         listPanel.add(Box.createVerticalStrut(15)); 
 
@@ -145,19 +140,19 @@ public class BookAFlightStep2 {
         return flightCard;
     }
 
-    private static JPanel displayFlightList(String destination) {
+    private static JPanel displayFlightList(MainContent main, String destination) {
         JPanel listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
         listPanel.setOpaque(false);
         listPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        List<Flight> allFlights = FlightData.getFlights();
+        List<Flight> allFlights = main.getBookingSystem().getFlights();
         boolean foundFlights = false;
 
         if (allFlights != null) {
             for (Flight flight : allFlights) {
                 if (flight.getRoute().getDestination().getLocationName().equalsIgnoreCase(destination)) {
-                    JPanel flightCard = createFlightCard(flight);
+                    JPanel flightCard = createFlightCard(flight, main);
                     listPanel.add(flightCard);
                     listPanel.add(Box.createVerticalStrut(10)); 
                     foundFlights = true;
