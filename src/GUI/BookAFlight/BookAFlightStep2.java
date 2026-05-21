@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import models.Flight;
+import datas.FlightData;
 
 public class BookAFlightStep2 {
 
