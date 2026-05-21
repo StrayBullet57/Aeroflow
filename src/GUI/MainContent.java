@@ -27,10 +27,8 @@ public class MainContent {
     public void start() {
         bookingSystem = new FlightBooking();
         bookingSession = new BookingSession();
-
-        List<Airline> airlines = AirlineData.getAirlines();
-        List<Route> routes = RouteData.getRoutes();
-        List<Flight> flights = FlightData.getFlights(airlines, routes);
+        
+        List<Flight> flights = FlightData.getFlights();
 
         for (Flight f : flights){
             bookingSystem.addFlight(f);
