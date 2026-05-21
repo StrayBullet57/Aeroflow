@@ -2,21 +2,21 @@ package models;
 
 public class Seat {
 
-    
     private int rowNumber;
-    private char seatCategory; 
-    private String seatNumber; 
+    private char seatCategory;
+    private String seatNumber;
+    private String seatClass; // ADD THIS
     private boolean isAvailable;
 
-   
     public Seat(int rowNumber, char seatCategory, String seatClass) {
         this.rowNumber = rowNumber;
         this.seatCategory = Character.toUpperCase(seatCategory);
         this.seatNumber = rowNumber + String.valueOf(this.seatCategory);
-        this.isAvailable = true; 
+        this.seatClass = seatClass; // ADD THIS
+        this.isAvailable = true;
     }
 
-public boolean reserveSeat() {
+    public boolean reserveSeat() {
         if (!isAvailable) {
             System.out.println("Seat " + seatNumber + " is already occupied.");
             return false;
@@ -35,22 +35,24 @@ public boolean reserveSeat() {
         System.out.println("Reservation for seat " + seatNumber + " has been cancelled.");
     }
 
-public int getRowNumber() { return rowNumber; }
-    public void setRowNumber(int rowNumber) { 
-        this.rowNumber = rowNumber; 
+    public int getRowNumber()    { return rowNumber; }
+    public void setRowNumber(int rowNumber) {
+        this.rowNumber = rowNumber;
         this.seatNumber = this.rowNumber + String.valueOf(this.seatCategory);
     }
 
     public char getSeatCategory() { return seatCategory; }
-    public void setSeatCategory(char seatCategory) { 
+    public void setSeatCategory(char seatCategory) {
         this.seatCategory = Character.toUpperCase(seatCategory);
         this.seatNumber = this.rowNumber + String.valueOf(this.seatCategory);
     }
 
-    public String getSeatNumber() { return seatNumber; }
+    public String getSeatNumber()  { return seatNumber; }
     public void setSeatNumber(String seatNumber) { this.seatNumber = seatNumber; }
 
-    public boolean isAvailable() { return isAvailable; }
-    public void setAvailable(boolean isAvailable) { this.isAvailable = isAvailable; }
+    public String getSeatClass()   { return seatClass; } // ADD THIS
+    public void setSeatClass(String seatClass) { this.seatClass = seatClass; } // ADD THIS
 
+    public boolean isAvailable()   { return isAvailable; }
+    public void setAvailable(boolean isAvailable) { this.isAvailable = isAvailable; }
 }

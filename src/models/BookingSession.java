@@ -1,7 +1,7 @@
 package models;
 
-public class BookingSession{ // booking workflow memory
-   // to remove
+public class BookingSession { // booking workflow memory
+    // to remove
     private String from;
     private String to;
     private String airline;
@@ -19,7 +19,7 @@ public class BookingSession{ // booking workflow memory
     public void setAirline(String airline){
         this.airline = airline;
     }
-    
+
     public void setSelectedFlight(Flight selectedFlight){
         this.selectedFlight = selectedFlight;
     }
@@ -46,5 +46,14 @@ public class BookingSession{ // booking workflow memory
 
     public Seat getSelectedSeat(){
         return selectedSeat;
+    }
+
+    // reset session after booking
+    public void clear() {
+        this.from = null;
+        this.to = null;
+        this.airline = null;
+        this.selectedFlight = null;
+        this.selectedSeat = null;
     }
 }
