@@ -14,7 +14,7 @@ public class main{
         
         // testFlight.startInteractiveSeatSelection(); 
         // System.out.println("\n=== CLOSING SEAT TEST, LAUNCHING SYSTEM GUI ===\n");
-
+        // TEST
         SwingUtilities.invokeLater(() -> new MainContent().start());
     }
 }
