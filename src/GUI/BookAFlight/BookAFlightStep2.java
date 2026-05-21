@@ -1,11 +1,9 @@
 package GUI.BookAFlight;
 
-import javax.swing.*;
 import GUI.MainContent;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
-import datas.FlightData;
+import javax.swing.*;
 import models.Flight;
 
 public class BookAFlightStep2 {
@@ -50,11 +48,18 @@ public class BookAFlightStep2 {
         sectionTitle.setFont(new Font("SansSerif", Font.BOLD, 28));
         sectionTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        // --- CHANGED HERE ---
-        // Instead of manually initializing an empty layout panel and pushing missing
-        // flightCard1, 2, 3 variables, we call your new displayFlightList function directly.
-        JPanel listPanel = displayFlightList(destination);
-        // --------------------
+        JPanel listPanel = new JPanel();
+        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
+        listPanel.setOpaque(false);
+        listPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        List<Flight> flights = main.getBookingSystem().getFlights();
+
+        for (Flight f : flights){
+            listPanel.add(createFlightCard(f, main));
+        }
+
+        listPanel.add(Box.createVerticalStrut(15)); 
 
         JScrollPane scrollPane = new JScrollPane(listPanel);
         scrollPane.setBorder(BorderFactory.createEmptyBorder()); 
@@ -99,36 +104,37 @@ public class BookAFlightStep2 {
         return mainPanel;
     }
 
-    private static JPanel createFlightCard(Flight flight) {
+    private static JPanel createFlightCard(Flight flight, MainContent main){
         JPanel flightCard = new JPanel(new BorderLayout());
         flightCard.setMaximumSize(new Dimension(600, 120)); 
         flightCard.setBackground(new Color(235, 245, 255));
         flightCard.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
         flightCard.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel flightName = new JLabel(flight.getFlightID());
+        JLabel flightName = new JLabel(
+            flight.getFlightID() + " • " +
+            flight.getRoute().getOrigin().getLocationName() + " → " +
+            flight.getRoute().getDestination().getLocationName()
+        );
+
         flightName.setFont(new Font("SansSerif", Font.BOLD, 20));
 
-        String departureDate = flight.getSchedule().getDepartureDate();
-        String arrivalDate = flight.getSchedule().getArrivalDate();
-        String departureTime = flight.getSchedule().getDepartureTime();
-        String arrivalTime = flight.getSchedule().getArrivalTime();
+        JLabel airline = new JLabel(flight.getStatus());
 
-        JLabel flightTime = new JLabel("Departure: "+departureDate+" "+departureTime+" • Arrival: "+arrivalDate+" "+arrivalTime);
-        flightTime.setFont(new Font("SansSerif", Font.PLAIN, 16));
-
-        JLabel airline = new JLabel(flight.getAirline().getName());
         airline.setFont(new Font("SansSerif", Font.PLAIN, 16));
 
         JButton selectButton = new JButton("Select");
+
+        selectButton.addActionListener(e -> {
+            main.getBookingSession().setSelectedFlight(flight);
+            System.out.println("Selected flight: " + flight.getFlightID());
+        });
 
         JPanel left = new JPanel();
         left.setOpaque(false);
         left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
 
         left.add(flightName);
-        left.add(Box.createVerticalStrut(5));
-        left.add(flightTime);
         left.add(Box.createVerticalStrut(5));
         left.add(airline);
 

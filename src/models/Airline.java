@@ -8,13 +8,10 @@ public class Airline{
         this.airlineID = airlineID;
         this.name = name;
     }
-
     public String getAirlineID(){
         return airlineID;
     }
-
     public String getName(){
         return name;
     }
-
 }

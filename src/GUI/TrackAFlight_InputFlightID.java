@@ -1,20 +1,11 @@
 package GUI;
 
 import javax.swing.*;
-
-import datas.*;
-import models.Flight;
-import models.Route;
-
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TrackAFlight_InputFlightID {
-        private static List<Flight> flights = FlightData.getFlights(); 
 
-
-        public static JPanel getPanel(MainContent main) {
+    public static JPanel getPanel(MainContent main) {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -44,35 +35,9 @@ public class TrackAFlight_InputFlightID {
         trackButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         trackButton.setPreferredSize(new Dimension(200, 40));
 
-
-
-            trackButton.addActionListener(e -> {
-            String inputId = trackField.getText().trim();
-            
-            if (inputId.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please enter a Flight ID.");
-                return;
-            }
-
-
-            Flight matchedFlight = null; 
-            for (Flight flight : flights) {
-
-                if (flight.getFlightID().equalsIgnoreCase(inputId)) {
-                    matchedFlight = flight;
-                    break;
-                }
-            }
-
-            if (matchedFlight != null) {
-                main.showPage(TrackAFlight.getPanel(matchedFlight)); 
-            } else {
-                JOptionPane.showMessageDialog(null, "Flight ID not found. Please try again.");
-            }
+        trackButton.addActionListener(e -> {
+            main.showPage(TrackAFlight.getPanel());
         });
-
-
-
 
         centerPanel.add(Box.createVerticalGlue());
         centerPanel.add(logoLabel);

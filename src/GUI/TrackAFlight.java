@@ -4,11 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 import GUI.Homepage.BackgroundPanel;
-import models.Flight;
 
 public class TrackAFlight {
 
-    public static JPanel getPanel(Flight passedFlight) {
+    public static JPanel getPanel() {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -29,67 +28,9 @@ public class TrackAFlight {
         Image plane_img = new ImageIcon("src/images/plane_silhouette.png").getImage();
         Image scaled = plane_img.getScaledInstance(40,40,Image.SCALE_SMOOTH);
         JLabel plane = new JLabel(new ImageIcon(scaled));
-        plane.setSize(30, 30);
-
-
-        // PLACEMENT OF AIRPLANE AND FOR ANIMATIONS
-
-
-        // set ni sya sa x coordinate sa origin location
-        int startX = passedFlight.getRoute().getOrigin().getXCoordinate();
-        int startY = passedFlight.getRoute().getOrigin().getYCoordinate();
-
-         // kani kay sa destination
-        int targetX = passedFlight.getRoute().getDestination().getXCoordinate();
-        int targetY = passedFlight.getRoute().getDestination().getYCoordinate();
-        
-        plane.setLocation(startX, startY);
-        plane.setBounds(startX, startY, 30, 30);
-
-       // to study
-        final double duration = 1000.0; 
-        final int frameDelayMs = 15;
-        final long startTime = System.currentTimeMillis();
-        final double routeDuration = passedFlight.getRoute().getDuration();
-        JLabel statusValue = createLabels("ON THE GROUND");
-
-        
-        Timer flightTimer = new Timer(frameDelayMs, null);
-        flightTimer.addActionListener(e -> {
-            long elapsed = System.currentTimeMillis() - startTime;
-            double newDuration = duration*(routeDuration*60*60);
-
-                // set speed = 20.11 km/h
-            double progress = elapsed / newDuration;
-
-            if (progress >= 1.0) {
-                progress = 1.0;
-                flightTimer.stop(); 
-            }
-
-            int currentX = (int) (startX + (targetX - startX) * progress);
-            int currentY = (int) (startY + (targetY - startY) * progress);
-
-                if (currentX == targetX && currentY == targetY) {
-                statusValue.setText("ON THE GROUND");
-            } else {
-                statusValue.setText("IN THE AIR");
-            }
-
-            plane.setLocation(currentX, currentY);
-            
-            plane.getParent().repaint(); 
-        });
-
-        flightTimer.start();
-        
-
-
-        
-
-        //END OF ANIMATIONS
-
-
+        plane.setSize(40, 40);
+        plane.setLocation(100, 100); // starting position
+    
         map_image.setPreferredSize(new Dimension(600, 720));
         map_image.setMaximumSize(new Dimension(600, 720));
         map_image.setMinimumSize(new Dimension(600, 720));
@@ -112,13 +53,13 @@ public class TrackAFlight {
         details_value.setLayout(new BoxLayout(details_value, BoxLayout.Y_AXIS));
         details_value.setPreferredSize(new Dimension(400,720));
 
-
         //to change values
-        JLabel flightIDValue = createLabels(passedFlight.getFlightID());
-        JLabel originValue = createLabels(passedFlight.getRoute().getOrigin().getLocationName());
-        JLabel destinationValue = createLabels(passedFlight.getRoute().getDestination().getLocationName());
-        JLabel departureTimeValue = createLabels(passedFlight.getSchedule().getDepartureTime());
-        JLabel arrivalTimeValue = createLabels(passedFlight.getSchedule().getArrivalTime());
+        JLabel flightIDValue = createLabels("SLX091");
+        JLabel destinationValue = createLabels("Manila");
+        JLabel originValue = createLabels("Cebu");
+        JLabel departureTimeValue = createLabels("5:00 PM");
+        JLabel arrivalTimeValue = createLabels("10:00 PM");
+        JLabel statusValue = createLabels("BOARDING");
         details_value.add(flightIDValue);
         details_value.add(destinationValue);
         details_value.add(originValue);
@@ -139,20 +80,15 @@ public class TrackAFlight {
         JLabel departureTime = createLabels("Departure Time: ");
         JLabel arrivalTime = createLabels("Arrival Time: ");
         JLabel status = createLabels("Status: ");
-        JLabel durationHours = createLabels("Duration: ");
         flight_details.add(flightID);
         flight_details.add(origin);
         flight_details.add(destination);
         flight_details.add(departureTime);
         flight_details.add(arrivalTime);
         flight_details.add(status);
-        flight_details.add(durationHours);
         
         layeredPane.add(map_image,Integer.valueOf(0));
         layeredPane.add(plane,Integer.valueOf(1));
-
-        // animation
-
 
 
         leftWrapper.add(layeredPane);

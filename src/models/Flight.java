@@ -1,7 +1,7 @@
 package models;
 import java.util.ArrayList;
 
-public class Flight {
+public class Flight{
     private String flightID;
     private Airline airline;
     private Route route; 
@@ -9,13 +9,15 @@ public class Flight {
     private ArrayList<Seat> seats;
     private FlightSchedule schedule;
 
-    public Flight(String flightID, Airline airline, Route route, String status, FlightSchedule schedule) {
+    public Flight(String flightID, Airline airline, Route route, String status, FlightSchedule schedule){
+        
         this.flightID = flightID;
         this.airline = airline;
         this.route = route;
         this.status = status;
         this.schedule = schedule;
         this.seats = new ArrayList<>();
+
         initializeAircraftSeats();
     }
 
@@ -27,13 +29,11 @@ public class Flight {
                 seats.add(new Seat(row, col, Seat.SeatClass.FIRST_CLASS));
             }
         }
-
         for (int row = 2; row <= 5; row++) {
             for (char col : columns) {
                 seats.add(new Seat(row, col, Seat.SeatClass.BUSINESS));
             }
         }
-
         for (int row = 10; row <= 21; row++) {
             for (char col : columns) {
                 seats.add(new Seat(row, col, Seat.SeatClass.ECONOMY));
@@ -50,7 +50,6 @@ public class Flight {
         }
         return count;
     }
-
     public int getOccupiedSeatsCount() {
         int count = 0;
         for (Seat s : seats) {
@@ -60,48 +59,28 @@ public class Flight {
         }
         return count;
     }
-    
-    public ArrayList<Seat> getSeats() {
+    public ArrayList<Seat> getSeats(){
         return seats;
     }
-
-    public void addSeat(Seat seat) {
-        seats.add(seat);
-    }
-
-    public String getFlightID() {
+    public String getFlightID(){
         return flightID;
     }
-
-    public String getStatus() {
+    public String getStatus(){
         return status;
     }
-    
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Airline getAirline() {
-        return airline;
-    }
-
-    public void setAirline(Airline airline) {
-        this.airline = airline;
-    }
-
-    public Route getRoute() {
+    public Route getRoute(){
         return route;
     }
-
-    public void setRoute(Route route) {
-        this.route = route;
+    public Airline getAirline(){
+        return airline;
     }
-
-    public FlightSchedule getSchedule() {
+    public FlightSchedule getSchedule(){
         return schedule;
     }
-
-    public void setSchedule(FlightSchedule schedule) {
-        this.schedule = schedule;
+    public void addSeat(Seat seat){
+        seats.add(seat);
+    }
+    public void setStatus(String status){
+        this.status = status;;
     }
 }

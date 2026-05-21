@@ -1,11 +1,22 @@
 package GUI;
 
-import javax.swing.*;
-import java.awt.*;
 import GUI.Builders.NavBar;
+import datas.AirlineData;
+import datas.FlightData;
+import datas.RouteData;
+import java.awt.*;
+import java.util.List;
+import javax.swing.*;
+import models.Airline;
+import models.BookingSession;
+import models.Flight;
+import models.FlightBooking;
+import models.Route;
 
 public class MainContent {
-
+    private FlightBooking bookingSystem;
+    private BookingSession bookingSession;
+    
     private JFrame frame;
     private JPanel contentPanel;
 
@@ -14,6 +25,17 @@ public class MainContent {
     }
 
     public void start() {
+        bookingSystem = new FlightBooking();
+        bookingSession = new BookingSession();
+
+        List<Airline> airlines = AirlineData.getAirlines();
+        List<Route> routes = RouteData.getRoutes();
+        List<Flight> flights = FlightData.getFlights(airlines, routes);
+
+        for (Flight f : flights){
+            bookingSystem.addFlight(f);
+        }
+
         frame = new JFrame("AeroFlow");
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,5 +59,12 @@ public class MainContent {
         contentPanel.add(page, BorderLayout.CENTER);
         contentPanel.revalidate();
         contentPanel.repaint();
+    }
+
+    public FlightBooking getBookingSystem(){
+        return bookingSystem;
+    }
+    public BookingSession getBookingSession(){
+        return bookingSession;
     }
 }

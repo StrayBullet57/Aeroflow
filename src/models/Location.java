@@ -8,13 +8,11 @@ public class Location {
 
     public Location() {
     }
-
     public Location(String locationName, int xCoordinate, int yCoordinate) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.locationName = locationName;
     }
-
     public String getLocationName(){
         return locationName;
     }
@@ -24,18 +22,13 @@ public class Location {
     public int getXCoordinate() {
         return xCoordinate;
     }
-
     public void setXCoordinate(int xCoordinate) {
         this.xCoordinate = xCoordinate;
     }
-
     public int getYCoordinate() {
         return yCoordinate;
     }
-
     public void setYCoordinate(int yCoordinate) {
         this.yCoordinate = yCoordinate;
     }
 }
-
-
