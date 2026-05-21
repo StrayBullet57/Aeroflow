@@ -19,36 +19,18 @@ public class LoginPage {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLayout(new BorderLayout());
 
-        // NAVBAR
-        JPanel navBar = new JPanel(new GridLayout(1, 4));
-        navBar.setBackground(new Color(17, 24, 39));
-        navBar.setPreferredSize(new Dimension(0, 60));
-        String[] navItems = {"Home", "Book", "Flights", "Profile"};
-        for (String item : navItems) {
-            JLabel lbl = new JLabel(item, SwingConstants.CENTER);
-            lbl.setForeground(new Color(229, 231, 235));
-            lbl.setFont(new Font("SansSerif", Font.BOLD, 14));
-            lbl.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            lbl.addMouseListener(new MouseAdapter() {
-                public void mouseEntered(MouseEvent e) { lbl.setForeground(new Color(96, 165, 250)); }
-                public void mouseExited(MouseEvent e)  { lbl.setForeground(new Color(229, 231, 235)); }
-            });
-            navBar.add(lbl);
-        }
-        frame.add(navBar, BorderLayout.NORTH);
-
         // HERO
         GradientPanel hero = new GradientPanel();
         hero.setLayout(new GridBagLayout());
 
-        // CARD — use GridBagLayout so every row stretches full width naturally
+        // CARD
         JPanel card = new JPanel(new GridBagLayout());
         card.setBackground(Color.WHITE);
         card.setBorder(new CompoundBorder(
             new LineBorder(new Color(220, 220, 220), 1, true),
             new EmptyBorder(36, 40, 32, 40)
         ));
-        card.setPreferredSize(new Dimension(420, 490));
+        card.setPreferredSize(new Dimension(420, 440)); // reduced height since forgot pw removed
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 0;
@@ -95,15 +77,7 @@ public class LoginPage {
         JPasswordField passField = makePasswordField();
         card.add(passField, gbc); gbc.gridy++;
 
-        // Forgot — right-aligned
-        gbc.insets = new Insets(6, 0, 0, 0);
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.anchor = GridBagConstraints.EAST;
-        JLabel forgot = new JLabel("Forgot password?");
-        forgot.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        forgot.setForeground(new Color(30, 136, 229));
-        forgot.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        card.add(forgot, gbc); gbc.gridy++;
+        // ── "Forgot password?" REMOVED ──
 
         // Login button
         gbc.insets = new Insets(14, 0, 0, 0);
@@ -132,24 +106,34 @@ public class LoginPage {
         guestBtn.addActionListener(e -> { frame.dispose(); new GUI.MainContent().start(); });
         card.add(guestBtn, gbc); gbc.gridy++;
 
-        // Sign up row
+        // Sign up row — FIX: use a JButton styled as a link for reliable clicks
         gbc.insets = new Insets(14, 0, 0, 0);
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.CENTER;
+
         JPanel regRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 0));
         regRow.setBackground(Color.WHITE);
+
         JLabel regText = new JLabel("Don't have an account?");
         regText.setFont(new Font("SansSerif", Font.PLAIN, 13));
         regText.setForeground(new Color(107, 114, 128));
-        JLabel regLink = new JLabel("Sign up");
+
+        // Use a borderless JButton instead of JLabel for reliable click detection
+        JButton regLink = new JButton("Sign up");
         regLink.setFont(new Font("SansSerif", Font.BOLD, 13));
         regLink.setForeground(new Color(30, 136, 229));
+        regLink.setContentAreaFilled(false);
+        regLink.setBorderPainted(false);
+        regLink.setFocusPainted(false);
         regLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        regLink.setMargin(new Insets(0, 0, 0, 0));
+        regLink.addActionListener(e -> { frame.dispose(); new RegisterPage().start(); });
+        // Underline on hover
         regLink.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) { frame.dispose(); new RegisterPage().start(); }
             public void mouseEntered(MouseEvent e) { regLink.setText("<html><u>Sign up</u></html>"); }
             public void mouseExited(MouseEvent e)  { regLink.setText("Sign up"); }
         });
+
         regRow.add(regText);
         regRow.add(regLink);
         card.add(regRow, gbc);
@@ -162,7 +146,7 @@ public class LoginPage {
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.getVerticalScrollBar().setUnitIncrement(12);
-        scroll.setPreferredSize(new Dimension(440, 520));
+        scroll.setPreferredSize(new Dimension(440, 480));
 
         hero.add(scroll);
         frame.add(hero, BorderLayout.CENTER);

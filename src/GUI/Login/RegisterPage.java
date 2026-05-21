@@ -15,24 +15,6 @@ public class RegisterPage {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLayout(new BorderLayout());
 
-        // NAVBAR
-        JPanel navBar = new JPanel(new GridLayout(1, 4));
-        navBar.setBackground(new Color(17, 24, 39));
-        navBar.setPreferredSize(new Dimension(0, 60));
-        String[] navItems = {"Home", "Book", "Flights", "Profile"};
-        for (String item : navItems) {
-            JLabel lbl = new JLabel(item, SwingConstants.CENTER);
-            lbl.setForeground(new Color(229, 231, 235));
-            lbl.setFont(new Font("SansSerif", Font.BOLD, 14));
-            lbl.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            lbl.addMouseListener(new MouseAdapter() {
-                public void mouseEntered(MouseEvent e) { lbl.setForeground(new Color(96, 165, 250)); }
-                public void mouseExited(MouseEvent e)  { lbl.setForeground(new Color(229, 231, 235)); }
-            });
-            navBar.add(lbl);
-        }
-        frame.add(navBar, BorderLayout.NORTH);
-
         // HERO
         LoginPage.GradientPanel hero = new LoginPage.GradientPanel();
         hero.setLayout(new GridBagLayout());
@@ -52,9 +34,10 @@ public class RegisterPage {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.WEST; // default anchor = LEFT
         gbc.insets = new Insets(0, 0, 0, 0);
 
-        // Logo
+        // Logo icon (centered exception)
         JLabel logoIcon = new JLabel("✈", SwingConstants.CENTER);
         logoIcon.setFont(new Font("SansSerif", Font.PLAIN, 30));
         logoIcon.setForeground(new Color(21, 101, 192));
@@ -72,21 +55,22 @@ public class RegisterPage {
         heading.setForeground(new Color(17, 24, 39));
         card.add(heading, gbc); gbc.gridy++;
 
-        // First name + Last name side by side
+        // ── First name + Last name labels (two columns) ──
         gbc.insets = new Insets(16, 0, 0, 0);
         gbc.gridwidth = 1;
         gbc.weightx = 0.5;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.WEST;
 
         gbc.gridx = 0;
-        JLabel fnLbl = makeLabel("First name");
-        card.add(fnLbl, gbc);
+        card.add(makeLabel("First name"), gbc);
 
         gbc.gridx = 1;
         gbc.insets = new Insets(16, 8, 0, 0);
-        JLabel lnLbl = makeLabel("Last name");
-        card.add(lnLbl, gbc);
+        card.add(makeLabel("Last name"), gbc);
         gbc.gridy++;
 
+        // First/Last name fields
         gbc.insets = new Insets(4, 0, 0, 0);
         gbc.gridx = 0;
         JTextField fnameField = makeTextField("Juan");
@@ -98,12 +82,14 @@ public class RegisterPage {
         card.add(lnameField, gbc);
         gbc.gridy++;
 
-        // Back to full width
+        // ── Back to full width — anchor WEST for all labels below ──
         gbc.gridx = 0;
         gbc.gridwidth = 2;
         gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.WEST; // ← keeps labels left-aligned
 
         gbc.insets = new Insets(12, 0, 4, 0);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         card.add(makeLabel("Email address"), gbc); gbc.gridy++;
 
         gbc.insets = new Insets(0, 0, 0, 0);
@@ -197,24 +183,32 @@ public class RegisterPage {
         guestBtn.addActionListener(e -> { frame.dispose(); new GUI.MainContent().start(); });
         card.add(guestBtn, gbc); gbc.gridy++;
 
-        // Already have an account
+        // Already have an account row
         gbc.insets = new Insets(12, 0, 0, 0);
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.CENTER;
         JPanel loginRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 0));
         loginRow.setBackground(Color.WHITE);
+
         JLabel loginText = new JLabel("Already have an account?");
         loginText.setFont(new Font("SansSerif", Font.PLAIN, 13));
         loginText.setForeground(new Color(107, 114, 128));
-        JLabel loginLink = new JLabel("Log in");
+
+        // JButton styled as link — reliable clicks
+        JButton loginLink = new JButton("Log in");
         loginLink.setFont(new Font("SansSerif", Font.BOLD, 13));
         loginLink.setForeground(new Color(30, 136, 229));
+        loginLink.setContentAreaFilled(false);
+        loginLink.setBorderPainted(false);
+        loginLink.setFocusPainted(false);
         loginLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        loginLink.setMargin(new Insets(0, 0, 0, 0));
+        loginLink.addActionListener(e -> { frame.dispose(); new LoginPage().start(); });
         loginLink.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) { frame.dispose(); new LoginPage().start(); }
             public void mouseEntered(MouseEvent e) { loginLink.setText("<html><u>Log in</u></html>"); }
             public void mouseExited(MouseEvent e)  { loginLink.setText("Log in"); }
         });
+
         loginRow.add(loginText);
         loginRow.add(loginLink);
         card.add(loginRow, gbc);
