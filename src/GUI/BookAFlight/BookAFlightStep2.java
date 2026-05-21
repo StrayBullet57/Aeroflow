@@ -124,6 +124,7 @@ public class BookAFlightStep2 {
         selectButton.addActionListener(e -> {
             main.getBookingSession().setSelectedFlight(flight);
             System.out.println("Selected flight: " + flight.getFlightID());
+            main.showPage(BookAFlightStep3.getPanel(main)); 
         });
 
         JPanel left = new JPanel();

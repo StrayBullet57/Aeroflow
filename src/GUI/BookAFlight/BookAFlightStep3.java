@@ -126,13 +126,19 @@ public class BookAFlightStep3 {
         String selectedClass = (String) typeBox.getSelectedItem();
 
         main.getBookingSession().setSelectedSeat(new Seat(selectedSeatNum, selectedCategory, selectedClass));
-        
+
         main.showPage(BookAFlightStep4.getPanel((main)));
+
+
 
         submitButton.addActionListener(e -> {
             main.showPage(BookAFlightStep4  .getPanel(main));
             main.getBookingSession().setSelectedSeat(new Seat(selectedSeatNum,selectedCategory,selectedClass));
         });
+
+
+
+        
         buttonPanel.add(backButton, BorderLayout.WEST);
         buttonPanel.add(submitButton, BorderLayout.EAST);
 
