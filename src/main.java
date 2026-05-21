@@ -1,5 +1,6 @@
 import GUI.MainContent;
 import javax.swing.SwingUtilities;
+import GUI.Login.LoginPage;
 // import transactions.Payment;
 
 public class main{
@@ -15,6 +16,6 @@ public class main{
         // testFlight.startInteractiveSeatSelection(); 
         // System.out.println("\n=== CLOSING SEAT TEST, LAUNCHING SYSTEM GUI ===\n");
         // TEST
-        SwingUtilities.invokeLater(() -> new MainContent().start());
+        SwingUtilities.invokeLater(() -> new LoginPage().start());
     }
 }
