@@ -3,6 +3,7 @@ package GUI.Builders;
 import GUI.BookAFlight.BookAFlightStep1;
 import GUI.Homepage;
 import GUI.MainContent;
+import GUI.MyBookingsPage;
 import GUI.ProfilePage;
 import GUI.TrackAFlight_InputFlightID;
 import users.SessionManager;
@@ -13,19 +14,21 @@ public class NavBar {
 
     public static JPanel createNavBar(MainContent main) {
         JPanel navBar = new JPanel();
-        navBar.setLayout(new FlowLayout(FlowLayout.CENTER, 200, 20));
+        navBar.setLayout(new FlowLayout(FlowLayout.CENTER, 150, 20));
         navBar.setBackground(new Color(30, 30, 30));
         navBar.setPreferredSize(new Dimension(0, 80));
 
-        JButton home          = createNavButton("Home");
-        JButton book_a_flight = createNavButton("Book");
+        JButton home           = createNavButton("Home");
+        JButton book_a_flight  = createNavButton("Book");
         JButton track_a_flight = createNavButton("Flights");
-        JButton profile       = createNavButton("Profile");
-        JButton logout        = createNavButton("Logout");
+        JButton my_bookings    = createNavButton("My Bookings");
+        JButton profile        = createNavButton("Profile");
+        JButton logout         = createNavButton("Logout");
 
         navBar.add(home);
         navBar.add(book_a_flight);
         navBar.add(track_a_flight);
+        navBar.add(my_bookings);
         navBar.add(profile);
         navBar.add(logout);
 
@@ -37,6 +40,9 @@ public class NavBar {
 
         track_a_flight.addActionListener(e ->
             main.showPage(TrackAFlight_InputFlightID.getPanel(main)));
+
+        my_bookings.addActionListener(e ->
+            main.showPage(MyBookingsPage.getPanel(main)));
 
         profile.addActionListener(e ->
             main.showPage(ProfilePage.getPanel(main)));
