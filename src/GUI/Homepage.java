@@ -1,10 +1,8 @@
 package GUI;
 
-import javax.swing.*;
-import GUI.BookAFlight.BookAFlightStep1;
 import GUI.BookAFlight.BookAFlightStep2;
-
 import java.awt.*;
+import javax.swing.*;
 
 public class Homepage {
 

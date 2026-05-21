@@ -45,7 +45,7 @@ public class BookAFlightStep1 {
         title.setFont(new Font("SansSerif", Font.BOLD, 28));
         title.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        String[] cities = {"Cebu", "Manila", "Davao"};
+        String[] cities = {"Cebu", "Manila", "Davao"};// for box constraint
 
         JLabel fromLabel = createFieldLabel("From");
         JComboBox<String> fromBox = new JComboBox<>(
@@ -62,7 +62,7 @@ public class BookAFlightStep1 {
             new String[]{"Philippine Airlines", "Cebu Pacific", "AirAsia"}
         );
 
-        fromBox.addActionListener(e -> {
+        fromBox.addActionListener(e -> {// box constraint
             String selectedFrom = (String) fromBox.getSelectedItem();
 
             toBox.removeAllItems();

@@ -1,18 +1,13 @@
 package GUI;
 
-import javax.swing.*;
-
 import datas.*;
-import models.Flight;
-import models.Route;
-
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
+import models.Flight;
 
 public class TrackAFlight_InputFlightID {
         private static List<Flight> flights = FlightData.getFlights(); 
-
 
         public static JPanel getPanel(MainContent main) {
 
