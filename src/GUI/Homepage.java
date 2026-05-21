@@ -102,7 +102,7 @@ public class Homepage {
 
         imageLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
+            public void mousePressed(java.awt.event.MouseEvent e) {
                 main.showPage(BookAFlightStep2.getPanel(main, destination));
             }
         });
