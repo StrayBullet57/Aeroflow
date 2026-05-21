@@ -1,17 +1,13 @@
 package GUI;
 
 import GUI.Builders.NavBar;
-import datas.AirlineData;
 import datas.FlightData;
-import datas.RouteData;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
-import models.Airline;
 import models.BookingSession;
 import models.Flight;
 import models.FlightBooking;
-import models.Route;
 
 public class MainContent {
     private FlightBooking bookingSystem;
@@ -27,7 +23,7 @@ public class MainContent {
     public void start() {
         bookingSystem = new FlightBooking();
         bookingSession = new BookingSession();
-        
+
         List<Flight> flights = FlightData.getFlights();
 
         for (Flight f : flights){
