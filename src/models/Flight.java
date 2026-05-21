@@ -26,17 +26,17 @@ public class Flight{
 
         for (int row = 1; row <= 4; row++) {
             for (char col : columns) {
-                seats.add(new Seat(row, col, Seat.SeatClass.FIRST_CLASS));
+                seats.add(new Seat(row, col, "FIRST CLASS"));
             }
         }
         for (int row = 2; row <= 5; row++) {
             for (char col : columns) {
-                seats.add(new Seat(row, col, Seat.SeatClass.BUSINESS));
+                seats.add(new Seat(row, col, "BUSINESS CLASS"));
             }
         }
         for (int row = 10; row <= 21; row++) {
             for (char col : columns) {
-                seats.add(new Seat(row, col, Seat.SeatClass.ECONOMY));
+                seats.add(new Seat(row, col, "ECONOMY CLASS"));
             }
         }
     }

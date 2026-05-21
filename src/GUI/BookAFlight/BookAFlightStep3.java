@@ -3,6 +3,7 @@ package GUI.BookAFlight;
 import javax.swing.*;
 import GUI.MainContent;
 import java.awt.*;
+import models.Seat;
 
 public class BookAFlightStep3 {
 
@@ -84,7 +85,7 @@ public class BookAFlightStep3 {
         JLabel categoryLabel = createFieldLabel("Category");
         JComboBox<String> categoryBox = createDropdown(new String[]{"A", "B", "C", "H", "J", "K"});
 
-        JLabel typeLabel = createFieldLabel("Type");
+        JLabel typeLabel = createFieldLabel("Class");
         JComboBox<String> typeBox = createDropdown(new String[]{"FIRST CLASS", "BUSINESS CLASS", "ECONOMY CLASS"});
 
         rightPanel.add(sectionTitle);
@@ -114,10 +115,26 @@ public class BookAFlightStep3 {
             main.showPage(BookAFlightStep2.getPanel(main,""));
         });
 
-        JButton nextButton = new JButton("Submit");
+        JButton submitButton = new JButton("Submit");
 
+        String seatStr = (String) seatNumBox.getSelectedItem();
+        int selectedSeatNum = (seatStr != null) ? Integer.parseInt(seatStr) : 1;
+
+        String catStr = (String) categoryBox.getSelectedItem();
+        char selectedCategory = (catStr != null && !catStr.isEmpty()) ? catStr.charAt(0) : 'A';
+
+        String selectedClass = (String) typeBox.getSelectedItem();
+
+        main.getBookingSession().setSelectedSeat(new Seat(selectedSeatNum, selectedCategory, selectedClass));
+        
+        main.showPage(BookAFlightStep4.getPanel((main)));
+
+        submitButton.addActionListener(e -> {
+            main.showPage(BookAFlightStep4  .getPanel(main));
+            main.getBookingSession().setSelectedSeat(new Seat(selectedSeatNum,selectedCategory,selectedClass));
+        });
         buttonPanel.add(backButton, BorderLayout.WEST);
-        buttonPanel.add(nextButton, BorderLayout.EAST);
+        buttonPanel.add(submitButton, BorderLayout.EAST);
 
         card.add(splitContainer);
         card.add(Box.createVerticalGlue());

@@ -2,25 +2,17 @@ package models;
 
 public class Seat {
 
-     public enum SeatClass {
-            ECONOMY,
-            PREMIUM_ECONOMY,
-            BUSINESS,
-            FIRST_CLASS
-        }
     
     private int rowNumber;
     private char seatCategory; 
     private String seatNumber; 
-    private SeatClass seatClass;
     private boolean isAvailable;
 
    
-    public Seat(int rowNumber, char seatCategory, SeatClass seatClass) {
+    public Seat(int rowNumber, char seatCategory, String seatClass) {
         this.rowNumber = rowNumber;
         this.seatCategory = Character.toUpperCase(seatCategory);
         this.seatNumber = rowNumber + String.valueOf(this.seatCategory);
-        this.seatClass = seatClass;
         this.isAvailable = true; 
     }
 
@@ -58,14 +50,7 @@ public int getRowNumber() { return rowNumber; }
     public String getSeatNumber() { return seatNumber; }
     public void setSeatNumber(String seatNumber) { this.seatNumber = seatNumber; }
 
-    public SeatClass getSeatClass() { return seatClass; }
-    public void setSeatClass(SeatClass seatClass) { this.seatClass = seatClass; }
-
     public boolean isAvailable() { return isAvailable; }
     public void setAvailable(boolean isAvailable) { this.isAvailable = isAvailable; }
 
-    @Override
-    public String toString(){
-        return seatNumber + " - " + seatClass + (isAvailable ? " (Available)" : " (Taken)");
-    }
 }
