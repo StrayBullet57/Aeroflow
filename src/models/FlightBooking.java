@@ -9,7 +9,7 @@ public class FlightBooking{
     private ArrayList<Flight> flights;
     private ArrayList<Booking> bookings;
 
-    public FlightBooking(){// create arraylist
+    public FlightBooking(){ // create arraylist
         flights = new ArrayList<>();
         bookings = new ArrayList<>();
     }

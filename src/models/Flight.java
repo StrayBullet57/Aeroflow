@@ -2,12 +2,12 @@ package models;
 import java.util.ArrayList;
 
 public class Flight{
-    private String flightID;
-    private Airline airline;
-    private Route route; 
-    private String status;
-    private ArrayList<Seat> seats;
-    private FlightSchedule schedule;
+    private String flightID; // unique identifier
+    private Airline airline; // stores airline id, airline name
+    private Route route;  // stores origin,destination. } Locations (stores coordinates)
+    private String status; // basta status 
+    private ArrayList<Seat> seats; // 
+    private FlightSchedule schedule; //schedule sa flight
 
     public Flight(String flightID, Airline airline, Route route, String status, FlightSchedule schedule){
         

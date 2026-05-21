@@ -35,6 +35,9 @@ public class Booking{
         }
     }
 
+
+    // TO CONSIDER
+    
     public static void viewHistory(){
         System.out.println("Booking History");
 
