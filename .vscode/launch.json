@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "LoginPage",
+            "request": "launch",
+            "mainClass": "GUI.Login.LoginPage",
+            "projectName": "Aeroflow_cee157d"
+        },
+        {
+            "type": "java",
+            "name": "MainContent",
+            "request": "launch",
+            "mainClass": "GUI.MainContent",
+            "projectName": "Aeroflow_cee157d"
+        },
+        {
+            "type": "java",
             "name": "MainContent",
             "request": "launch",
             "mainClass": "GUI.MainContent",

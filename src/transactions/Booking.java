@@ -6,15 +6,17 @@ import models.Seat;
 
 public class Booking {
     private String bookingID;
+    private String userID;     
     private Flight flight;
     private Seat seat;
 
     private static ArrayList<Booking> bookingHistory = new ArrayList<>();
 
-    public Booking(String bookingID, Flight flight, Seat seat) {
+    public Booking(String bookingID, String userID, Flight flight, Seat seat) { // ADD userID param
         this.bookingID = bookingID;
-        this.flight = flight;
-        this.seat = seat;
+        this.userID    = userID;  
+        this.flight    = flight;
+        this.seat      = seat;
     }
 
     public void confirmBooking() {
@@ -27,24 +29,31 @@ public class Booking {
         }
     }
 
+    public String getBookingID() { return bookingID; }
+    public String getUserID()    { return userID; }   
+    public Flight getFlight()    { return flight; }
+    public Seat getSeat()        { return seat; }
+
     public static ArrayList<Booking> getBookingHistory() {
         return bookingHistory;
+    }
+
+    public static ArrayList<Booking> getBookingsByUser(String userID) { 
+        ArrayList<Booking> result = new ArrayList<>();
+        for (Booking b : bookingHistory) {
+            if (b.userID.equals(userID)) {
+                result.add(b);
+            }
+        }
+        return result;
     }
 
     public static void addHistoricalBooking(Booking b) {
         bookingHistory.add(b);
     }
 
-    public static void viewHistory() {
-        System.out.println("Booking History");
-        for (Booking booking : bookingHistory) {
-            System.out.println(booking);
-            System.out.println();
-        }
-    }
-
     @Override
     public String toString() {
-        return "Booking ID: " + bookingID + "\nFlight: " + flight.getFlightID() + "\nSeat: " + seat.getSeatNumber();        
+        return "Booking ID: " + bookingID + "\nFlight: " + flight.getFlightID() + "\nSeat: " + seat.getSeatNumber();
     }
 }
