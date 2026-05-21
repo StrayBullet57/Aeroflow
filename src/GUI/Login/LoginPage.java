@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 public class LoginPage {
 
@@ -31,7 +32,7 @@ public class LoginPage {
             new LineBorder(new Color(220, 220, 220), 1, true),
             new EmptyBorder(36, 40, 32, 40)
         ));
-        card.setPreferredSize(new Dimension(420, 440));
+        card.setPreferredSize(new Dimension(420, 600));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 0;
@@ -40,17 +41,42 @@ public class LoginPage {
         gbc.weightx = 1.0;
         gbc.insets = new Insets(0, 0, 0, 0);
 
-        // Logo
-        JLabel logoIcon = new JLabel("✈", SwingConstants.CENTER);
-        logoIcon.setFont(new Font("SansSerif", Font.PLAIN, 36));
-        logoIcon.setForeground(new Color(21, 101, 192));
-        card.add(logoIcon, gbc); gbc.gridy++;
+        ImageIcon logoIcon = new ImageIcon("src/images/AEROFLOWBNW.png");
+        Image rawImg = logoIcon.getImage();
 
-        gbc.insets = new Insets(4, 0, 0, 0);
-        JLabel logoText = new JLabel("AEROFLOW", SwingConstants.CENTER);
-        logoText.setFont(new Font("SansSerif", Font.BOLD, 26));
-        logoText.setForeground(new Color(21, 101, 192));
-        card.add(logoText, gbc); gbc.gridy++;
+        int baseWidth = 340;
+        int baseHeight = rawImg.getHeight(null);
+        if (rawImg.getWidth(null) > 0) {
+            baseHeight = (int) (baseHeight * ((double) baseWidth / rawImg.getWidth(null)));
+        } else {
+            baseHeight = 150;
+        }
+
+        BufferedImage tintedImg = new BufferedImage(baseWidth, baseHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = tintedImg.createGraphics();
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.drawImage(rawImg, 0, 0, baseWidth, baseHeight, null);
+        g2d.dispose();
+
+        int targetRGB = new Color(0x14, 0x77, 0xB2).getRGB() & 0x00FFFFFF;
+        for (int y = 0; y < tintedImg.getHeight(); y++) {
+            for (int x = 0; x < tintedImg.getWidth(); x++) {
+                int argb = tintedImg.getRGB(x, y);
+                int a = (argb >> 24) & 0xFF;
+                int r = (argb >> 16) & 0xFF;
+                int g = (argb >> 8) & 0xFF;
+                int b = argb & 0xFF;
+                int brightness = (r + g + b) / 3;
+                if (brightness > 30) {
+                    int alphaOut = (int) (a * (brightness / 255.0));
+                    tintedImg.setRGB(x, y, (alphaOut << 24) | targetRGB);
+                }
+            }
+        }
+
+        JLabel logoLabel = new JLabel(new ImageIcon(tintedImg));
+        logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        card.add(logoLabel, gbc); gbc.gridy++;
 
         gbc.insets = new Insets(14, 0, 0, 0);
         JLabel heading = new JLabel("Welcome back", SwingConstants.CENTER);
@@ -58,7 +84,6 @@ public class LoginPage {
         heading.setForeground(new Color(17, 24, 39));
         card.add(heading, gbc); gbc.gridy++;
 
-        // Email
         gbc.insets = new Insets(20, 0, 4, 0);
         card.add(makeLabel("Email address"), gbc); gbc.gridy++;
 
@@ -66,7 +91,6 @@ public class LoginPage {
         JTextField emailField = makeTextField("you@example.com");
         card.add(emailField, gbc); gbc.gridy++;
 
-        // Password
         gbc.insets = new Insets(12, 0, 4, 0);
         card.add(makeLabel("Password"), gbc); gbc.gridy++;
 
@@ -74,7 +98,6 @@ public class LoginPage {
         JPasswordField passField = makePasswordField();
         card.add(passField, gbc); gbc.gridy++;
 
-        // Login button
         gbc.insets = new Insets(14, 0, 0, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
@@ -104,17 +127,14 @@ public class LoginPage {
         });
         card.add(loginBtn, gbc); gbc.gridy++;
 
-        // Divider
         gbc.insets = new Insets(14, 0, 14, 0);
         card.add(makeDivider("or"), gbc); gbc.gridy++;
 
-        // Guest button
         gbc.insets = new Insets(0, 0, 0, 0);
         JButton guestBtn = makeOutlineButton("Track Flight (Guest)");
         guestBtn.addActionListener(e -> { frame.dispose(); new GUI.MainContent().start(true); });
         card.add(guestBtn, gbc); gbc.gridy++;
 
-        // Sign up row
         gbc.insets = new Insets(14, 0, 0, 0);
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.CENTER;
@@ -135,13 +155,10 @@ public class LoginPage {
         regLink.setMargin(new Insets(0, 0, 0, 0));
         regLink.addActionListener(e -> { frame.dispose(); new RegisterPage().start(); });
 
-        // REMOVED: MouseListener hover states for the signup text link are completely gone
-
         regRow.add(regText);
         regRow.add(regLink);
         card.add(regRow, gbc);
 
-        // Scroll wrapper
         JScrollPane scroll = new JScrollPane(card);
         scroll.setBorder(null);
         scroll.setOpaque(false);
@@ -149,7 +166,7 @@ public class LoginPage {
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.getVerticalScrollBar().setUnitIncrement(12);
-        scroll.setPreferredSize(new Dimension(440, 480));
+        scroll.setPreferredSize(new Dimension(440, 640));
 
         hero.add(scroll);
         frame.add(hero, BorderLayout.CENTER);
@@ -202,7 +219,6 @@ public class LoginPage {
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                // REMOVED: .isRollover() check removed. Background remains solid 'bg' color permanently.
                 g2.setColor(bg);
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
                 g2.dispose();
@@ -224,7 +240,6 @@ public class LoginPage {
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                // REMOVED: .isRollover() color change removed. Fill background color remains static white.
                 g2.setColor(Color.WHITE);
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
                 g2.setColor(new Color(209, 213, 219));
