@@ -112,20 +112,26 @@ public class BookAFlightStep4 {
         confirmButton.setOpaque(true);
         confirmButton.setBorderPainted(false);
         confirmButton.setPreferredSize(new Dimension(200, 44));
+
         confirmButton.addActionListener(e -> {
-            String userID = users.SessionManager.getCurrentUser().getUserID(); // ADD THIS
+            String userID = users.SessionManager.getCurrentUser().getUserID();
 
             String bookingID = "BK-" + selectedFlight.getFlightID()
                 + "-" + selectedSeat.getSeatNumber()
-                + "-" + System.currentTimeMillis() % 10000;
+                + "-" + (System.currentTimeMillis() % 10000);
 
+            // 1. Create and confirm the booking object
             Booking booking = main.getBookingSystem()
-                .createBooking(bookingID, userID, selectedFlight, selectedSeat, 0); // ADD userID
+                .createBooking(bookingID, userID, selectedFlight, selectedSeat, 0);
             booking.confirmBooking();
+
+            // 2. CRITICAL FIX: Add the newly created booking to the global history list
+            // So that Booking.getBookingsByUser(userID) can find it later!
+            Booking.getBookingHistory().add(booking);
 
             JOptionPane.showMessageDialog(main.getFrame(),
                 "Booking confirmed!\nYour booking ID is: " + bookingID,
-          "Booking Confirmed",
+                "Booking Confirmed",
                 JOptionPane.INFORMATION_MESSAGE);
 
             main.getBookingSession().clear();

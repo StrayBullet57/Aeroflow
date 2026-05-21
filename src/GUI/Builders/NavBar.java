@@ -21,7 +21,7 @@ public class NavBar {
         JButton home           = createNavButton("Home");
         JButton book_a_flight  = createNavButton("Book");
         JButton track_a_flight = createNavButton("Flights");
-        JButton my_bookings    = createNavButton("My Bookings");
+        JButton my_bookings    = createNavButton("Bookings");
         JButton profile        = createNavButton("Profile");
         JButton logout         = createNavButton("Logout");
 

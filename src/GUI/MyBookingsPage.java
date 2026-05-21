@@ -13,39 +13,47 @@ public class MyBookingsPage {
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.decode("#1477b2"));
 
-        // ── Title bar ─────────────────────────────────────────────────
+        // ── Title Bar ─────────────────────────────────────────────────
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 20));
         topPanel.setOpaque(false);
+        
         JLabel title = new JLabel("My Bookings");
         title.setFont(new Font("SansSerif", Font.BOLD, 36));
         title.setForeground(Color.WHITE);
         topPanel.add(title);
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
-        // ── Fetch this user's bookings ─────────────────────────────────
+        // ── Fetch Current User Data ───────────────────────────────────
         String userID = SessionManager.getCurrentUser().getUserID();
         ArrayList<Booking> myBookings = Booking.getBookingsByUser(userID);
 
-        // ── Scrollable list of booking cards ──────────────────────────
+        // ── Scrollable Card Wrapper Panel ─────────────────────────────
         JPanel listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
         listPanel.setBackground(Color.decode("#1477b2"));
         listPanel.setBorder(new EmptyBorder(10, 60, 30, 60));
+
+        // Debug assistance: Prints current size to the IDE console 
+        System.out.println("[Debug UI] Loaded bookings count for user " + userID + ": " + myBookings.size());
 
         if (myBookings.isEmpty()) {
             JLabel empty = new JLabel("You have no bookings yet.");
             empty.setFont(new Font("SansSerif", Font.PLAIN, 20));
             empty.setForeground(Color.WHITE);
             empty.setAlignmentX(Component.CENTER_ALIGNMENT);
+            
             listPanel.add(Box.createVerticalStrut(60));
             listPanel.add(empty);
         } else {
             for (Booking b : myBookings) {
-                listPanel.add(createBookingCard(b, main, listPanel));
+                listPanel.add(createBookingCard(b, main));
                 listPanel.add(Box.createVerticalStrut(16));
             }
+            // Acts as an invisible structural spring forcing elements to align perfectly upward
+            listPanel.add(Box.createVerticalGlue());
         }
 
+        // ── Scroll Pane Mechanics ─────────────────────────────────────
         JScrollPane scrollPane = new JScrollPane(listPanel);
         scrollPane.setBorder(null);
         scrollPane.setOpaque(false);
@@ -56,14 +64,17 @@ public class MyBookingsPage {
         return mainPanel;
     }
 
-    private static JPanel createBookingCard(Booking b, MainContent main, JPanel listPanel) {
+    private static JPanel createBookingCard(Booking b, MainContent main) {
+        // Enforcing structured dimensions prevents BoxLayout from squishing cards
         JPanel card = new JPanel(new BorderLayout(20, 0));
         card.setBackground(Color.WHITE);
         card.setBorder(new EmptyBorder(20, 24, 20, 24));
+        card.setPreferredSize(new Dimension(800, 140));
+        card.setMinimumSize(new Dimension(400, 140));
         card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 140));
         card.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        // ── Left: booking info ─────────────────────────────────────
+        // ── Left Side: Flight Metadata Extraction ──────────────────────
         JPanel infoPanel = new JPanel(new GridLayout(4, 1, 0, 4));
         infoPanel.setOpaque(false);
 
@@ -83,8 +94,7 @@ public class MyBookingsPage {
         routeLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         routeLabel.setForeground(new Color(17, 24, 39));
 
-        JLabel flightLabel = new JLabel("Flight: " + flightID
-            + "   |   Departs: " + depDate + " at " + depTime);
+        JLabel flightLabel = new JLabel("Flight: " + flightID + "   |   Departs: " + depDate + " at " + depTime);
         flightLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
         flightLabel.setForeground(new Color(55, 65, 81));
 
@@ -97,7 +107,7 @@ public class MyBookingsPage {
         infoPanel.add(flightLabel);
         infoPanel.add(seatLabel);
 
-        // ── Right: cancel button ───────────────────────────────────
+        // ── Right Side: Interaction Operations ─────────────────────────
         JButton cancelBtn = new JButton("Cancel");
         cancelBtn.setFont(new Font("SansSerif", Font.BOLD, 13));
         cancelBtn.setForeground(new Color(200, 0, 0));
@@ -106,18 +116,22 @@ public class MyBookingsPage {
         cancelBtn.setFocusPainted(false);
         cancelBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         cancelBtn.setPreferredSize(new Dimension(100, 36));
+        
         cancelBtn.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(main.getFrame(),
                 "Cancel booking " + b.getBookingID() + "?\nSeat " + seatID + " will be freed.",
                 "Confirm Cancellation",
                 JOptionPane.YES_NO_OPTION);
+                
             if (confirm == JOptionPane.YES_OPTION) {
-                // Free the seat back up
+                // Remove reservations from back-end models
                 b.getSeat().cancelReservation();
-                // Remove from history
                 Booking.getBookingHistory().remove(b);
-                // Refresh the page
-                main.showPage(MyBookingsPage.getPanel(main));
+                
+                // Safely refresh the UI structural tree on the Event Dispatch Thread
+                SwingUtilities.invokeLater(() -> {
+                    main.showPage(MyBookingsPage.getPanel(main));
+                });
             }
         });
 
