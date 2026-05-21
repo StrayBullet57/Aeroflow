@@ -134,10 +134,9 @@ public class LoginPage {
         regLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         regLink.setMargin(new Insets(0, 0, 0, 0));
         regLink.addActionListener(e -> { frame.dispose(); new RegisterPage().start(); });
-        regLink.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent e) { regLink.setText("<html><u>Sign up</u></html>"); }
-            public void mouseExited(MouseEvent e)  { regLink.setText("Sign up"); }
-        });
+
+        // REMOVED: MouseListener hover states for the signup text link are completely gone
+
         regRow.add(regText);
         regRow.add(regLink);
         card.add(regRow, gbc);
@@ -203,7 +202,8 @@ public class LoginPage {
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(getModel().isRollover() ? bg.brighter() : bg);
+                // REMOVED: .isRollover() check removed. Background remains solid 'bg' color permanently.
+                g2.setColor(bg);
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
                 g2.dispose();
                 super.paintComponent(g);
@@ -224,7 +224,8 @@ public class LoginPage {
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(getModel().isRollover() ? new Color(243, 244, 246) : Color.WHITE);
+                // REMOVED: .isRollover() color change removed. Fill background color remains static white.
+                g2.setColor(Color.WHITE);
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
                 g2.setColor(new Color(209, 213, 219));
                 g2.setStroke(new BasicStroke(1.5f));
@@ -267,3 +268,4 @@ public class LoginPage {
         }
     }
 }
+ 
