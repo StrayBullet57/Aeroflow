@@ -3,10 +3,14 @@ package GUI.BookAFlight;
 import javax.swing.*;
 import GUI.MainContent;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import datas.FlightData;
+import models.Flight;
 
 public class BookAFlightStep2 {
 
-    public static JPanel getPanel(MainContent main) {
+    public static JPanel getPanel(MainContent main, String destination) {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -46,19 +50,11 @@ public class BookAFlightStep2 {
         sectionTitle.setFont(new Font("SansSerif", Font.BOLD, 28));
         sectionTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JPanel listPanel = new JPanel();
-        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
-        listPanel.setOpaque(false);
-        listPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        JPanel flightCard1 = createFlightCard("PR 123 • Cebu → Manila", "Departure: 5:00 PM • Arrival: 6:15 PM", "Philippine Airlines");
-        JPanel flightCard2 = createFlightCard("PR 123 • Cebu → Manila", "Departure: 5:00 PM • Arrival: 6:15 PM", "Philippine Airlines");
-         JPanel flightCard3 = createFlightCard("PR 123 • Cebu → Manila", "Departure: 5:00 PM • Arrival: 6:15 PM", "Philippine Airlines");
-        
-        listPanel.add(flightCard1);
-        listPanel.add(flightCard2);
-        listPanel.add(flightCard3);
-        listPanel.add(Box.createVerticalStrut(15)); 
+        // --- CHANGED HERE ---
+        // Instead of manually initializing an empty layout panel and pushing missing
+        // flightCard1, 2, 3 variables, we call your new displayFlightList function directly.
+        JPanel listPanel = displayFlightList(destination);
+        // --------------------
 
         JScrollPane scrollPane = new JScrollPane(listPanel);
         scrollPane.setBorder(BorderFactory.createEmptyBorder()); 
@@ -103,20 +99,25 @@ public class BookAFlightStep2 {
         return mainPanel;
     }
 
-    private static JPanel createFlightCard(String flightDetails, String timeDetails, String airlineName) {
+    private static JPanel createFlightCard(Flight flight) {
         JPanel flightCard = new JPanel(new BorderLayout());
         flightCard.setMaximumSize(new Dimension(600, 120)); 
         flightCard.setBackground(new Color(235, 245, 255));
         flightCard.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
         flightCard.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel flightName = new JLabel(flightDetails);
+        JLabel flightName = new JLabel(flight.getFlightID());
         flightName.setFont(new Font("SansSerif", Font.BOLD, 20));
 
-        JLabel flightTime = new JLabel(timeDetails);
+        String departureDate = flight.getSchedule().getDepartureDate();
+        String arrivalDate = flight.getSchedule().getArrivalDate();
+        String departureTime = flight.getSchedule().getDepartureTime();
+        String arrivalTime = flight.getSchedule().getArrivalTime();
+
+        JLabel flightTime = new JLabel("Departure: "+departureDate+" "+departureTime+" • Arrival: "+arrivalDate+" "+arrivalTime);
         flightTime.setFont(new Font("SansSerif", Font.PLAIN, 16));
 
-        JLabel airline = new JLabel(airlineName);
+        JLabel airline = new JLabel(flight.getAirline().getName());
         airline.setFont(new Font("SansSerif", Font.PLAIN, 16));
 
         JButton selectButton = new JButton("Select");
@@ -135,5 +136,35 @@ public class BookAFlightStep2 {
         flightCard.add(selectButton, BorderLayout.EAST);
 
         return flightCard;
+    }
+
+    private static JPanel displayFlightList(String destination) {
+        JPanel listPanel = new JPanel();
+        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
+        listPanel.setOpaque(false);
+        listPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        List<Flight> allFlights = FlightData.getFlights();
+        boolean foundFlights = false;
+
+        if (allFlights != null) {
+            for (Flight flight : allFlights) {
+                if (flight.getRoute().getDestination().getLocationName().equalsIgnoreCase(destination)) {
+                    JPanel flightCard = createFlightCard(flight);
+                    listPanel.add(flightCard);
+                    listPanel.add(Box.createVerticalStrut(10)); 
+                    foundFlights = true;
+                }
+            }
+        }
+
+        if (!foundFlights) {
+            JLabel noFlightLabel = new JLabel("No flights found heading to " + destination);
+            noFlightLabel.setFont(new Font("SansSerif", Font.ITALIC, 16));
+            noFlightLabel.setForeground(Color.GRAY);
+            listPanel.add(noFlightLabel);
+        }
+
+        return listPanel;
     }
 }

@@ -111,7 +111,7 @@ public class BookAFlightStep3 {
 
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
-            main.showPage(BookAFlightStep2.getPanel(main));
+            main.showPage(BookAFlightStep2.getPanel(main,""));
         });
 
         JButton nextButton = new JButton("Submit");

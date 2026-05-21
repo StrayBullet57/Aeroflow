@@ -83,7 +83,7 @@ public class BookAFlightStep1 {
         nextButton.addActionListener(e -> {
 
                     
-                main.showPage(BookAFlightStep2.getPanel(main));
+                main.showPage(BookAFlightStep2.getPanel(main,""));
 
                 });
         buttonPanel.add(nextButton);

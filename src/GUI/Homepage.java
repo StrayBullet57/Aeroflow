@@ -2,6 +2,8 @@ package GUI;
 
 import javax.swing.*;
 import GUI.BookAFlight.BookAFlightStep1;
+import GUI.BookAFlight.BookAFlightStep2;
+
 import java.awt.*;
 
 public class Homepage {
@@ -106,8 +108,7 @@ public class Homepage {
         card.add(button, gbc);
 
         button.addActionListener(e -> {
-            // Redirects to Step 1 instead of Step 2 to avoid uninitialized workflow variables
-            main.showPage(BookAFlightStep1.getPanel(main)); 
+            main.showPage(BookAFlightStep2.getPanel(main,name)); 
         });
 
         return card;
