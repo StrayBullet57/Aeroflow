@@ -2,6 +2,8 @@ package GUI;
 
 import javax.swing.*;
 import GUI.BookAFlight.BookAFlightStep1;
+import GUI.BookAFlight.BookAFlightStep2;
+
 import java.awt.*;
 
 public class Homepage {
@@ -39,10 +41,10 @@ public class Homepage {
         ImageIcon samal = new ImageIcon("src/images/samal.png");
         ImageIcon taal = new ImageIcon("src/images/taal.jpg");
 
-        JPanel showcaseItem1 = createShowcaseItem(main, "Boracay",  boracay);
-        JPanel showcaseItem2 = createShowcaseItem(main, "Baguio",  baguio);
-        JPanel showcaseItem3 = createShowcaseItem(main, "Samal", samal);
-        JPanel showcaseItem4 = createShowcaseItem(main, "Taal",  taal);
+        JPanel showcaseItem1 = createShowcaseItem(main, "Cebu",  boracay); //Cebu since boaracay is in visayas
+        JPanel showcaseItem2 = createShowcaseItem(main, "Manila",  baguio); // manila since baguio is manila
+        JPanel showcaseItem3 = createShowcaseItem(main, "Davao", samal); // Davao since it's in davao
+        JPanel showcaseItem4 = createShowcaseItem(main, "Manila",  taal); // Manila since it s in manila
         
         showcase.add(Box.createHorizontalGlue());
         showcase.add(showcaseItem1);
@@ -74,7 +76,8 @@ public class Homepage {
         }
     }
 
-    private static JPanel createShowcaseItem(MainContent main, String name, ImageIcon image) {
+    private static JPanel createShowcaseItem(MainContent main, String destination, ImageIcon image) {
+
 
         JPanel card = new JPanel(new GridBagLayout());
         card.setBackground(Color.WHITE);
@@ -85,29 +88,23 @@ public class Homepage {
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.weightx = 1;
-
-        JLabel imageLabel = new JLabel(image);
         gbc.gridy = 0;
-        gbc.weighty = 0.1;
-        card.add(imageLabel, gbc);
-        imageLabel.setMaximumSize(new Dimension(50, 50));
-
-        JLabel nameLabel = new JLabel(name);
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        gbc.gridy = 1;
-        gbc.weighty = 0;
-        card.add(nameLabel, gbc);
-
-        JButton button = new JButton("View");
-        gbc.gridy = 3;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.CENTER;
-        card.add(button, gbc);
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-        button.addActionListener(e -> {
-            // Redirects to Step 1 instead of Step 2 to avoid uninitialized workflow variables
-            main.showPage(BookAFlightStep1.getPanel(main)); 
+        JLabel imageLabel = new JLabel(image);
+        imageLabel.setPreferredSize(new Dimension(280, 380));
+        imageLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        card.add(imageLabel, gbc);
+
+        imageLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) {
+                main.showPage(BookAFlightStep2.getPanel(main, destination));
+            }
         });
 
         return card;

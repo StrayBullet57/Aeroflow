@@ -8,7 +8,7 @@ import models.Flight;
 
 public class BookAFlightStep2 {
 
-    public static JPanel getPanel(MainContent main) {
+    public static JPanel getPanel(MainContent main, String destination) {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -142,5 +142,35 @@ public class BookAFlightStep2 {
         flightCard.add(selectButton, BorderLayout.EAST);
 
         return flightCard;
+    }
+
+    private static JPanel displayFlightList(String destination) {
+        JPanel listPanel = new JPanel();
+        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
+        listPanel.setOpaque(false);
+        listPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        List<Flight> allFlights = FlightData.getFlights();
+        boolean foundFlights = false;
+
+        if (allFlights != null) {
+            for (Flight flight : allFlights) {
+                if (flight.getRoute().getDestination().getLocationName().equalsIgnoreCase(destination)) {
+                    JPanel flightCard = createFlightCard(flight);
+                    listPanel.add(flightCard);
+                    listPanel.add(Box.createVerticalStrut(10)); 
+                    foundFlights = true;
+                }
+            }
+        }
+
+        if (!foundFlights) {
+            JLabel noFlightLabel = new JLabel("No flights found heading to " + destination);
+            noFlightLabel.setFont(new Font("SansSerif", Font.ITALIC, 16));
+            noFlightLabel.setForeground(Color.GRAY);
+            listPanel.add(noFlightLabel);
+        }
+
+        return listPanel;
     }
 }
