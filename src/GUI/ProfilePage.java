@@ -4,26 +4,21 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class ProfilePage extends JFrame {
+public class ProfilePage {
 
-    public ProfilePage() {
+    public static JPanel getPanel(MainContent main) {
 
-        setTitle("AeroFlow - Profile");
-        setSize(1000, 650);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(null);
-
-        
         Color backgroundColor = new Color(245, 247, 250);
         Color cardColor = Color.WHITE;
         Color primaryBlue = new Color(34, 87, 171);
         Color textDark = new Color(40, 40, 40);
         Color textLight = new Color(120, 120, 120);
 
-        getContentPane().setBackground(backgroundColor);
+        JPanel root = new JPanel();
+        root.setLayout(null);
+        root.setBackground(backgroundColor);
 
-       
+        // Title
         JLabel title = new JLabel("Profile Settings");
         title.setFont(new Font("SansSerif", Font.BOLD, 34));
         title.setForeground(textDark);
@@ -34,7 +29,7 @@ public class ProfilePage extends JFrame {
         subtitle.setForeground(textLight);
         subtitle.setBounds(82, 80, 300, 25);
 
-        
+        // CARD
         JPanel profileCard = new JPanel();
         profileCard.setLayout(null);
         profileCard.setBounds(80, 130, 820, 420);
@@ -44,13 +39,12 @@ public class ProfilePage extends JFrame {
                 new EmptyBorder(20, 20, 20, 20)
         ));
 
-        
+        // LEFT PANEL
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(null);
         leftPanel.setBackground(new Color(248, 250, 252));
         leftPanel.setBounds(0, 0, 250, 420);
 
-       
         JLabel profileImage = new JLabel("A");
         profileImage.setBounds(75, 40, 100, 100);
         profileImage.setOpaque(true);
@@ -84,19 +78,17 @@ public class ProfilePage extends JFrame {
         leftPanel.add(userRole);
         leftPanel.add(uploadBtn);
 
-      
+        // RIGHT PANEL
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(null);
         rightPanel.setBackground(Color.WHITE);
         rightPanel.setBounds(250, 0, 570, 420);
 
-       
         JLabel infoTitle = new JLabel("Personal Information");
         infoTitle.setFont(new Font("SansSerif", Font.BOLD, 24));
         infoTitle.setForeground(textDark);
         infoTitle.setBounds(40, 35, 300, 30);
 
-       
         JLabel nameLabel = new JLabel("Full Name");
         nameLabel.setBounds(40, 95, 120, 20);
         nameLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -104,7 +96,6 @@ public class ProfilePage extends JFrame {
         JTextField nameField = createStyledField();
         nameField.setBounds(40, 120, 220, 42);
 
-      
         JLabel emailLabel = new JLabel("Email Address");
         emailLabel.setBounds(300, 95, 120, 20);
         emailLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -112,7 +103,6 @@ public class ProfilePage extends JFrame {
         JTextField emailField = createStyledField();
         emailField.setBounds(300, 120, 220, 42);
 
-       
         JLabel phoneLabel = new JLabel("Phone Number");
         phoneLabel.setBounds(40, 190, 120, 20);
         phoneLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -120,7 +110,6 @@ public class ProfilePage extends JFrame {
         JTextField phoneField = createStyledField();
         phoneField.setBounds(40, 215, 220, 42);
 
-       
         JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(300, 190, 120, 20);
         passwordLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -141,53 +130,36 @@ public class ProfilePage extends JFrame {
         updateBtn.setFont(new Font("SansSerif", Font.BOLD, 15));
         updateBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        
         rightPanel.add(infoTitle);
-
         rightPanel.add(nameLabel);
         rightPanel.add(nameField);
-
         rightPanel.add(emailLabel);
         rightPanel.add(emailField);
-
         rightPanel.add(phoneLabel);
         rightPanel.add(phoneField);
-
         rightPanel.add(passwordLabel);
         rightPanel.add(passwordField);
-
         rightPanel.add(updateBtn);
 
+        // assemble
         profileCard.add(leftPanel);
         profileCard.add(rightPanel);
 
-        add(title);
-        add(subtitle);
-        add(profileCard);
+        root.add(title);
+        root.add(subtitle);
+        root.add(profileCard);
 
-        setVisible(true);
+        return root;
     }
 
-    
-    private JTextField createStyledField() {
+    private static JTextField createStyledField() {
 
         JTextField field = new JTextField();
-
         field.setFont(new Font("SansSerif", Font.PLAIN, 14));
-
         field.setBorder(new CompoundBorder(
                 new LineBorder(new Color(220, 220, 220), 1, true),
                 new EmptyBorder(5, 10, 5, 10)
         ));
-
         return field;
-    }
-
-   
-    public static void main(String[] args) {
-
-        SwingUtilities.invokeLater(() -> {
-            new ProfilePage();
-        });
     }
 }

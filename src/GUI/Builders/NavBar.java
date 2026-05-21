@@ -1,14 +1,12 @@
 package GUI.Builders;
 
-import javax.swing.*;
-
+import GUI.BookAFlight.BookAFlightStep1;
 import GUI.Homepage;
 import GUI.MainContent;
-import GUI.TrackAFlight;
+import GUI.ProfilePage;
 import GUI.TrackAFlight_InputFlightID;
-import GUI.BookAFlight.BookAFlightStep1;
-
 import java.awt.*;
+import javax.swing.*;
 
 public class NavBar{
 
@@ -41,6 +39,10 @@ public class NavBar{
 
         track_a_flight.addActionListener(e -> {
             main.showPage(TrackAFlight_InputFlightID.getPanel(main));
+        });
+
+        profile.addActionListener(e -> {
+            main.showPage(ProfilePage.getPanel(main));
         });
 
        /* profile.addActionListener(e -> {
