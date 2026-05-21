@@ -27,11 +27,9 @@ public class FlightBooking{
         }
         return null;
     }
-    public Booking createBooking(String bookingID, Flight flight, Seat seat, double amount){
-        // Payment payment = new Payment("PMNT-" + bookingID, bookingID, amount);// create payment
-        // Booking booking = new Booking(bookingID, flight, seat, payment);// create booking
-        Booking booking = new Booking(bookingID, flight, seat);// create booking
-        bookings.add(booking);// store booking
+    public Booking createBooking(String bookingID, String userID, Flight flight, Seat seat, double amount) {
+        Booking booking = new Booking(bookingID, userID, flight, seat);
+        bookings.add(booking);
         return booking;
     }
     public ArrayList<Booking> getBookings(){// return bookings, show all bookings list, para atong booking history na feature.

@@ -113,23 +113,21 @@ public class BookAFlightStep4 {
         confirmButton.setBorderPainted(false);
         confirmButton.setPreferredSize(new Dimension(200, 44));
         confirmButton.addActionListener(e -> {
-            // Generate a booking ID
+            String userID = users.SessionManager.getCurrentUser().getUserID(); // ADD THIS
+
             String bookingID = "BK-" + selectedFlight.getFlightID()
                 + "-" + selectedSeat.getSeatNumber()
                 + "-" + System.currentTimeMillis() % 10000;
 
-            // Create and confirm the booking
             Booking booking = main.getBookingSystem()
-                .createBooking(bookingID, selectedFlight, selectedSeat, 0);
+                .createBooking(bookingID, userID, selectedFlight, selectedSeat, 0); // ADD userID
             booking.confirmBooking();
 
-            // Show success then go home
             JOptionPane.showMessageDialog(main.getFrame(),
                 "Booking confirmed!\nYour booking ID is: " + bookingID,
-                "Booking Confirmed",
+          "Booking Confirmed",
                 JOptionPane.INFORMATION_MESSAGE);
 
-            // Clear the session and go back to homepage
             main.getBookingSession().clear();
             main.showPage(GUI.Homepage.getPanel(main));
         });
