@@ -110,8 +110,8 @@ public class LoginPage {
 
         // Guest button
         gbc.insets = new Insets(0, 0, 0, 0);
-        JButton guestBtn = makeOutlineButton("Continue as Guest");
-        guestBtn.addActionListener(e -> { frame.dispose(); new GUI.MainContent().start(); });
+        JButton guestBtn = makeOutlineButton("Track Flight (Guest)");
+        guestBtn.addActionListener(e -> { frame.dispose(); new GUI.MainContent().start(true); });
         card.add(guestBtn, gbc); gbc.gridy++;
 
         // Sign up row
