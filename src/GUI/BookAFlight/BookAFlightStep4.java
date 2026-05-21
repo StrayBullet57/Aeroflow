@@ -13,7 +13,7 @@ public class BookAFlightStep4 {
         mainPanel.setBackground(Color.decode("#1477b2"));
 
         JPanel redSquare = new JPanel();
-        redSquare.setBackground(Color.decode("d8e6eb"));
+        redSquare.setBackground(Color.decode("#d8e6eb"));
         redSquare.setPreferredSize(new Dimension(650, 680));
         redSquare.setMinimumSize(new Dimension(650, 680));
         redSquare.setMaximumSize(new Dimension(650, 680));
@@ -53,7 +53,7 @@ public class BookAFlightStep4 {
 
         JLabel titleLabel = new JLabel("FLIGHT SUMMARY");
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
-        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setForeground(Color.BLACK);
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         redSquare.add(titleLabel);
         redSquare.add(Box.createVerticalStrut(25));
@@ -93,15 +93,20 @@ public class BookAFlightStep4 {
     private static JLabel createFieldLabel(String text) {
         JLabel label = new JLabel(text.toUpperCase());
         label.setFont(new Font("SansSerif", Font.BOLD, 11));
-        label.setForeground(Color.LIGHT_GRAY);
+        label.setForeground(Color.BLACK);
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
         return label;
     }
 
     private static JLabel createValueLabel(String text) {
-        JLabel label = new JLabel(text);
+        JLabel label = new JLabel(text) {
+            @Override
+            public Color getForeground() {
+                return Color.BLACK;
+            }
+        };
         label.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        label.setForeground(Color.WHITE);
+        label.setForeground(Color.BLACK);
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
         return label;
     }

@@ -137,7 +137,6 @@ public class BookAFlightStep3 {
         });
 
 
-
         
         buttonPanel.add(backButton, BorderLayout.WEST);
         buttonPanel.add(submitButton, BorderLayout.EAST);
