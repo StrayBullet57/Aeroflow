@@ -4,9 +4,9 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class AeroFlowProfileUI extends JFrame {
+public class ProfilePage extends JFrame {
 
-    public AeroFlowProfileUI() {
+    public ProfilePage() {
 
         setTitle("AeroFlow - Profile");
         setSize(1000, 650);
@@ -14,7 +14,7 @@ public class AeroFlowProfileUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
-        // COLORS
+        
         Color backgroundColor = new Color(245, 247, 250);
         Color cardColor = Color.WHITE;
         Color primaryBlue = new Color(34, 87, 171);
@@ -23,7 +23,7 @@ public class AeroFlowProfileUI extends JFrame {
 
         getContentPane().setBackground(backgroundColor);
 
-        // HEADER
+       
         JLabel title = new JLabel("Profile Settings");
         title.setFont(new Font("SansSerif", Font.BOLD, 34));
         title.setForeground(textDark);
@@ -34,7 +34,7 @@ public class AeroFlowProfileUI extends JFrame {
         subtitle.setForeground(textLight);
         subtitle.setBounds(82, 80, 300, 25);
 
-        // MAIN CARD
+        
         JPanel profileCard = new JPanel();
         profileCard.setLayout(null);
         profileCard.setBounds(80, 130, 820, 420);
@@ -44,13 +44,13 @@ public class AeroFlowProfileUI extends JFrame {
                 new EmptyBorder(20, 20, 20, 20)
         ));
 
-        // LEFT PANEL
+        
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(null);
         leftPanel.setBackground(new Color(248, 250, 252));
         leftPanel.setBounds(0, 0, 250, 420);
 
-        // PROFILE IMAGE
+       
         JLabel profileImage = new JLabel("A");
         profileImage.setBounds(75, 40, 100, 100);
         profileImage.setOpaque(true);
@@ -84,19 +84,19 @@ public class AeroFlowProfileUI extends JFrame {
         leftPanel.add(userRole);
         leftPanel.add(uploadBtn);
 
-        // RIGHT PANEL
+      
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(null);
         rightPanel.setBackground(Color.WHITE);
         rightPanel.setBounds(250, 0, 570, 420);
 
-        // SECTION TITLE
+       
         JLabel infoTitle = new JLabel("Personal Information");
         infoTitle.setFont(new Font("SansSerif", Font.BOLD, 24));
         infoTitle.setForeground(textDark);
         infoTitle.setBounds(40, 35, 300, 30);
 
-        // NAME
+       
         JLabel nameLabel = new JLabel("Full Name");
         nameLabel.setBounds(40, 95, 120, 20);
         nameLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -104,7 +104,7 @@ public class AeroFlowProfileUI extends JFrame {
         JTextField nameField = createStyledField();
         nameField.setBounds(40, 120, 220, 42);
 
-        // EMAIL
+      
         JLabel emailLabel = new JLabel("Email Address");
         emailLabel.setBounds(300, 95, 120, 20);
         emailLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -112,7 +112,7 @@ public class AeroFlowProfileUI extends JFrame {
         JTextField emailField = createStyledField();
         emailField.setBounds(300, 120, 220, 42);
 
-        // PHONE
+       
         JLabel phoneLabel = new JLabel("Phone Number");
         phoneLabel.setBounds(40, 190, 120, 20);
         phoneLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -120,7 +120,7 @@ public class AeroFlowProfileUI extends JFrame {
         JTextField phoneField = createStyledField();
         phoneField.setBounds(40, 215, 220, 42);
 
-        // PASSWORD
+       
         JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(300, 190, 120, 20);
         passwordLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -133,7 +133,6 @@ public class AeroFlowProfileUI extends JFrame {
                 new EmptyBorder(5, 10, 5, 10)
         ));
 
-        // SAVE BUTTON
         JButton updateBtn = new JButton("Save Changes");
         updateBtn.setBounds(360, 330, 160, 45);
         updateBtn.setFocusPainted(false);
@@ -142,7 +141,7 @@ public class AeroFlowProfileUI extends JFrame {
         updateBtn.setFont(new Font("SansSerif", Font.BOLD, 15));
         updateBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // ADD COMPONENTS
+        
         rightPanel.add(infoTitle);
 
         rightPanel.add(nameLabel);
@@ -169,7 +168,7 @@ public class AeroFlowProfileUI extends JFrame {
         setVisible(true);
     }
 
-    // STYLED TEXT FIELD
+    
     private JTextField createStyledField() {
 
         JTextField field = new JTextField();
@@ -184,7 +183,7 @@ public class AeroFlowProfileUI extends JFrame {
         return field;
     }
 
-    // MAIN METHOD
+   
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(() -> {
