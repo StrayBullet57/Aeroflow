@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import models.Flight;
+import datas.*;
 
 public class BookAFlightStep2 {
 
@@ -48,18 +49,8 @@ public class BookAFlightStep2 {
         sectionTitle.setFont(new Font("SansSerif", Font.BOLD, 28));
         sectionTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JPanel listPanel = new JPanel();
-        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
-        listPanel.setOpaque(false);
-        listPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        List<Flight> flights = main.getBookingSystem().getFlights();
-
-        for (Flight f : flights){
-            listPanel.add(createFlightCard(f, main));
-        }
-
-        listPanel.add(Box.createVerticalStrut(15)); 
+        // FIX: Instead of raw listing all flights blindly, use your filtered displayFlightList panel
+        JPanel listPanel = displayFlightList(main, destination);
 
         JScrollPane scrollPane = new JScrollPane(listPanel);
         scrollPane.setBorder(BorderFactory.createEmptyBorder()); 
@@ -120,11 +111,9 @@ public class BookAFlightStep2 {
         flightName.setFont(new Font("SansSerif", Font.BOLD, 20));
 
         JLabel airline = new JLabel(flight.getStatus());
-
         airline.setFont(new Font("SansSerif", Font.PLAIN, 16));
 
         JButton selectButton = new JButton("Select");
-
         selectButton.addActionListener(e -> {
             main.getBookingSession().setSelectedFlight(flight);
             System.out.println("Selected flight: " + flight.getFlightID());
@@ -144,19 +133,20 @@ public class BookAFlightStep2 {
         return flightCard;
     }
 
-    private static JPanel displayFlightList(String destination) {
+    private static JPanel displayFlightList(MainContent main, String destination) {
         JPanel listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
         listPanel.setOpaque(false);
         listPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        List<Flight> allFlights = FlightData.getFlights();
+        List<Flight> allFlights = FlightData.getFlights(); // contains all flight datas
         boolean foundFlights = false;
 
+        //check ni sya sa destination based sa destination nga gi pass sa parameter.
         if (allFlights != null) {
             for (Flight flight : allFlights) {
                 if (flight.getRoute().getDestination().getLocationName().equalsIgnoreCase(destination)) {
-                    JPanel flightCard = createFlightCard(flight);
+                    JPanel flightCard = createFlightCard(flight, main);
                     listPanel.add(flightCard);
                     listPanel.add(Box.createVerticalStrut(10)); 
                     foundFlights = true;

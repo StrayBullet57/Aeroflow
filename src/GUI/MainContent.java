@@ -28,13 +28,6 @@ public class MainContent {
         bookingSystem = new FlightBooking();
         bookingSession = new BookingSession();
 
-        List<Airline> airlines = AirlineData.getAirlines();
-        List<Route> routes = RouteData.getRoutes();
-        List<Flight> flights = FlightData.getFlights(airlines, routes);
-
-        for (Flight f : flights){
-            bookingSystem.addFlight(f);
-        }
 
         frame = new JFrame("AeroFlow");
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
