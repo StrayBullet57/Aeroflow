@@ -62,7 +62,6 @@ public class BookAFlightStep1 {
             new String[]{"Cebu", "Manila", "Davao"}
         );
 
-
         JLabel airlineLabel = createFieldLabel("Airline");
         JComboBox<String> airlineBox = new JComboBox<>(
             new String[]{"Philippine Airlines", "Cebu Pacific", "AirAsia"}
@@ -86,10 +85,9 @@ public class BookAFlightStep1 {
             main.getBookingSession().setAirline(
                 (String) airlineBox.getSelectedItem()
             );
-            main.showPage(BookAFlightStep2.getPanel(main));
+            main.showPage(BookAFlightStep2.getPanel(main,(String) toBox.getSelectedItem()));
         });
         buttonPanel.add(nextButton);
-
 
         card.add(title);
         card.add(Box.createVerticalStrut(30));
