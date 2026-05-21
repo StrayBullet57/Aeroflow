@@ -128,12 +128,6 @@ public class LoginPage {
         regLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         regLink.setMargin(new Insets(0, 0, 0, 0));
         regLink.addActionListener(e -> { frame.dispose(); new RegisterPage().start(); });
-        // Underline on hover
-        regLink.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent e) { regLink.setText("<html><u>Sign up</u></html>"); }
-            public void mouseExited(MouseEvent e)  { regLink.setText("Sign up"); }
-        });
-
         regRow.add(regText);
         regRow.add(regLink);
         card.add(regRow, gbc);
