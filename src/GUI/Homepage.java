@@ -76,7 +76,8 @@ public class Homepage {
         }
     }
 
-    private static JPanel createShowcaseItem(MainContent main, String name, ImageIcon image) {
+    private static JPanel createShowcaseItem(MainContent main, String destination, ImageIcon image) {
+
 
         JPanel card = new JPanel(new GridBagLayout());
         card.setBackground(Color.WHITE);
@@ -102,7 +103,7 @@ public class Homepage {
         imageLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                main.showPage(BookAFlightStep2.getPanel(main, "Cebu"));
+                main.showPage(BookAFlightStep2.getPanel(main, destination));
             }
         });
 
