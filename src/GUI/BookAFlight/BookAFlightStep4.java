@@ -120,13 +120,12 @@ public class BookAFlightStep4 {
                 + "-" + selectedSeat.getSeatNumber()
                 + "-" + (System.currentTimeMillis() % 10000);
 
-            // 1. Create and confirm the booking object
+  
             Booking booking = main.getBookingSystem()
                 .createBooking(bookingID, userID, selectedFlight, selectedSeat, 0);
             booking.confirmBooking();
 
-            // 2. CRITICAL FIX: Add the newly created booking to the global history list
-            // So that Booking.getBookingsByUser(userID) can find it later!
+ 
             Booking.getBookingHistory().add(booking);
 
             JOptionPane.showMessageDialog(main.getFrame(),
