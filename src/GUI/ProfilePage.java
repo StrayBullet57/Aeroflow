@@ -187,7 +187,7 @@ public class ProfilePage extends JFrame {
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(() -> {
-            new AeroFlowProfileUI();
+            new ProfilePage();
         });
     }
 }
