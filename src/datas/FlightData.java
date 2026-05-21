@@ -13,6 +13,7 @@ public class FlightData {
         // 2. Fetch the required data directly from your other data files
         List<Airline> airlineList = AirlineData.getAirlines(); // Make sure this matches your Airline data class name!
         List<Route> routeList = RouteData.getRoutes();
+        List<FlightSchedule> scheduleList = FlightScheduleData.getFlightSchedules();
 
         // AIRLINE
         Airline CP0 = airlineList.get(0);  
@@ -22,12 +23,15 @@ public class FlightData {
         // ROUTE
         Route SX0 = routeList.get(0);
         Route SX1 = routeList.get(1);
-        FlightSchedule schedule1 = new FlightSchedule("2026-05-20", "08:00 AM", "2026-05-20", "10:00 AM");
-       
+
+        //Schedules
+        
+        FlightSchedule schedule1 = scheduleList.get(0);
+        FlightSchedule schedule2 = scheduleList.get(1);
         //datas
        
         Flight cp0 = new Flight("CP0", CP0, SX0, "Onboarding", schedule1);
-        Flight cp1 = new Flight("CP1", CP1, SX1, "Onboarding", schedule1);
+        Flight cp1 = new Flight("CP1", CP1, SX1, "Onboarding", schedule2);
         
         flights.add(cp0);
         flights.add(cp1);
