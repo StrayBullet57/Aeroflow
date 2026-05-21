@@ -1,5 +1,7 @@
 package GUI.Login;
 
+import users.User;
+import users.UserStore;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -15,11 +17,9 @@ public class RegisterPage {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLayout(new BorderLayout());
 
-        // HERO
         LoginPage.GradientPanel hero = new LoginPage.GradientPanel();
         hero.setLayout(new GridBagLayout());
 
-        // CARD
         JPanel card = new JPanel(new GridBagLayout());
         card.setBackground(Color.WHITE);
         card.setBorder(new CompoundBorder(
@@ -34,10 +34,10 @@ public class RegisterPage {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST; // default anchor = LEFT
+        gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 0, 0, 0);
 
-        // Logo icon (centered exception)
+        // Logo
         JLabel logoIcon = new JLabel("✈", SwingConstants.CENTER);
         logoIcon.setFont(new Font("SansSerif", Font.PLAIN, 30));
         logoIcon.setForeground(new Color(21, 101, 192));
@@ -55,7 +55,7 @@ public class RegisterPage {
         heading.setForeground(new Color(17, 24, 39));
         card.add(heading, gbc); gbc.gridy++;
 
-        // ── First name + Last name labels (two columns) ──
+        // First + Last name (two columns)
         gbc.insets = new Insets(16, 0, 0, 0);
         gbc.gridwidth = 1;
         gbc.weightx = 0.5;
@@ -64,32 +64,29 @@ public class RegisterPage {
 
         gbc.gridx = 0;
         card.add(makeLabel("First name"), gbc);
-
         gbc.gridx = 1;
         gbc.insets = new Insets(16, 8, 0, 0);
         card.add(makeLabel("Last name"), gbc);
         gbc.gridy++;
 
-        // First/Last name fields
         gbc.insets = new Insets(4, 0, 0, 0);
         gbc.gridx = 0;
         JTextField fnameField = makeTextField("Juan");
         card.add(fnameField, gbc);
-
         gbc.gridx = 1;
         gbc.insets = new Insets(4, 8, 0, 0);
         JTextField lnameField = makeTextField("Dela Cruz");
         card.add(lnameField, gbc);
         gbc.gridy++;
 
-        // ── Back to full width — anchor WEST for all labels below ──
+        // Back to full width
         gbc.gridx = 0;
         gbc.gridwidth = 2;
         gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST; // ← keeps labels left-aligned
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         gbc.insets = new Insets(12, 0, 4, 0);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         card.add(makeLabel("Email address"), gbc); gbc.gridy++;
 
         gbc.insets = new Insets(0, 0, 0, 0);
@@ -156,18 +153,43 @@ public class RegisterPage {
             String fname   = fnameField.getText().trim();
             String lname   = lnameField.getText().trim();
             String email   = emailField.getText().trim();
+            String phone   = phoneField.getText().trim();
             String pass    = new String(passField.getPassword()).trim();
             String confirm = new String(confirmField.getPassword()).trim();
-            if (fname.isEmpty() || fname.equals("Juan") || lname.isEmpty() || lname.equals("Dela Cruz")
-                    || email.isEmpty() || email.equals("you@example.com") || pass.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "Please fill in all required fields.", "Error", JOptionPane.ERROR_MESSAGE);
+
+            if (fname.isEmpty()  || fname.equals("Juan") ||
+                lname.isEmpty()  || lname.equals("Dela Cruz") ||
+                email.isEmpty()  || email.equals("you@example.com") ||
+                phone.isEmpty()  || phone.equals("+63 912 345 6789") ||
+                pass.isEmpty()) {
+                JOptionPane.showMessageDialog(frame,
+                    "Please fill in all required fields.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
             if (!pass.equals(confirm)) {
-                JOptionPane.showMessageDialog(frame, "Passwords do not match.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame,
+                    "Passwords do not match.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(frame, "Account created! Please log in.", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            if (UserStore.emailExists(email)) {
+                JOptionPane.showMessageDialog(frame,
+                    "An account with that email already exists.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String fullName = fname + " " + lname;
+            User newUser = new User(UserStore.generateID(), fullName, email, pass, phone);
+            newUser.register();
+            UserStore.addUser(newUser);
+
+            JOptionPane.showMessageDialog(frame,
+                "Account created! Welcome, " + fullName + ". Please log in.",
+                "Success", JOptionPane.INFORMATION_MESSAGE);
             frame.dispose();
             new LoginPage().start();
         });
@@ -194,7 +216,6 @@ public class RegisterPage {
         loginText.setFont(new Font("SansSerif", Font.PLAIN, 13));
         loginText.setForeground(new Color(107, 114, 128));
 
-        // JButton styled as link — reliable clicks
         JButton loginLink = new JButton("Log in");
         loginLink.setFont(new Font("SansSerif", Font.BOLD, 13));
         loginLink.setForeground(new Color(30, 136, 229));
@@ -208,7 +229,6 @@ public class RegisterPage {
             public void mouseEntered(MouseEvent e) { loginLink.setText("<html><u>Log in</u></html>"); }
             public void mouseExited(MouseEvent e)  { loginLink.setText("Log in"); }
         });
-
         loginRow.add(loginText);
         loginRow.add(loginLink);
         card.add(loginRow, gbc);

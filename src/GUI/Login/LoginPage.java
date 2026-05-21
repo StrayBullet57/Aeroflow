@@ -1,5 +1,8 @@
 package GUI.Login;
 
+import users.User;
+import users.UserStore;
+import users.SessionManager;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -19,18 +22,16 @@ public class LoginPage {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLayout(new BorderLayout());
 
-        // HERO
         GradientPanel hero = new GradientPanel();
         hero.setLayout(new GridBagLayout());
 
-        // CARD
         JPanel card = new JPanel(new GridBagLayout());
         card.setBackground(Color.WHITE);
         card.setBorder(new CompoundBorder(
             new LineBorder(new Color(220, 220, 220), 1, true),
             new EmptyBorder(36, 40, 32, 40)
         ));
-        card.setPreferredSize(new Dimension(420, 440)); // reduced height since forgot pw removed
+        card.setPreferredSize(new Dimension(420, 440));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 0;
@@ -57,27 +58,21 @@ public class LoginPage {
         heading.setForeground(new Color(17, 24, 39));
         card.add(heading, gbc); gbc.gridy++;
 
-        // Email label
+        // Email
         gbc.insets = new Insets(20, 0, 4, 0);
-        JLabel emailLabel = makeLabel("Email address");
-        card.add(emailLabel, gbc); gbc.gridy++;
+        card.add(makeLabel("Email address"), gbc); gbc.gridy++;
 
-        // Email field
         gbc.insets = new Insets(0, 0, 0, 0);
         JTextField emailField = makeTextField("you@example.com");
         card.add(emailField, gbc); gbc.gridy++;
 
-        // Password label
+        // Password
         gbc.insets = new Insets(12, 0, 4, 0);
-        JLabel passLabel = makeLabel("Password");
-        card.add(passLabel, gbc); gbc.gridy++;
+        card.add(makeLabel("Password"), gbc); gbc.gridy++;
 
-        // Password field
         gbc.insets = new Insets(0, 0, 0, 0);
         JPasswordField passField = makePasswordField();
         card.add(passField, gbc); gbc.gridy++;
-
-        // ── "Forgot password?" REMOVED ──
 
         // Login button
         gbc.insets = new Insets(14, 0, 0, 0);
@@ -87,12 +82,25 @@ public class LoginPage {
         loginBtn.addActionListener(e -> {
             String email = emailField.getText().trim();
             String pass  = new String(passField.getPassword()).trim();
+
             if (email.isEmpty() || email.equals("you@example.com") || pass.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                frame.dispose();
-                new GUI.MainContent().start();
+                JOptionPane.showMessageDialog(frame,
+                    "Please fill in all fields.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
             }
+
+            User found = UserStore.findByEmail(email);
+            if (found == null || !found.login(email, pass)) {
+                JOptionPane.showMessageDialog(frame,
+                    "Invalid email or password.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            SessionManager.login(found);
+            frame.dispose();
+            new GUI.MainContent().start();
         });
         card.add(loginBtn, gbc); gbc.gridy++;
 
@@ -106,11 +114,10 @@ public class LoginPage {
         guestBtn.addActionListener(e -> { frame.dispose(); new GUI.MainContent().start(); });
         card.add(guestBtn, gbc); gbc.gridy++;
 
-        // Sign up row — FIX: use a JButton styled as a link for reliable clicks
+        // Sign up row
         gbc.insets = new Insets(14, 0, 0, 0);
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.CENTER;
-
         JPanel regRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 0));
         regRow.setBackground(Color.WHITE);
 
@@ -118,7 +125,6 @@ public class LoginPage {
         regText.setFont(new Font("SansSerif", Font.PLAIN, 13));
         regText.setForeground(new Color(107, 114, 128));
 
-        // Use a borderless JButton instead of JLabel for reliable click detection
         JButton regLink = new JButton("Sign up");
         regLink.setFont(new Font("SansSerif", Font.BOLD, 13));
         regLink.setForeground(new Color(30, 136, 229));
@@ -128,6 +134,10 @@ public class LoginPage {
         regLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         regLink.setMargin(new Insets(0, 0, 0, 0));
         regLink.addActionListener(e -> { frame.dispose(); new RegisterPage().start(); });
+        regLink.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) { regLink.setText("<html><u>Sign up</u></html>"); }
+            public void mouseExited(MouseEvent e)  { regLink.setText("Sign up"); }
+        });
         regRow.add(regText);
         regRow.add(regLink);
         card.add(regRow, gbc);

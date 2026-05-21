@@ -5,17 +5,17 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private Profile profile;
+    private String phone;
 
-    public User(String userID, String name, String email, String password, Profile profile){
-        this.userID = userID;
-        this.name = name;
-        this.email = email;
+    public User(String userID, String name, String email, String password, String phone) {
+        this.userID   = userID;
+        this.name     = name;
+        this.email    = email;
         this.password = password;
-        this.profile = profile;
+        this.phone    = phone;
     }
 
-    public void register(){
+    public void register() {
         System.out.println("User registered successfully.");
     }
 
@@ -28,26 +28,26 @@ public class User {
         return false;
     }
 
-    public String getUserID() { return userID; }
-    
-    public String getName() { return name; }
+    public String getUserID()  { return userID; }
+
+    public String getName()    { return name; }
     public void setName(String name) { this.name = name; }
 
-    public String getEmail() { return email; }
+    public String getEmail()   { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public String getPassword() { return password; } 
+    public String getPassword() { return password; }
 
-    public Profile getProfile() { return profile; }
-    public void setProfile(Profile profile) { this.profile = profile; }
+    public String getPhone()   { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
     @Override
     public String toString() {
         return "User Profile Details:\n" +
                "----------------------\n" +
-               "User ID:  " + userID + "\n" +
-               "Name:     " + name + "\n" +
-               "Email:    " + email + "\n" +
-               "Profile:  " + (profile != null ? "Assigned" : "None");
+               "User ID : " + userID + "\n" +
+               "Name    : " + name   + "\n" +
+               "Email   : " + email  + "\n" +
+               "Phone   : " + phone;
     }
 }
