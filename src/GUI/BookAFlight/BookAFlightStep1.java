@@ -25,15 +25,12 @@ public class BookAFlightStep1 {
 
         contentPanel.setBackground(Color.decode("#1477b2"));
 
-
-
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 20));
         topPanel.setOpaque(false);
 
         JLabel step1 = createStepLabel("Book A Flight ");
         step1.setFont(new Font("SansSerif", Font.BOLD, 40));
         topPanel.add(step1);
-
 
        JPanel centerWrapper = new JPanel(new GridBagLayout());
         centerWrapper.setOpaque(false);
@@ -44,28 +41,39 @@ public class BookAFlightStep1 {
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createEmptyBorder(30, 40, 30, 40));
 
-
-
         JLabel title = new JLabel("Routes & Airline");
         title.setFont(new Font("SansSerif", Font.BOLD, 28));
         title.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-
+        String[] cities = {"Cebu", "Manila", "Davao"};
 
         JLabel fromLabel = createFieldLabel("From");
         JComboBox<String> fromBox = new JComboBox<>(
-            new String[]{"Cebu", "Manila", "Davao"}
+            new String[]{"Select Origin", "Cebu", "Manila", "Davao"}
         );
 
         JLabel toLabel = createFieldLabel("To");
         JComboBox<String> toBox = new JComboBox<>(
-            new String[]{"Cebu", "Manila", "Davao"}
+            new String[]{"Select Destination", "Cebu", "Manila", "Davao"}
         );
 
         JLabel airlineLabel = createFieldLabel("Airline");
         JComboBox<String> airlineBox = new JComboBox<>(
             new String[]{"Philippine Airlines", "Cebu Pacific", "AirAsia"}
         );
+
+        fromBox.addActionListener(e -> {
+            String selectedFrom = (String) fromBox.getSelectedItem();
+
+            toBox.removeAllItems();
+            toBox.addItem("Select Destination");
+
+            for(String city : cities){
+                if (!city.equals(selectedFrom)){
+                    toBox.addItem(city);
+                }
+            }
+        });
 
         fromBox.setAlignmentX(Component.LEFT_ALIGNMENT);
         toBox.setAlignmentX(Component.LEFT_ALIGNMENT);
