@@ -10,10 +10,10 @@ public class BookAFlightStep4 {
 
     public static JPanel getPanel(MainContent main) {
         JPanel mainPanel = new JPanel(new GridBagLayout());
-        mainPanel.setBackground(Color.decode("#d8e6eb"));
+        mainPanel.setBackground(Color.decode("#1477b2"));
 
         JPanel redSquare = new JPanel();
-        redSquare.setBackground(Color.RED);
+        redSquare.setBackground(Color.decode("d8e6eb"));
         redSquare.setPreferredSize(new Dimension(650, 680));
         redSquare.setMinimumSize(new Dimension(650, 680));
         redSquare.setMaximumSize(new Dimension(650, 680));
