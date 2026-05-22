@@ -1,6 +1,10 @@
 package users;
 
-public class User {
+interface Authenticatable {
+    void performAction();
+}
+
+public class User implements Authenticatable{
     private String userID;
     private String name;
     private String email;
@@ -49,5 +53,10 @@ public class User {
                "Name    : " + name   + "\n" +
                "Email   : " + email  + "\n" +
                "Phone   : " + phone;
+    }
+
+    @Override
+    public void performAction() {
+        System.out.println("Registered user " + name + " is interacting with the flight system.");
     }
 }
