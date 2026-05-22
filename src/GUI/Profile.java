@@ -1,10 +1,19 @@
 package GUI;
 
+import GUI.Login.LoginPage;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class Profile extends JFrame {
+
+    // TEXTFIELDS
+    private JTextField fullNameField;
+    private JTextField emailField;
+    private JTextField phoneField;
+    private JTextField nationalityField;
+    private JTextField passportField;
 
     public Profile() {
 
@@ -19,7 +28,7 @@ public class Profile extends JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(new Color(8, 18, 38));
 
-        // ================= TOP NAVIGATION =================
+        // ================= TOP PANEL =================
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(10, 25, 55));
         topPanel.setBorder(new EmptyBorder(15, 25, 15, 25));
@@ -38,18 +47,27 @@ public class Profile extends JFrame {
         logoutBtn.setForeground(Color.WHITE);
         logoutBtn.setFont(new Font("SansSerif", Font.BOLD, 14));
 
+        // LOGOUT ACTION
+        logoutBtn.addActionListener(e -> {
+
+            dispose();
+
+            new LoginPage().start();
+
+        });
+
         topPanel.add(logo, BorderLayout.WEST);
         topPanel.add(title, BorderLayout.CENTER);
         topPanel.add(logoutBtn, BorderLayout.EAST);
 
-        // ================= LEFT PROFILE PANEL =================
+        // ================= LEFT PANEL =================
         JPanel leftPanel = new JPanel();
         leftPanel.setPreferredSize(new Dimension(320, 650));
         leftPanel.setBackground(new Color(15, 32, 65));
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
         leftPanel.setBorder(new EmptyBorder(30, 20, 30, 20));
 
-        JLabel profileIcon = new JLabel("👤", SwingConstants.CENTER);
+        JLabel profileIcon = new JLabel("🤖");
         profileIcon.setFont(new Font("SansSerif", Font.PLAIN, 90));
         profileIcon.setForeground(Color.WHITE);
         profileIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -64,6 +82,11 @@ public class Profile extends JFrame {
         membership.setFont(new Font("SansSerif", Font.PLAIN, 18));
         membership.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JLabel aiAssistant = new JLabel("AeroFlow AI Assistant");
+        aiAssistant.setForeground(new Color(0, 255, 200));
+        aiAssistant.setFont(new Font("SansSerif", Font.BOLD, 16));
+        aiAssistant.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         JPanel statsPanel = new JPanel(new GridLayout(1, 2, 15, 15));
         statsPanel.setOpaque(false);
         statsPanel.setBorder(new EmptyBorder(40, 0, 20, 0));
@@ -74,24 +97,16 @@ public class Profile extends JFrame {
         statsPanel.add(flightsCard);
         statsPanel.add(milesCard);
 
-        JButton editBtn = new JButton("Edit Profile");
-        editBtn.setMaximumSize(new Dimension(220, 45));
-        editBtn.setBackground(new Color(0, 153, 255));
-        editBtn.setForeground(Color.WHITE);
-        editBtn.setFocusPainted(false);
-        editBtn.setFont(new Font("SansSerif", Font.BOLD, 16));
-        editBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         leftPanel.add(profileIcon);
         leftPanel.add(Box.createVerticalStrut(15));
         leftPanel.add(userName);
         leftPanel.add(Box.createVerticalStrut(10));
         leftPanel.add(membership);
+        leftPanel.add(Box.createVerticalStrut(8));
+        leftPanel.add(aiAssistant);
         leftPanel.add(statsPanel);
-        leftPanel.add(Box.createVerticalStrut(30));
-        leftPanel.add(editBtn);
 
-        // ================= RIGHT DETAILS PANEL =================
+        // ================= RIGHT PANEL =================
         JPanel rightPanel = new JPanel();
         rightPanel.setBackground(new Color(8, 18, 38));
         rightPanel.setLayout(new BorderLayout());
@@ -101,26 +116,66 @@ public class Profile extends JFrame {
         infoTitle.setForeground(Color.WHITE);
         infoTitle.setFont(new Font("SansSerif", Font.BOLD, 28));
 
-        JPanel formPanel = new JPanel(new GridLayout(5, 2, 20, 20));
+        JPanel formPanel = new JPanel(new GridLayout(6, 2, 20, 20));
         formPanel.setBackground(new Color(8, 18, 38));
         formPanel.setBorder(new EmptyBorder(40, 0, 0, 0));
 
+        // TEXTFIELDS
+        fullNameField = createTextField("Juan Dela Cruz");
+        emailField = createTextField("juan@email.com");
+        phoneField = createTextField("+63 912 345 6789");
+        nationalityField = createTextField("Filipino");
+        passportField = createTextField("P12345678");
+
         formPanel.add(createLabel("Full Name"));
-        formPanel.add(createTextField("Juan Dela Cruz"));
+        formPanel.add(fullNameField);
 
         formPanel.add(createLabel("Email Address"));
-        formPanel.add(createTextField("juan@email.com"));
+        formPanel.add(emailField);
 
         formPanel.add(createLabel("Phone Number"));
-        formPanel.add(createTextField("+63 912 345 6789"));
+        formPanel.add(phoneField);
 
         formPanel.add(createLabel("Nationality"));
-        formPanel.add(createTextField("Filipino"));
+        formPanel.add(nationalityField);
 
         formPanel.add(createLabel("Passport Number"));
-        formPanel.add(createTextField("P12345678"));
+        formPanel.add(passportField);
 
-        // UPCOMING FLIGHT CARD
+        // SAVE BUTTON
+        JButton saveBtn = new JButton("Save Information");
+        saveBtn.setBackground(new Color(0, 153, 255));
+        saveBtn.setForeground(Color.WHITE);
+        saveBtn.setFocusPainted(false);
+        saveBtn.setFont(new Font("SansSerif", Font.BOLD, 16));
+
+        // SAVE ACTION
+        saveBtn.addActionListener(e -> {
+
+            String fullName = fullNameField.getText();
+            String email = emailField.getText();
+            String phone = phoneField.getText();
+            String nationality = nationalityField.getText();
+            String passport = passportField.getText();
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Information Saved Successfully!\n\n"
+                            + "Name: " + fullName + "\n"
+                            + "Email: " + email + "\n"
+                            + "Phone: " + phone + "\n"
+                            + "Nationality: " + nationality + "\n"
+                            + "Passport: " + passport,
+                    "Saved",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+        });
+
+        formPanel.add(new JLabel(""));
+        formPanel.add(saveBtn);
+
+        // ================= FLIGHT CARD =================
         JPanel flightCard = new JPanel(new BorderLayout());
         flightCard.setBackground(new Color(15, 32, 65));
         flightCard.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -131,10 +186,10 @@ public class Profile extends JFrame {
 
         JTextArea flightInfo = new JTextArea(
                 "CEBU ✈ MANILA\n\n" +
-                "Date: June 12, 2026\n" +
-                "Time: 9:30 AM\n" +
-                "Seat: 14A\n" +
-                "Class: Business Class"
+                        "Date: June 12, 2026\n" +
+                        "Time: 9:30 AM\n" +
+                        "Seat: 14A\n" +
+                        "Class: Business Class"
         );
 
         flightInfo.setEditable(false);
@@ -159,27 +214,32 @@ public class Profile extends JFrame {
         setVisible(true);
     }
 
-    // CUSTOM LABEL
+    // LABEL
     private JLabel createLabel(String text) {
+
         JLabel label = new JLabel(text);
         label.setForeground(Color.WHITE);
         label.setFont(new Font("SansSerif", Font.BOLD, 16));
+
         return label;
     }
 
-    // CUSTOM TEXTFIELD
+    // TEXTFIELD
     private JTextField createTextField(String text) {
+
         JTextField field = new JTextField(text);
         field.setBackground(new Color(25, 45, 85));
         field.setForeground(Color.WHITE);
         field.setCaretColor(Color.WHITE);
         field.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         field.setFont(new Font("SansSerif", Font.PLAIN, 15));
+
         return field;
     }
 
-    // CARD DESIGN
+    // CARD
     private JPanel createCard(String title, String value) {
+
         JPanel card = new JPanel();
         card.setBackground(new Color(0, 153, 255));
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -204,6 +264,8 @@ public class Profile extends JFrame {
 
     // MAIN METHOD
     public static void main(String[] args) {
+
         SwingUtilities.invokeLater(() -> new Profile());
+
     }
 }
