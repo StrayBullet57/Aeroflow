@@ -9,7 +9,7 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-
+import users.SessionManager;
 public class RegisterPage {
 
     private JFrame frame;
@@ -406,6 +406,8 @@ public class RegisterPage {
 
             UserStore.addUser(newUser);
 
+            SessionManager.login(newUser);
+            
             JOptionPane.showMessageDialog(
                 frame,
                 "Account created! Welcome, " +
