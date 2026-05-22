@@ -1,6 +1,6 @@
 package GUI;
 
-import GUI.BookAFlight.BookAFlightStep2;
+import GUI.BookAFlight.BookAFlightStep1;
 import java.awt.*;
 import javax.swing.*;
 
@@ -101,7 +101,7 @@ public class Homepage {
         imageLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mousePressed(java.awt.event.MouseEvent e) {
-                main.showPage(BookAFlightStep2.getPanel(main, destination));
+                main.showPage(BookAFlightStep1.getPanel(main));
             }
         });
 

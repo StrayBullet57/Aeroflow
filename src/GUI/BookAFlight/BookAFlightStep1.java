@@ -93,7 +93,7 @@ public class BookAFlightStep1 {
             main.getBookingSession().setAirline(
                 (String) airlineBox.getSelectedItem()
             );
-            main.showPage(BookAFlightStep2.getPanel(main,(String) toBox.getSelectedItem()));
+            main.showPage(BookAFlightStep2.getPanel(main,(String) toBox.getSelectedItem(), (String)fromBox.getSelectedItem()));
         });
         buttonPanel.add(nextButton);
 

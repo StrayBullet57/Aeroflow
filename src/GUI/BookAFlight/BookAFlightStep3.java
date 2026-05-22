@@ -186,7 +186,9 @@ public class BookAFlightStep3 {
         backButton.addActionListener(e ->
             main.showPage(BookAFlightStep2.getPanel(main,
                 main.getBookingSession().getSelectedFlight()
-                    .getRoute().getDestination().getLocationName()))
+                    .getRoute().getDestination().getLocationName(), 
+                    main.getBookingSession().getSelectedFlight()
+                    .getRoute().getOrigin().getLocationName()))
         );
 
         JButton submitButton = new JButton("Submit");

@@ -443,8 +443,7 @@ public class RegisterPage {
         guestBtn.addActionListener(e -> {
 
             frame.dispose();
-
-            new GUI.MainContent().start();
+            frame.dispose(); new GUI.MainContent().start(true);
         });
 
         card.add(guestBtn, gbc);

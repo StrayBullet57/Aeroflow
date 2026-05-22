@@ -120,8 +120,8 @@ public class TrackAFlight {
         JLabel departureTimeValue = createLabels(passedFlight.getSchedule().getDepartureTime());
         JLabel arrivalTimeValue = createLabels(passedFlight.getSchedule().getArrivalTime());
         details_value.add(flightIDValue);
-        details_value.add(destinationValue);
         details_value.add(originValue);
+        details_value.add(destinationValue);
         details_value.add(departureTimeValue);
         details_value.add(arrivalTimeValue);
         details_value.add(statusValue);

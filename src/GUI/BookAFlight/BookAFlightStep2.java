@@ -8,7 +8,7 @@ import models.Flight;
 
 public class BookAFlightStep2 {
 
-    public static JPanel getPanel(MainContent main, String destination) {
+    public static JPanel getPanel(MainContent main, String destination, String origin) {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -53,7 +53,7 @@ public class BookAFlightStep2 {
         listPanel.setOpaque(false);
         listPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        listPanel = displayFlightList(main, destination);
+        listPanel = displayFlightList(main, destination, origin);
 
         listPanel.add(Box.createVerticalStrut(15)); 
 
@@ -155,7 +155,7 @@ public class BookAFlightStep2 {
         return flightCard;
     }
 
-    private static JPanel displayFlightList(MainContent main, String destination) {
+    private static JPanel displayFlightList(MainContent main, String destination, String origin) {
         JPanel listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
         listPanel.setOpaque(false);
@@ -166,7 +166,7 @@ public class BookAFlightStep2 {
 
         if (allFlights != null) {
             for (Flight flight : allFlights) {
-                if (flight.getRoute().getDestination().getLocationName().equalsIgnoreCase(destination)) {
+                if (flight.getRoute().getDestination().getLocationName().equalsIgnoreCase(destination) && flight.getRoute().getOrigin().getLocationName().equalsIgnoreCase(origin) )  {
                     JPanel flightCard = createFlightCard(flight, main);
                     listPanel.add(flightCard);
                     listPanel.add(Box.createVerticalStrut(10)); 
