@@ -3,10 +3,13 @@ package GUI;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import users.SessionManager;
+import users.User;
 
 public class ProfilePage {
 
-    public static JPanel getPanel(MainContent main) {
+    public static JPanel getPanel(MainContent main){
+        User user = SessionManager.getCurrentUser();
 
         Color backgroundColor = new Color(245, 247, 250);
         Color cardColor = Color.WHITE;
@@ -45,7 +48,8 @@ public class ProfilePage {
         leftPanel.setBackground(new Color(248, 250, 252));
         leftPanel.setBounds(0, 0, 250, 420);
 
-        JLabel profileImage = new JLabel("A");
+        String firstLetter = user.getName().substring(0,1).toUpperCase();
+        JLabel profileImage = new JLabel(firstLetter);
         profileImage.setBounds(75, 40, 100, 100);
         profileImage.setOpaque(true);
         profileImage.setBackground(primaryBlue);
@@ -54,7 +58,7 @@ public class ProfilePage {
         profileImage.setFont(new Font("SansSerif", Font.BOLD, 42));
         profileImage.setBorder(new LineBorder(primaryBlue, 2, true));
 
-        JLabel userName = new JLabel("AeroFlow User");
+        JLabel userName = new JLabel(user.getName());
         userName.setBounds(45, 165, 180, 30);
         userName.setFont(new Font("SansSerif", Font.BOLD, 20));
         userName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -94,6 +98,7 @@ public class ProfilePage {
         nameLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
 
         JTextField nameField = createStyledField();
+        nameField.setText(user.getName());
         nameField.setBounds(40, 120, 220, 42);
 
         JLabel emailLabel = new JLabel("Email Address");
@@ -101,6 +106,7 @@ public class ProfilePage {
         emailLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
 
         JTextField emailField = createStyledField();
+        emailField.setText(user.getEmail());
         emailField.setBounds(300, 120, 220, 42);
 
         JLabel phoneLabel = new JLabel("Phone Number");
@@ -108,6 +114,7 @@ public class ProfilePage {
         phoneLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
 
         JTextField phoneField = createStyledField();
+        phoneField.setText(user.getPhone());
         phoneField.setBounds(40, 215, 220, 42);
 
         JLabel passwordLabel = new JLabel("Password");
@@ -115,6 +122,7 @@ public class ProfilePage {
         passwordLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
 
         JPasswordField passwordField = new JPasswordField();
+        passwordField.setText(user.getPassword());
         passwordField.setBounds(300, 215, 220, 42);
         passwordField.setFont(new Font("SansSerif", Font.PLAIN, 14));
         passwordField.setBorder(new CompoundBorder(
