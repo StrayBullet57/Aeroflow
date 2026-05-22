@@ -19,7 +19,7 @@ public class Profile extends JPanel {
 
     public Profile() {
 
-        // ================= GET USER =================
+       
         User currentUser = SessionManager.getCurrentUser();
 
         String fullName = "Guest User";
@@ -33,29 +33,27 @@ public class Profile extends JPanel {
             phone = currentUser.getPhone();
         }
 
-        // ================= PANEL =================
+       
         setLayout(new BorderLayout());
         setBackground(new Color(8, 18, 38));
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(new Color(8, 18, 38));
 
-        // ================= TITLE =================
+        
         JLabel title = new JLabel("Passenger Profile");
 
         title.setForeground(Color.WHITE);
         title.setFont(new Font("SansSerif", Font.BOLD, 30));
         title.setBorder(new EmptyBorder(25, 35, 15, 35));
 
-        // ================= CONTENT =================
+        
         JPanel contentWrapper = new JPanel(new GridLayout(1, 2, 30, 0));
 
         contentWrapper.setOpaque(false);
         contentWrapper.setBorder(new EmptyBorder(20, 35, 35, 35));
 
-        // =====================================================
-        // LEFT PANEL
-        // =====================================================
+        
 
         JPanel profileCard = new JPanel();
 
@@ -91,9 +89,7 @@ public class Profile extends JPanel {
         profileCard.add(createInfoTitle("Phone"));
         profileCard.add(displayPhone);
 
-        // =====================================================
-        // RIGHT PANEL
-        // =====================================================
+      
 
         JPanel formCard = new JPanel(new BorderLayout());
 
@@ -140,12 +136,12 @@ public class Profile extends JPanel {
             String updatedEmail = emailField.getText();
             String updatedPhone = phoneField.getText();
 
-            // UPDATE DISPLAY
+          
             displayName.setText(updatedName);
             displayEmail.setText(updatedEmail);
             displayPhone.setText(updatedPhone);
 
-            // UPDATE SESSION USER
+           
             if (currentUser != null) {
 
                 currentUser.setName(updatedName);
@@ -168,7 +164,7 @@ public class Profile extends JPanel {
         formCard.add(editTitle, BorderLayout.NORTH);
         formCard.add(formPanel, BorderLayout.CENTER);
 
-        // ================= ADD =================
+      
 
         contentWrapper.add(profileCard);
         contentWrapper.add(formCard);
@@ -179,7 +175,7 @@ public class Profile extends JPanel {
         add(mainPanel, BorderLayout.CENTER);
     }
 
-    // ================= LABEL =================
+  
 
     private JLabel createLabel(String text) {
 
@@ -192,7 +188,7 @@ public class Profile extends JPanel {
         return label;
     }
 
-    // ================= DISPLAY LABEL =================
+   
 
     private JLabel createDisplayLabel(String text, int size) {
 
@@ -205,7 +201,7 @@ public class Profile extends JPanel {
         return label;
     }
 
-    // ================= INFO TITLE =================
+    
 
     private JLabel createInfoTitle(String text) {
 
@@ -218,7 +214,6 @@ public class Profile extends JPanel {
         return label;
     }
 
-    // ================= TEXTFIELD =================
 
     private JTextField createTextField(String text) {
 
