@@ -5,14 +5,14 @@ public class Seat {
     private int rowNumber;
     private char seatCategory;
     private String seatNumber;
-    private String seatClass; // ADD THIS
-    private boolean isAvailable;
+    private String seatClass; 
+    private boolean isAvailable; 
 
     public Seat(int rowNumber, char seatCategory, String seatClass) {
         this.rowNumber = rowNumber;
         this.seatCategory = Character.toUpperCase(seatCategory);
         this.seatNumber = rowNumber + String.valueOf(this.seatCategory);
-        this.seatClass = seatClass; // ADD THIS
+        this.seatClass = seatClass; 
         this.isAvailable = true;
     }
 
@@ -50,8 +50,8 @@ public class Seat {
     public String getSeatNumber()  { return seatNumber; }
     public void setSeatNumber(String seatNumber) { this.seatNumber = seatNumber; }
 
-    public String getSeatClass()   { return seatClass; } // ADD THIS
-    public void setSeatClass(String seatClass) { this.seatClass = seatClass; } // ADD THIS
+    public String getSeatClass()   { return seatClass; } 
+    public void setSeatClass(String seatClass) { this.seatClass = seatClass; } 
 
     public boolean isAvailable()   { return isAvailable; }
     public void setAvailable(boolean isAvailable) { this.isAvailable = isAvailable; }
