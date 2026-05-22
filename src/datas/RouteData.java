@@ -19,7 +19,7 @@ public class RouteData {
         Route SX0 = new Route("SX0", cebu, manila, 0.006);
         Route SX1 = new Route("SX1", manila, cebu, 8);
         Route SX2 = new Route("SX2", cebu, davao, 5.5);
-        Route SX3 = new Route("SX3", davao, cebu, 5.5);
+        Route SX3 = new Route("SX3", davao, cebu, 0.005);
         Route SX4 = new Route("SX4", manila, davao, 12.0);
         Route SX5 = new Route("SX5", davao, manila, 12.0);
 

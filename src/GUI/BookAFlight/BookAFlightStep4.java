@@ -5,7 +5,6 @@ import GUI.MainContent;
 import java.awt.*;
 import models.Flight;
 import models.Seat;
-import models.FlightBooking;
 import transactions.Booking;
 
 public class BookAFlightStep4 {
