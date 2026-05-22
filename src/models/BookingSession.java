@@ -8,6 +8,7 @@ public class BookingSession { // booking workflow memory
     private Flight selectedFlight;
     private Seat selectedSeat;
 
+    
     public void setFrom(String from){
         this.from = from;
     }

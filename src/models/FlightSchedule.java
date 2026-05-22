@@ -7,12 +7,16 @@ public class FlightSchedule {
     private String arrivalDate;
     private String arrivalTime;
 
+
+    //Constructor
     public FlightSchedule(String departureDate, String departureTime, String arrivalDate, String arrivalTime) {
         this.departureDate = departureDate;
         this.departureTime = departureTime;
         this.arrivalDate = arrivalDate;
         this.arrivalTime = arrivalTime;
     }
+
+    //Encapsulation
     public void setDepartureDate(String departureDate) {
         this.departureDate = departureDate;
     }

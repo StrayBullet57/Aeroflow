@@ -40,6 +40,7 @@ public class Seat {
         System.out.println("Reservation for seat " + seatNumber + " has been cancelled."); //If you have already a seat(!available), change its status back to true to  become empty again.
     }
 
+    //Encapsulation
     public int getRowNumber()    { return rowNumber; }
     public void setRowNumber(int rowNumber) {
         this.rowNumber = rowNumber;

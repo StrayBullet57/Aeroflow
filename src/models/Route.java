@@ -6,12 +6,16 @@ public class Route{
     private Location destination; // done
     private double duration; // make up // should be per hour!!!
 
+
+    //Constructor
     public Route(String routeID, Location origin, Location destination, double duration){
         this.routeID = routeID;
         this.origin = origin;
         this.destination = destination;
         this.duration = duration;
     }
+
+    //Encapsulation
     public String getRouteID(){
         return routeID;
     }
