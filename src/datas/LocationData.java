@@ -10,8 +10,10 @@ public class LocationData {
         List<Location> locations = new ArrayList<>();
         Location Cebu = new Location("Cebu", 395,420);
         Location Manila = new Location("Manila", 245,230);
+        Location Davao = new Location("Davao", 420, 610);
         locations.add(Cebu);
         locations.add(Manila);
+        locations.add(Davao);
 
         return locations;
     }
