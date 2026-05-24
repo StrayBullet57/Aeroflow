@@ -6,6 +6,8 @@ import users.User;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
 
 public class Profile extends JPanel {
 
@@ -19,7 +21,6 @@ public class Profile extends JPanel {
 
     public Profile() {
 
-       
         User currentUser = SessionManager.getCurrentUser();
 
         String fullName = "Guest User";
@@ -33,27 +34,24 @@ public class Profile extends JPanel {
             phone = currentUser.getPhone();
         }
 
-       
         setLayout(new BorderLayout());
         setBackground(new Color(8, 18, 38));
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(new Color(8, 18, 38));
 
-        
         JLabel title = new JLabel("Passenger Profile");
 
         title.setForeground(Color.WHITE);
         title.setFont(new Font("SansSerif", Font.BOLD, 30));
         title.setBorder(new EmptyBorder(25, 35, 15, 35));
 
-        
         JPanel contentWrapper = new JPanel(new GridLayout(1, 2, 30, 0));
 
         contentWrapper.setOpaque(false);
         contentWrapper.setBorder(new EmptyBorder(20, 35, 35, 35));
 
-        
+        // ================= PROFILE CARD =================
 
         JPanel profileCard = new JPanel();
 
@@ -63,19 +61,32 @@ public class Profile extends JPanel {
 
         profileCard.setBorder(new EmptyBorder(30, 30, 30, 30));
 
-        JLabel icon = new JLabel("✈");
+        // PROFILE PICTURE
+        JLabel profilePic = new JLabel();
 
-        icon.setFont(new Font("SansSerif", Font.PLAIN, 80));
+        ImageIcon imageIcon = new ImageIcon(
+                getClass().getResource("/images/profile.jpg")
+        );
 
-        icon.setForeground(new Color(0, 153, 255));
+        Image image = imageIcon.getImage().getScaledInstance(
+                160,
+                160,
+                Image.SCALE_SMOOTH
+        );
 
-        icon.setAlignmentX(Component.CENTER_ALIGNMENT);
+        Image roundedImage = makeRoundedImage(image, 160);
+
+        profilePic.setIcon(new ImageIcon(roundedImage));
+
+        profilePic.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         displayName = createDisplayLabel(fullName, 28);
         displayEmail = createDisplayLabel(email, 16);
         displayPhone = createDisplayLabel(phone, 16);
 
-        profileCard.add(icon);
+        displayName.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        profileCard.add(profilePic);
         profileCard.add(Box.createVerticalStrut(20));
         profileCard.add(displayName);
 
@@ -89,7 +100,7 @@ public class Profile extends JPanel {
         profileCard.add(createInfoTitle("Phone"));
         profileCard.add(displayPhone);
 
-      
+        // ================= EDIT FORM =================
 
         JPanel formCard = new JPanel(new BorderLayout());
 
@@ -130,18 +141,18 @@ public class Profile extends JPanel {
 
         saveBtn.setFont(new Font("SansSerif", Font.BOLD, 16));
 
+        saveBtn.setFocusPainted(false);
+
         saveBtn.addActionListener(e -> {
 
             String updatedName = fullNameField.getText();
             String updatedEmail = emailField.getText();
             String updatedPhone = phoneField.getText();
 
-          
             displayName.setText(updatedName);
             displayEmail.setText(updatedEmail);
             displayPhone.setText(updatedPhone);
 
-           
             if (currentUser != null) {
 
                 currentUser.setName(updatedName);
@@ -164,7 +175,7 @@ public class Profile extends JPanel {
         formCard.add(editTitle, BorderLayout.NORTH);
         formCard.add(formPanel, BorderLayout.CENTER);
 
-      
+        // ================= MAIN LAYOUT =================
 
         contentWrapper.add(profileCard);
         contentWrapper.add(formCard);
@@ -175,7 +186,7 @@ public class Profile extends JPanel {
         add(mainPanel, BorderLayout.CENTER);
     }
 
-  
+    // ================= LABELS =================
 
     private JLabel createLabel(String text) {
 
@@ -188,8 +199,6 @@ public class Profile extends JPanel {
         return label;
     }
 
-   
-
     private JLabel createDisplayLabel(String text, int size) {
 
         JLabel label = new JLabel(text);
@@ -200,8 +209,6 @@ public class Profile extends JPanel {
 
         return label;
     }
-
-    
 
     private JLabel createInfoTitle(String text) {
 
@@ -214,6 +221,7 @@ public class Profile extends JPanel {
         return label;
     }
 
+    // ================= TEXT FIELD =================
 
     private JTextField createTextField(String text) {
 
@@ -233,5 +241,31 @@ public class Profile extends JPanel {
         field.setFont(new Font("SansSerif", Font.PLAIN, 15));
 
         return field;
+    }
+
+    // ================= ROUND PROFILE IMAGE =================
+
+    private Image makeRoundedImage(Image image, int size) {
+
+        BufferedImage output = new BufferedImage(
+                size,
+                size,
+                BufferedImage.TYPE_INT_ARGB
+        );
+
+        Graphics2D g2 = output.createGraphics();
+
+        g2.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON
+        );
+
+        g2.setClip(new Ellipse2D.Float(0, 0, size, size));
+
+        g2.drawImage(image, 0, 0, size, size, null);
+
+        g2.dispose();
+
+        return output;
     }
 }
