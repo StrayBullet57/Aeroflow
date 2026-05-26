@@ -9,7 +9,6 @@ public class Flight{
     private ArrayList<Seat> seats; // 
     private FlightSchedule schedule; //schedule sa flight
 
-
     //Constructor
     public Flight(String flightID, Airline airline, Route route, String status, FlightSchedule schedule){
         
@@ -22,7 +21,6 @@ public class Flight{
 
         initializeAircraftSeats();
     }
-
 
     //Logic for seats
     private void initializeAircraftSeats() {
@@ -45,7 +43,6 @@ public class Flight{
         }
     }
 
-
     //Encapsulation
     public int getFreeSeatsCount() {
         int count = 0;
@@ -56,6 +53,7 @@ public class Flight{
         }
         return count;
     }
+
     public int getOccupiedSeatsCount() {
         int count = 0;
         for (Seat s : seats) {
@@ -65,6 +63,7 @@ public class Flight{
         }
         return count;
     }
+    
     public ArrayList<Seat> getSeats(){
         return seats;
     }

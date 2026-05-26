@@ -18,7 +18,6 @@ public class Seat {
         this.isAvailable = true;
     }
 
-
     //Methods
     public boolean reserveSeat() {
         if (!isAvailable) {
@@ -29,7 +28,6 @@ public class Seat {
         System.out.println("Seat " + seatNumber + " has been successfully reserved."); // Booking successful
         return true;
     }
-
 
     public void cancelReservation() {
         if (isAvailable) {
