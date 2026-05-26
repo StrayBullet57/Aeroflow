@@ -6,8 +6,6 @@ import users.User;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.image.BufferedImage;
 
 public class Profile extends JPanel {
 
@@ -79,41 +77,6 @@ public class Profile extends JPanel {
                 new EmptyBorder(40, 40, 40, 40)
         ));
 
-        JLabel profilePic = new JLabel();
-
-        Image image = null;
-
-        try {
-
-            ImageIcon imageIcon = new ImageIcon(
-                    getClass().getResource("/images/profile.png")
-            );
-
-            image = imageIcon.getImage();
-
-        } catch (Exception e) {
-
-            System.out.println("Profile image not found!");
-        }
-
-        if (image != null) {
-
-            Image smallImage = image.getScaledInstance(
-                    130,
-                    130,
-                    Image.SCALE_SMOOTH
-            );
-
-            Image roundedSmallImage = makeRoundedImage(
-                    smallImage,
-                    130
-            );
-
-            profilePic.setIcon(new ImageIcon(roundedSmallImage));
-        }
-
-        profilePic.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         displayName = createDisplayLabel(fullName, 28);
 
         displayName.setFont(new Font("SansSerif", Font.BOLD, 28));
@@ -137,10 +100,6 @@ public class Profile extends JPanel {
         displayPhone.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         profileCard.add(Box.createVerticalGlue());
-
-        profileCard.add(profilePic);
-
-        profileCard.add(Box.createVerticalStrut(20));
 
         profileCard.add(displayName);
 
@@ -326,42 +285,6 @@ public class Profile extends JPanel {
         field.setFont(new Font("SansSerif", Font.PLAIN, 15));
 
         return field;
-    }
-
-    private Image makeRoundedImage(Image image, int size) {
-
-        BufferedImage output = new BufferedImage(
-                size,
-                size,
-                BufferedImage.TYPE_INT_ARGB
-        );
-
-        Graphics2D g2 = output.createGraphics();
-
-        g2.setRenderingHint(
-                RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON
-        );
-
-        g2.setClip(new Ellipse2D.Float(
-                0,
-                0,
-                size,
-                size
-        ));
-
-        g2.drawImage(
-                image,
-                0,
-                0,
-                size,
-                size,
-                null
-        );
-
-        g2.dispose();
-
-        return output;
     }
 }
 
