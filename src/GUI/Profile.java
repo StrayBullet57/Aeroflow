@@ -8,7 +8,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
-import java.net.URL;
 
 public class Profile extends JPanel {
 
@@ -41,23 +40,21 @@ public class Profile extends JPanel {
 
         setPreferredSize(new Dimension(1200, 700));
 
-        setFocusable(false);
-
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         mainPanel.setBackground(new Color(8, 18, 38));
 
-        // ================= TITLE =================
-
         JLabel title = new JLabel("✈ Passenger Profile");
 
-        title.setForeground(new Color(0, 153, 255));
+        title.setForeground(new Color(0, 102, 204));
+
+        title.setBackground(Color.WHITE);
+
+        title.setOpaque(true);
 
         title.setFont(new Font("SansSerif", Font.BOLD, 30));
 
         title.setBorder(new EmptyBorder(25, 35, 15, 35));
-
-        // ================= CONTENT WRAPPER =================
 
         JPanel contentWrapper = new JPanel(
                 new GridLayout(1, 2, 20, 20)
@@ -69,8 +66,6 @@ public class Profile extends JPanel {
                 new EmptyBorder(20, 35, 35, 35)
         );
 
-        // ================= PROFILE CARD =================
-
         JPanel profileCard = new JPanel();
 
         profileCard.setLayout(
@@ -81,79 +76,91 @@ public class Profile extends JPanel {
 
         profileCard.setBorder(BorderFactory.createCompoundBorder(
                 new RoundedBorder(30, new Color(0, 153, 255)),
-                new EmptyBorder(30, 30, 30, 30)
+                new EmptyBorder(40, 40, 40, 40)
         ));
-
-        // ================= PROFILE IMAGE =================
 
         JLabel profilePic = new JLabel();
 
-        URL imageURL = getClass().getResource("/images/profile.png");
-
         Image image = null;
 
-        if (imageURL != null) {
+        try {
 
-            ImageIcon imageIcon = new ImageIcon(imageURL);
+            ImageIcon imageIcon = new ImageIcon(
+                    getClass().getResource("/images/profile.png")
+            );
 
             image = imageIcon.getImage();
+
+        } catch (Exception e) {
+
+            System.out.println("Profile image not found!");
         }
-
-        // ================= TOP SECTION =================
-
-        JPanel topSection = new JPanel(
-                new FlowLayout(FlowLayout.CENTER, 15, 10)
-        );
-
-        topSection.setOpaque(false);
 
         if (image != null) {
 
             Image smallImage = image.getScaledInstance(
-                    90,
-                    90,
+                    130,
+                    130,
                     Image.SCALE_SMOOTH
             );
 
             Image roundedSmallImage = makeRoundedImage(
                     smallImage,
-                    90
+                    130
             );
 
             profilePic.setIcon(new ImageIcon(roundedSmallImage));
         }
 
+        profilePic.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         displayName = createDisplayLabel(fullName, 28);
 
-        displayName.setAlignmentY(Component.CENTER_ALIGNMENT);
+        displayName.setFont(new Font("SansSerif", Font.BOLD, 28));
 
-        topSection.add(profilePic);
+        displayName.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        topSection.add(displayName);
+        JLabel emailTitle = createInfoTitle("Email");
 
-        profileCard.add(topSection);
-
-        profileCard.add(Box.createVerticalStrut(30));
-
-        // ================= EMAIL =================
+        emailTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         displayEmail = createDisplayLabel(email, 16);
 
-        profileCard.add(createInfoTitle("Email"));
+        displayEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        profileCard.add(displayEmail);
+        JLabel phoneTitle = createInfoTitle("Phone");
 
-        profileCard.add(Box.createVerticalStrut(15));
-
-        // ================= PHONE =================
+        phoneTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         displayPhone = createDisplayLabel(phone, 16);
 
-        profileCard.add(createInfoTitle("Phone"));
+        displayPhone.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        profileCard.add(Box.createVerticalGlue());
+
+        profileCard.add(profilePic);
+
+        profileCard.add(Box.createVerticalStrut(20));
+
+        profileCard.add(displayName);
+
+        profileCard.add(Box.createVerticalStrut(30));
+
+        profileCard.add(emailTitle);
+
+        profileCard.add(Box.createVerticalStrut(5));
+
+        profileCard.add(displayEmail);
+
+        profileCard.add(Box.createVerticalStrut(20));
+
+        profileCard.add(phoneTitle);
+
+        profileCard.add(Box.createVerticalStrut(5));
 
         profileCard.add(displayPhone);
 
-        // ================= FORM CARD =================
+        profileCard.add(Box.createVerticalGlue());
 
         JPanel formCard = new JPanel(new BorderLayout());
 
@@ -197,8 +204,6 @@ public class Profile extends JPanel {
         formPanel.add(createLabel("Phone"));
 
         formPanel.add(phoneField);
-
-        // ================= SAVE BUTTON =================
 
         JButton saveBtn = new JButton("Save Information");
 
@@ -251,8 +256,6 @@ public class Profile extends JPanel {
 
         formCard.add(formPanel, BorderLayout.CENTER);
 
-        // ================= MAIN LAYOUT =================
-
         contentWrapper.add(profileCard);
 
         contentWrapper.add(formCard);
@@ -263,8 +266,6 @@ public class Profile extends JPanel {
 
         add(mainPanel, BorderLayout.CENTER);
     }
-
-    // ================= LABEL =================
 
     private JLabel createLabel(String text) {
 
@@ -277,8 +278,6 @@ public class Profile extends JPanel {
         return label;
     }
 
-    // ================= DISPLAY LABEL =================
-
     private JLabel createDisplayLabel(String text, int size) {
 
         JLabel label = new JLabel(text);
@@ -290,8 +289,6 @@ public class Profile extends JPanel {
         return label;
     }
 
-    // ================= INFO TITLE =================
-
     private JLabel createInfoTitle(String text) {
 
         JLabel label = new JLabel(text);
@@ -302,8 +299,6 @@ public class Profile extends JPanel {
 
         return label;
     }
-
-    // ================= TEXT FIELD =================
 
     private JTextField createTextField(String text) {
 
@@ -332,8 +327,6 @@ public class Profile extends JPanel {
 
         return field;
     }
-
-    // ================= ROUND IMAGE =================
 
     private Image makeRoundedImage(Image image, int size) {
 
@@ -371,8 +364,6 @@ public class Profile extends JPanel {
         return output;
     }
 }
-
-// ================= ROUNDED CARD BORDER =================
 
 class RoundedBorder implements javax.swing.border.Border {
 
@@ -435,8 +426,6 @@ class RoundedBorder implements javax.swing.border.Border {
         );
     }
 }
-
-// ================= ROUNDED BUTTON BORDER =================
 
 class RoundedButtonBorder implements javax.swing.border.Border {
 
